@@ -439,7 +439,7 @@ footer {
 
 .ascii-bounce-stage {
   position: relative;
-  z-index: 0;
+  z-index: 1;
   width: 100vw;
   height: 100%;
   min-height: 0;
@@ -465,12 +465,12 @@ footer {
 
 .hero-corner-art {
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   right: clamp(0.8rem, 2.2vw, 2rem);
   bottom: clamp(0.9rem, 2vw, 1.75rem);
   display: block;
   width: auto;
-  height: clamp(13.5rem, 22.5vw, 20.25rem);
+  height: clamp(28rem, 56svh, 38rem);
   pointer-events: none;
 }
 
@@ -1084,7 +1084,7 @@ footer > span:last-child {
   }
 
   .hero {
-    min-height: clamp(38rem, 78svh, 43rem);
+    min-height: clamp(40rem, 82svh, 44rem);
     padding-top: 5.25rem;
     padding-bottom: 1rem;
   }
@@ -1109,6 +1109,12 @@ footer > span:last-child {
     width: min(61.6vw, 16.1rem);
     max-width: calc(100% - 1rem);
     height: auto;
+  }
+
+  .hero-corner-art {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    height: clamp(14.5rem, 62vw, 16rem);
   }
 
   .mixed-heading {
