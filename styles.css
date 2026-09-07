@@ -454,13 +454,24 @@ footer {
   top: 0;
   left: 0;
   display: block;
-  width: min(clamp(31rem, 53vw, 46rem), calc(100vw - 3rem), calc(112.185svh - 22.437rem));
+  width: min(clamp(28rem, 48vw, 41.25rem), calc(100vw - 3rem), calc(112.185svh - 22.437rem));
   height: auto;
   aspect-ratio: 969.87 / 864.52;
   margin: 0;
   color: var(--ink);
   line-height: 0;
   will-change: transform;
+}
+
+.hero-corner-art {
+  position: absolute;
+  z-index: 1;
+  right: clamp(0.8rem, 2.2vw, 2rem);
+  bottom: clamp(0.9rem, 2vw, 1.75rem);
+  display: block;
+  width: auto;
+  height: clamp(4.5rem, 7.5vw, 6.75rem);
+  pointer-events: none;
 }
 
 .ascii-wordmark {
@@ -833,7 +844,7 @@ footer {
 
 .manifesto-art {
   position: relative;
-  width: min(70vw, 26rem);
+  width: min(54vw, 18.5rem);
   aspect-ratio: 1;
   margin: 0 auto clamp(2.75rem, 5vw, 4.5rem);
 }
@@ -1095,7 +1106,7 @@ footer > span:last-child {
   }
 
   .ascii-lockup {
-    width: min(96vw, 25rem);
+    width: min(88vw, 23rem);
     max-width: calc(100% - 1rem);
     height: auto;
   }

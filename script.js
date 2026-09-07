@@ -262,8 +262,8 @@ if (asciiStage) {
 
     const logoRatio = (dotLogo?.width || logoCanvas?.width || 970) / (dotLogo?.height || logoCanvas?.height || 865);
     const preferredWidth = window.matchMedia("(max-width: 760px)").matches
-      ? Math.min(window.innerWidth * 0.96, 400)
-      : Math.min(Math.max(window.innerWidth * 0.53, 496), 736, window.innerWidth - 48);
+      ? Math.min(window.innerWidth * 0.88, 368)
+      : Math.min(Math.max(window.innerWidth * 0.48, 450), 660, window.innerWidth - 48);
     const fittedWidth = Math.max(
       1,
       Math.min(preferredWidth, bounceStage.clientWidth - 8, Math.max(1, bounceStage.clientHeight - 24) * logoRatio),
