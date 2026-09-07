@@ -145,6 +145,48 @@ if (asciiStage) {
   let anchorY = 0;
   let driftX = 0;
   let driftY = 0;
+  let logoColorFrom = [0, 0, 0];
+  let logoColorTo = [0, 0, 0];
+  let logoColorChangedAt = performance.now();
+  const logoColorTransitionDuration = 360;
+
+  const parseHexColor = (hex) => {
+    const value = hex.replace("#", "");
+    return [0, 2, 4].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16));
+  };
+
+  const easeLogoColor = (progress) => {
+    let lower = 0;
+    let upper = 1;
+    let parameter = progress;
+
+    for (let iteration = 0; iteration < 12; iteration += 1) {
+      const inverse = 1 - parameter;
+      const x =
+        3 * inverse * inverse * parameter * 0.37 +
+        3 * inverse * parameter * parameter * 0.63 +
+        parameter * parameter * parameter;
+
+      if (x < progress) lower = parameter;
+      else upper = parameter;
+
+      parameter = (lower + upper) * 0.5;
+    }
+
+    const inverse = 1 - parameter;
+    return 3 * inverse * parameter * parameter + parameter * parameter * parameter;
+  };
+
+  const getLogoColor = (time) => {
+    if (reduceMotion.matches) return logoColorTo;
+
+    const progress = Math.min(1, Math.max(0, (time - logoColorChangedAt) / logoColorTransitionDuration));
+    const easedProgress = easeLogoColor(progress);
+
+    return logoColorFrom.map((channel, index) =>
+      Math.round(channel + (logoColorTo[index] - channel) * easedProgress),
+    );
+  };
 
   const paintDotField = (time) => {
     if (!logoCanvas || !logoContext || !dotLogo || !logoCanvas.clientWidth || !logoCanvas.clientHeight) return;
@@ -180,7 +222,8 @@ if (asciiStage) {
     const bloomRadius = Math.min(dotLogo.width, dotLogo.height) * 0.24;
     const baseRadius = dotLogo.radius * 0.72;
 
-    logoContext.fillStyle = "#000";
+    const [red, green, blue] = getLogoColor(time);
+    logoContext.fillStyle = `rgb(${red} ${green} ${blue})`;
     logoContext.beginPath();
 
     dotLogo.points.forEach(([x, y]) => {
@@ -309,6 +352,15 @@ if (asciiStage) {
   document.fonts?.ready.then(measureBounce);
   document.addEventListener("visibilitychange", syncAnimation);
   reduceMotion.addEventListener?.("change", syncAnimation);
+  heroArt?.addEventListener("warholframechange", ({ detail }) => {
+    if (!detail?.color) return;
+
+    const now = performance.now();
+    logoColorFrom = getLogoColor(now);
+    logoColorTo = parseHexColor(detail.color);
+    logoColorChangedAt = now;
+    paintDotField(now);
+  });
 
   const setDotLogo = (data) => {
     dotLogo = data;
@@ -453,13 +505,13 @@ const heroWarholSprite = document.querySelector("[data-hero-warhol-sprite]");
 
 if (heroWarholSprite) {
   const frames = [
-    "photo",
-    [0, 0],
-    [1, 0],
-    [2, 0],
-    [0, 1],
-    [1, 1],
-    [2, 1],
+    { source: "photo", color: "#000000" },
+    { source: [0, 0], color: "#d1060b" },
+    { source: [1, 0], color: "#000000" },
+    { source: [2, 0], color: "#2b850e" },
+    { source: [0, 1], color: "#e57623" },
+    { source: [1, 1], color: "#f51e76" },
+    { source: [2, 1], color: "#3e509a" },
   ];
   const layers = [...heroWarholSprite.querySelectorAll(".hero-corner-art__frame")];
   const reduceWarholMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -470,7 +522,7 @@ if (heroWarholSprite) {
 
   const paintWarholFrame = (layer, index) => {
     const frame = frames[index];
-    const isPhoto = frame === "photo";
+    const isPhoto = frame.source === "photo";
     layer.classList.toggle("is-photo", isPhoto);
 
     if (isPhoto) {
@@ -479,7 +531,7 @@ if (heroWarholSprite) {
       return;
     }
 
-    const [column, row] = frame;
+    const [column, row] = frame.source;
     layer.style.setProperty("--hero-sprite-x", `${column * 50}%`);
     layer.style.setProperty("--hero-sprite-y", `${row * 100}%`);
   };
@@ -491,7 +543,11 @@ if (heroWarholSprite) {
     layers[nextLayer].classList.add("is-active");
     layers[activeLayer].classList.remove("is-active");
     activeLayer = nextLayer;
-    heroWarholSprite.dispatchEvent(new CustomEvent("warholframechange", { detail: { index: frameIndex } }));
+    heroWarholSprite.dispatchEvent(
+      new CustomEvent("warholframechange", {
+        detail: { index: frameIndex, color: frames[frameIndex].color },
+      }),
+    );
   };
 
   const syncWarholLoop = () => {
@@ -505,6 +561,9 @@ if (heroWarholSprite) {
 
   paintWarholFrame(layers[0], 0);
   paintWarholFrame(layers[1], 1);
+  heroWarholSprite.dispatchEvent(
+    new CustomEvent("warholframechange", { detail: { index: 0, color: frames[0].color } }),
+  );
 
   new IntersectionObserver(
     ([entry]) => {
