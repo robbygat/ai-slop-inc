@@ -28,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=Bebas+Neue&amp;family=Bodoni+Moda:ital,wght@0,600;1,600&amp;family=Bungee&amp;family=Cormorant+Garamond:ital,wght@0,600;1,600&amp;family=Gabarito:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Newsreader:ital,wght@0,600;1,600&amp;family=Silkscreen:wght@400&amp;family=Space+Grotesk:wght@500;600&amp;family=Syne:wght@600;700&amp;family=Unbounded:wght@500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260907-24" />
+    <link rel="stylesheet" href="./styles.css?v=20260907-33" />
     <title>AI Slop Inc.</title>
   </head>
   <body>
@@ -85,12 +85,15 @@
           </h1>
         </div>
 
-        <img
+        <div
           class="hero-corner-art"
-          src="./assets/hero-slop-portrait.png"
-          alt="Andy Warhol rendered from repetitions of the word Slop"
-          decoding="async"
-        />
+          data-hero-warhol-sprite
+          role="img"
+          aria-label="Andy Warhol rendered from repetitions of the word Slop"
+        >
+          <span class="hero-corner-art__frame is-active" aria-hidden="true"></span>
+          <span class="hero-corner-art__frame" aria-hidden="true"></span>
+        </div>
 
         <a class="down-link" href="#product" aria-label="See our first product">
           <span aria-hidden="true">↓</span>
@@ -172,20 +175,44 @@
             <div class="slop-carousel__ribbon">
               <div class="slop-carousel__track">
                 <div class="slop-carousel__set">
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-07.webp" loading="eager" decoding="async" alt="Social discovery in Slop" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-08.webp" loading="eager" decoding="async" alt="Building a game with Slop Agent" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-03.webp" loading="eager" decoding="async" alt="A game card in the Slop feed" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-12.webp" loading="eager" decoding="async" alt="Comments and replies in Slop" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-16.webp" loading="eager" decoding="async" alt="The Slop character workshop" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-01.webp" loading="eager" decoding="async" alt="Introduction to Slop Agent" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-01.webp" loading="eager" decoding="async" alt="Slop Agent app introduction" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-02.webp" loading="eager" decoding="async" alt="Night Drift in the Slop feed" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-03.webp" loading="eager" decoding="async" alt="Night Drift game card" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-04.webp" loading="eager" decoding="async" alt="Surfy Sub in the Slop feed" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-05.webp" loading="eager" decoding="async" alt="Circle messages in Slop" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-06.webp" loading="eager" decoding="async" alt="Slop creator profile" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-07.webp" loading="lazy" decoding="async" alt="Social discovery in Slop" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-08.webp" loading="lazy" decoding="async" alt="Build a game with Slop Agent" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-09.webp" loading="lazy" decoding="async" alt="Slop asset store" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-10.webp" loading="lazy" decoding="async" alt="Slop alerts" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-11.webp" loading="lazy" decoding="async" alt="Slop progression rewards" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-12.webp" loading="lazy" decoding="async" alt="Comments and GIF replies in Slop" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-13.webp" loading="lazy" decoding="async" alt="A cube game in the Slop feed" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-14.webp" loading="lazy" decoding="async" alt="Slop loading a game" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-15.webp" loading="lazy" decoding="async" alt="Slop game results screen" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-16.webp" loading="lazy" decoding="async" alt="Slop workshop buddy editor" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-17.webp" loading="lazy" decoding="async" alt="Slop workshop character customization" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-18.webp" loading="lazy" decoding="async" alt="Creator profile and games in Slop" /></figure>
                 </div>
                 <div class="slop-carousel__set" aria-hidden="true">
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-07.webp" loading="eager" decoding="async" alt="" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-08.webp" loading="eager" decoding="async" alt="" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-03.webp" loading="eager" decoding="async" alt="" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-12.webp" loading="eager" decoding="async" alt="" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-16.webp" loading="eager" decoding="async" alt="" /></figure>
-                  <figure><img src="https://slop.game/NewSite/marketing/screenshots/app-01.webp" loading="eager" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-01.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-02.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-03.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-04.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-05.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-06.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-07.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-08.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-09.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-10.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-11.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-12.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-13.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-14.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-15.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-16.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-17.webp" loading="lazy" decoding="async" alt="" /></figure>
+                  <figure><img src="./assets/slop-screenshots/app-18.webp" loading="lazy" decoding="async" alt="" /></figure>
                 </div>
               </div>
             </div>
@@ -228,6 +255,7 @@
       </section>
 
       <section class="team" id="team" aria-labelledby="team-title">
+        <canvas class="team-dot-field" data-team-dots aria-hidden="true"></canvas>
         <div class="team-intro">
           <h2 id="team-title" class="mixed-heading" data-mixed-type="title" data-type-seed="1">
             The team.
@@ -313,7 +341,7 @@
     </footer>
 
     <script src="./assets/ai-slop-hero-dots.js?v=20260907-17"></script>
-    <script src="./script.js?v=20260907-21"></script>
+    <script src="./script.js?v=20260907-28"></script>
     <script src="./slop-toon.js?v=20260907-4"></script>
   </body>
 </html>

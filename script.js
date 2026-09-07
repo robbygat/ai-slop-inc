@@ -132,23 +132,19 @@ const asciiStage = document.querySelector(".ascii-lockup");
 
 if (asciiStage) {
   const bounceStage = asciiStage.closest(".ascii-bounce-stage");
+  const heroArt = document.querySelector(".hero-corner-art");
   const logoCanvas = asciiStage.querySelector("[data-dot-logo]");
   const logoContext = logoCanvas?.getContext("2d");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let dotLogo = null;
   let isVisible = false;
   let bounceFrame = 0;
-  let lastBounceTime = 0;
   let positionX = 0;
   let positionY = 0;
-  let velocityX = 0;
-  let velocityY = 0;
-  let maxX = 0;
-  let maxY = 0;
-  let collisionCount = 0;
-  let cornerRun = null;
-  let hasBouncePosition = false;
-  let dotImpact = null;
+  let anchorX = 0;
+  let anchorY = 0;
+  let driftX = 0;
+  let driftY = 0;
 
   const paintDotField = (time) => {
     if (!logoCanvas || !logoContext || !dotLogo || !logoCanvas.clientWidth || !logoCanvas.clientHeight) return;
@@ -181,18 +177,6 @@ if (asciiStage) {
       ? dotLogo.height * 0.5
       : dotLogo.height * (0.5 + Math.sin((seconds * Math.PI * 2) / 10.4 + 1.1) * 0.34);
     const breath = reduceMotion.matches ? 0.5 : 0.5 + Math.sin((seconds * Math.PI * 2) / 6.4) * 0.5;
-    let impact = 0;
-
-    if (dotImpact) {
-      const progress = Math.min(1, (time - dotImpact.startedAt) / dotImpact.duration);
-
-      if (progress < 1) {
-        impact = Math.sin(progress * Math.PI) * dotImpact.strength;
-      } else {
-        dotImpact = null;
-      }
-    }
-
     const bloomRadius = Math.min(dotLogo.width, dotLogo.height) * 0.24;
     const baseRadius = dotLogo.radius * 0.72;
 
@@ -205,8 +189,7 @@ if (asciiStage) {
       const ripple = reduceMotion.matches ? 0.5 : 0.5 + Math.sin(seconds * 2.3 - distance * 0.032) * 0.5;
       const radius =
         baseRadius +
-        dotLogo.radius * (0.02 * breath + 0.42 * bloom + 0.015 * bloom * ripple) +
-        impact * dotLogo.radius * 0.08 * bloom;
+        dotLogo.radius * (0.02 * breath + 0.42 * bloom + 0.015 * bloom * ripple);
 
       logoContext.moveTo(x + radius, y);
       logoContext.arc(x, y, radius, 0, Math.PI * 2);
@@ -219,95 +202,62 @@ if (asciiStage) {
     asciiStage.style.transform = `translate3d(${positionX.toFixed(2)}px, ${positionY.toFixed(2)}px, 0)`;
   };
 
-  const setLeavingVelocity = (cornerX, cornerY) => {
-    const speed = Math.max(46, Math.min(78, (bounceStage?.clientWidth || 800) * 0.06));
-    velocityX = (cornerX === 0 ? 1 : -1) * speed;
-    velocityY = (cornerY === 0 ? 1 : -1) * speed * 0.73;
-  };
-
-  const showBounceImpact = (isCorner) => {
-    const now = performance.now();
-    const currentImpactProgress = dotImpact ? (now - dotImpact.startedAt) / dotImpact.duration : 1;
-
-    if (currentImpactProgress >= 0.65) {
-      dotImpact = {
-        startedAt: now,
-        duration: isCorner ? 1450 : 1150,
-        strength: isCorner ? 1 : 0.72,
-      };
-    }
-
-    asciiStage.dataset.lastImpact = isCorner ? "corner" : "edge";
-    if (isCorner) {
-      asciiStage.dataset.cornerHits = String(Number(asciiStage.dataset.cornerHits || 0) + 1);
-    }
-    asciiStage.classList.remove("is-impact");
-    requestAnimationFrame(() => asciiStage.classList.add("is-impact"));
-    window.setTimeout(() => asciiStage.classList.remove("is-impact"), 360);
-  };
-
-  const aimForCorner = (targetX, targetY, duration = 5200) => {
-    cornerRun = {
-      startX: positionX,
-      startY: positionY,
-      targetX,
-      targetY,
-      startedAt: performance.now(),
-      duration,
-    };
-  };
-
   const measureBounce = () => {
     if (!bounceStage) return;
 
+    const isMobile = window.matchMedia("(max-width: 760px)").matches;
     const logoRatio = (dotLogo?.width || logoCanvas?.width || 970) / (dotLogo?.height || logoCanvas?.height || 865);
-    const preferredWidth = window.matchMedia("(max-width: 760px)").matches
+    const preferredWidth = isMobile
       ? Math.min(window.innerWidth * 0.616, 258)
-      : Math.min(Math.max(window.innerWidth * 0.336, 315), 462, window.innerWidth - 48);
+      : Math.min(Math.max(window.innerWidth * 0.36, 320), 500, window.innerWidth - 48);
+    const stageRect = bounceStage.getBoundingClientRect();
+    const artRect = heroArt?.getBoundingClientRect();
+    const desiredAnchorX = isMobile
+      ? Math.max(0, bounceStage.clientWidth - preferredWidth - 12)
+      : Math.max(24, bounceStage.clientWidth * 0.045);
+    let collisionSafeWidth = Number.POSITIVE_INFINITY;
+
+    if (artRect?.width) {
+      if (isMobile) {
+        const artTop = artRect.top - stageRect.top;
+        if (artTop > 40) collisionSafeWidth = Math.max(1, (artTop - 20) * logoRatio);
+      } else {
+        const artLeft = artRect.left - stageRect.left;
+        collisionSafeWidth = Math.max(1, artLeft - desiredAnchorX - 18 - 28);
+      }
+    }
+
     const fittedWidth = Math.max(
       1,
-      Math.min(preferredWidth, bounceStage.clientWidth - 8, Math.max(1, bounceStage.clientHeight - 24) * logoRatio),
+      Math.min(
+        preferredWidth,
+        collisionSafeWidth,
+        bounceStage.clientWidth - 8,
+        Math.max(1, bounceStage.clientHeight - 24) * logoRatio,
+      ),
     );
 
     if (Math.abs(asciiStage.offsetWidth - fittedWidth) > 0.5) {
       asciiStage.style.width = `${fittedWidth.toFixed(2)}px`;
     }
 
-    maxX = Math.max(0, bounceStage.clientWidth - asciiStage.offsetWidth);
-    maxY = Math.max(0, bounceStage.clientHeight - asciiStage.offsetHeight);
+    const availableX = Math.max(0, bounceStage.clientWidth - asciiStage.offsetWidth);
+    const availableY = Math.max(0, bounceStage.clientHeight - asciiStage.offsetHeight);
 
-    if (!hasBouncePosition) {
-      positionX = maxX * 0.12;
-      positionY = maxY * 0.16;
-      hasBouncePosition = true;
-      aimForCorner(maxX, maxY, 4800);
+    if (isMobile) {
+      anchorX = availableX * 0.5;
+      anchorY = Math.min(availableY, Math.max(8, bounceStage.clientHeight * 0.025));
+      driftX = Math.min(4, availableX * 0.025);
+      driftY = Math.min(3, anchorY, Math.max(0, availableY - anchorY));
     } else {
-      positionX = Math.min(maxX, Math.max(0, positionX));
-      positionY = Math.min(maxY, Math.max(0, positionY));
-
-      if (cornerRun) {
-        cornerRun.targetX = cornerRun.targetX > maxX / 2 ? maxX : 0;
-        cornerRun.targetY = cornerRun.targetY > maxY / 2 ? maxY : 0;
-      }
+      anchorX = Math.min(availableX, Math.max(24, bounceStage.clientWidth * 0.045));
+      anchorY = Math.min(availableY, Math.max(20, availableY * 0.42));
+      driftX = Math.min(18, Math.max(0, availableX - anchorX), anchorX);
+      driftY = Math.min(12, Math.max(0, availableY - anchorY), anchorY);
     }
 
-    if (reduceMotion.matches) {
-      cornerRun = null;
-      positionX = maxX / 2;
-      positionY = maxY / 2;
-    } else {
-      if (maxX === 0) {
-        positionX = 0;
-        velocityX = 0;
-      }
-
-      if (maxY === 0) {
-        positionY = 0;
-        velocityY = 0;
-      }
-
-      if (maxX === 0 && maxY === 0) cornerRun = null;
-    }
+    positionX = anchorX;
+    positionY = anchorY;
 
     paintBouncePosition();
     paintDotField(performance.now());
@@ -316,55 +266,11 @@ if (asciiStage) {
   const moveBounce = (time) => {
     if (!bounceFrame) return;
 
-    if (!lastBounceTime) lastBounceTime = time;
-    const elapsed = Math.min((time - lastBounceTime) / 1000, 0.032);
-    lastBounceTime = time;
-
-    const canBounceX = maxX > 0.5;
-    const canBounceY = maxY > 0.5;
-
-    if (cornerRun && (canBounceX || canBounceY)) {
-      const progress = Math.min(1, (time - cornerRun.startedAt) / cornerRun.duration);
-      positionX = cornerRun.startX + (cornerRun.targetX - cornerRun.startX) * progress;
-      positionY = cornerRun.startY + (cornerRun.targetY - cornerRun.startY) * progress;
-
-      if (progress >= 1) {
-        const cornerX = cornerRun.targetX;
-        const cornerY = cornerRun.targetY;
-        cornerRun = null;
-        collisionCount = 0;
-        setLeavingVelocity(cornerX, cornerY);
-        showBounceImpact(true);
-      }
-    } else if (canBounceX || canBounceY) {
-      if (canBounceX) positionX += velocityX * elapsed;
-      if (canBounceY) positionY += velocityY * elapsed;
-      let hitX = false;
-      let hitY = false;
-
-      if (canBounceX && (positionX <= 0 || positionX >= maxX)) {
-        positionX = Math.min(maxX, Math.max(0, positionX));
-        velocityX *= -1;
-        hitX = true;
-      }
-
-      if (canBounceY && (positionY <= 0 || positionY >= maxY)) {
-        positionY = Math.min(maxY, Math.max(0, positionY));
-        velocityY *= -1;
-        hitY = true;
-      }
-
-      if (hitX || hitY) {
-        collisionCount += 1;
-        showBounceImpact(hitX && hitY, hitX, hitY);
-
-        if (collisionCount >= 4 && !(hitX && hitY)) {
-          const targetX = positionX < maxX / 2 ? maxX : 0;
-          const targetY = positionY < maxY / 2 ? maxY : 0;
-          aimForCorner(targetX, targetY);
-        }
-      }
-    }
+    const isMobile = window.matchMedia("(max-width: 760px)").matches;
+    const period = isMobile ? 26000 : 19000;
+    const phase = (time / period) * Math.PI * 2;
+    positionX = anchorX + Math.sin(phase) * driftX;
+    positionY = anchorY + Math.sin(phase * 0.73 + 0.8) * driftY;
 
     paintDotField(time);
     paintBouncePosition();
@@ -374,17 +280,10 @@ if (asciiStage) {
   const syncBounce = () => {
     if (bounceFrame) cancelAnimationFrame(bounceFrame);
     bounceFrame = 0;
-    lastBounceTime = 0;
     measureBounce();
     paintDotField(performance.now());
 
     if (reduceMotion.matches || !isVisible || document.hidden) return;
-
-    if (cornerRun) {
-      cornerRun.startX = positionX;
-      cornerRun.startY = positionY;
-      cornerRun.startedAt = performance.now();
-    }
 
     bounceFrame = requestAnimationFrame(moveBounce);
   };
@@ -433,6 +332,191 @@ if (asciiStage) {
   }
 }
 
+const teamSection = document.querySelector(".team");
+const teamDotCanvas = teamSection?.querySelector("[data-team-dots]");
+
+if (teamSection && teamDotCanvas) {
+  const context = teamDotCanvas.getContext("2d");
+  const reduceTeamMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let isTeamVisible = false;
+  let teamDotFrame = 0;
+  let lastTeamDotPaint = 0;
+  let teamColorIndex = 0;
+  let teamColorTimer = 0;
+  const teamColors = ["#2d3e7c", "#f196a8", "#1e9f2c", "#f6bc20", "#ef0976", "#f3e107"];
+
+  const showNextTeamColor = () => {
+    teamColorIndex = (teamColorIndex + 1) % teamColors.length;
+    teamSection.style.setProperty("--team-art-color", teamColors[teamColorIndex]);
+  };
+
+  const syncTeamColors = () => {
+    window.clearInterval(teamColorTimer);
+    teamColorTimer = 0;
+
+    if (!reduceTeamMotion.matches && isTeamVisible && !document.hidden) {
+      teamColorTimer = window.setInterval(showNextTeamColor, 1000);
+    }
+  };
+
+  const paintTeamDots = (time) => {
+    const width = teamDotCanvas.clientWidth;
+    const height = teamDotCanvas.clientHeight;
+    if (!context || !width || !height) return;
+
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelWidth = Math.max(1, Math.round(width * pixelRatio));
+    const pixelHeight = Math.max(1, Math.round(height * pixelRatio));
+
+    if (teamDotCanvas.width !== pixelWidth || teamDotCanvas.height !== pixelHeight) {
+      teamDotCanvas.width = pixelWidth;
+      teamDotCanvas.height = pixelHeight;
+    }
+
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    context.clearRect(0, 0, pixelWidth, pixelHeight);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+    const seconds = time / 1000;
+    const reduced = reduceTeamMotion.matches;
+    const ambientX = reduced
+      ? width * 0.68
+      : width * (0.5 + Math.sin((seconds * Math.PI * 2) / 11.8) * 0.43);
+    const ambientY = reduced
+      ? height * 0.34
+      : height * (0.5 + Math.sin((seconds * Math.PI * 2) / 15.7 + 1.15) * 0.39);
+    const breath = reduced ? 0.5 : 0.5 + Math.sin((seconds * Math.PI * 2) / 7.2) * 0.5;
+    const spacing = width <= 760 ? 17 : 20;
+    const bloomRadius = Math.max(170, Math.min(width, height) * 0.31);
+
+    context.fillStyle = "rgba(23, 23, 20, 0.22)";
+    context.beginPath();
+
+    for (let y = spacing * 0.5; y < height; y += spacing) {
+      for (let x = spacing * 0.5; x < width; x += spacing) {
+        const distance = Math.hypot(x - ambientX, y - ambientY);
+        const bloom = Math.exp(-(distance * distance) / (2 * bloomRadius * bloomRadius));
+        const ripple = reduced ? 0.5 : 0.5 + Math.sin(seconds * 2.05 - distance * 0.035) * 0.5;
+        const radius = 0.72 + 0.08 * breath + 1.55 * bloom + 0.16 * bloom * ripple;
+        context.moveTo(x + radius, y);
+        context.arc(x, y, radius, 0, Math.PI * 2);
+      }
+    }
+
+    context.fill();
+  };
+
+  const animateTeamDots = (time) => {
+    if (!teamDotFrame) return;
+
+    if (time - lastTeamDotPaint >= 33) {
+      paintTeamDots(time);
+      lastTeamDotPaint = time;
+    }
+
+    teamDotFrame = requestAnimationFrame(animateTeamDots);
+  };
+
+  const syncTeamDots = () => {
+    if (teamDotFrame) cancelAnimationFrame(teamDotFrame);
+    teamDotFrame = 0;
+    lastTeamDotPaint = 0;
+    paintTeamDots(performance.now());
+
+    if (reduceTeamMotion.matches || !isTeamVisible || document.hidden) return;
+    teamDotFrame = requestAnimationFrame(animateTeamDots);
+  };
+
+  new ResizeObserver(() => paintTeamDots(performance.now())).observe(teamSection);
+  new IntersectionObserver(
+    ([entry]) => {
+      isTeamVisible = entry.isIntersecting;
+      syncTeamDots();
+      syncTeamColors();
+    },
+    { rootMargin: "150px" },
+  ).observe(teamSection);
+  document.addEventListener("visibilitychange", () => {
+    syncTeamDots();
+    syncTeamColors();
+  });
+  reduceTeamMotion.addEventListener?.("change", () => {
+    syncTeamDots();
+    syncTeamColors();
+  });
+  teamSection.style.setProperty("--team-art-color", teamColors[0]);
+  syncTeamDots();
+  syncTeamColors();
+}
+
+const heroWarholSprite = document.querySelector("[data-hero-warhol-sprite]");
+
+if (heroWarholSprite) {
+  const frames = [
+    "photo",
+    [0, 0],
+    [1, 0],
+    [2, 0],
+    [0, 1],
+    [1, 1],
+    [2, 1],
+  ];
+  const layers = [...heroWarholSprite.querySelectorAll(".hero-corner-art__frame")];
+  const reduceWarholMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let frameIndex = 0;
+  let activeLayer = 0;
+  let warholTimer = 0;
+  let warholVisible = false;
+
+  const paintWarholFrame = (layer, index) => {
+    const frame = frames[index];
+    const isPhoto = frame === "photo";
+    layer.classList.toggle("is-photo", isPhoto);
+
+    if (isPhoto) {
+      layer.style.removeProperty("--hero-sprite-x");
+      layer.style.removeProperty("--hero-sprite-y");
+      return;
+    }
+
+    const [column, row] = frame;
+    layer.style.setProperty("--hero-sprite-x", `${column * 50}%`);
+    layer.style.setProperty("--hero-sprite-y", `${row * 100}%`);
+  };
+
+  const showNextWarholFrame = () => {
+    const nextLayer = activeLayer === 0 ? 1 : 0;
+    frameIndex = (frameIndex + 1) % frames.length;
+    paintWarholFrame(layers[nextLayer], frameIndex);
+    layers[nextLayer].classList.add("is-active");
+    layers[activeLayer].classList.remove("is-active");
+    activeLayer = nextLayer;
+    heroWarholSprite.dispatchEvent(new CustomEvent("warholframechange", { detail: { index: frameIndex } }));
+  };
+
+  const syncWarholLoop = () => {
+    window.clearInterval(warholTimer);
+    warholTimer = 0;
+
+    if (!reduceWarholMotion.matches && warholVisible && !document.hidden) {
+      warholTimer = window.setInterval(showNextWarholFrame, 500);
+    }
+  };
+
+  paintWarholFrame(layers[0], 0);
+  paintWarholFrame(layers[1], 1);
+
+  new IntersectionObserver(
+    ([entry]) => {
+      warholVisible = entry.isIntersecting;
+      syncWarholLoop();
+    },
+    { rootMargin: "120px" },
+  ).observe(heroWarholSprite);
+  document.addEventListener("visibilitychange", syncWarholLoop);
+  reduceWarholMotion.addEventListener?.("change", syncWarholLoop);
+}
+
 const wordCycle = document.querySelector("[data-word-cycle]");
 
 if (wordCycle) {
@@ -459,9 +543,16 @@ if (wordCycle) {
     stopWordCycle();
     if (!wordsVisible || document.hidden || reduceWordMotion.matches || pointerIsChoosing) return;
 
+    if (heroWarholSprite) return;
+
     cycleTimer = window.setInterval(() => {
       activateWord((activeWord + 1) % words.length);
-    }, 560);
+    }, 500);
+  };
+
+  const advanceWithWarhol = () => {
+    if (!wordsVisible || document.hidden || reduceWordMotion.matches || pointerIsChoosing) return;
+    activateWord((activeWord + 1) % words.length);
   };
 
   words.forEach((word, index) => {
@@ -486,6 +577,7 @@ if (wordCycle) {
   );
 
   activateWord(0);
+  heroWarholSprite?.addEventListener("warholframechange", advanceWithWarhol);
   wordObserver.observe(wordCycle);
   document.addEventListener("visibilitychange", syncWordCycle);
   reduceWordMotion.addEventListener?.("change", syncWordCycle);

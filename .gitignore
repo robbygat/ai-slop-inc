@@ -9,8 +9,12 @@
 /marilyn-dot-pop-art-transparent.png
 /slop-portrait-transparent.png
 /assets/marilyn-dot-pop-art-transparent.png
+/slop-warhol-spritesheet-2x3.png
+/warhol-slop-spritesheet-3x2.png
+/warhol-slop-spritesheet-3x2-v2.png
 
 # Local working directories.
 /scripts/
 /tools/
 /dist/
+/output/
