@@ -189,7 +189,7 @@ footer {
 .top-rail a,
 .down-link,
 .product-site-link,
-.slop-ad__link {
+.contact__link {
   cursor: pointer;
 }
 
@@ -359,7 +359,9 @@ footer {
 }
 
 .hero {
+  --hero-frame-color: #d1060b;
   --hero-art-size: min(56vw, 78svh, 52rem);
+  --hero-arrow-size: 4.75rem;
   position: relative;
   isolation: isolate;
   display: grid;
@@ -380,6 +382,7 @@ footer {
 
 .font-collage {
   margin: 0 auto;
+  color: color-mix(in srgb, var(--hero-frame-color) 82%, var(--ink));
   text-align: center;
   text-wrap: balance;
   font-family: var(--sans);
@@ -387,6 +390,7 @@ footer {
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.42;
+  transition: color 360ms cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 .font-collage > .mixed-type__visual {
@@ -417,7 +421,7 @@ footer {
   z-index: -1;
   inset: -0.08em;
   border-radius: inherit;
-  background: rgba(23, 23, 21, 0.07);
+  background: color-mix(in srgb, currentColor 9%, transparent);
   content: "";
   opacity: 0;
   transform: scale(0.82);
@@ -428,7 +432,7 @@ footer {
 
 .font-collage .mixed-type__word.is-active,
 .font-collage .mixed-type__word:hover {
-  border-color: rgba(23, 23, 20, 0.62);
+  border-color: color-mix(in srgb, currentColor 62%, transparent);
   transform: scale(1.075);
 }
 
@@ -487,12 +491,6 @@ footer {
   transition: opacity 360ms cubic-bezier(0.37, 0, 0.63, 1);
 }
 
-.hero-corner-art__frame.is-photo {
-  background-image: url("./assets/hero-warhol-frame-07.png?v=20260907-1");
-  background-position: center;
-  background-size: 100% 100%;
-}
-
 .hero-corner-art__frame.is-active {
   opacity: 1;
 }
@@ -545,30 +543,47 @@ footer {
   position: relative;
   z-index: 4;
   display: grid;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: var(--hero-arrow-size);
+  height: var(--hero-arrow-size);
   align-items: center;
   justify-items: center;
   margin: 0 auto;
   border: 0;
+  color: color-mix(in srgb, var(--hero-frame-color) 88%, var(--ink));
   font-family: var(--sans);
-  font-size: 1.5rem;
+  font-size: 2.35rem;
   font-weight: 800;
   letter-spacing: 0;
+  line-height: 1;
+  transition: color 360ms cubic-bezier(0.37, 0, 0.63, 1);
 }
 
 .down-link span:last-child {
+  display: block;
+  animation: hero-arrow-drift 1.65s cubic-bezier(0.45, 0, 0.55, 1) infinite;
   transition: transform 240ms ease;
 }
 
 .down-link:hover span:last-child {
-  transform: translateY(0.28rem);
+  animation-play-state: paused;
+  transform: translateY(0.42rem) scale(1.08);
+}
+
+@keyframes hero-arrow-drift {
+  0%,
+  100% {
+    transform: translateY(-0.16rem);
+  }
+
+  50% {
+    transform: translateY(0.38rem);
+  }
 }
 
 .product,
 .approach,
 .team,
-.slop-ad {
+.contact {
   position: relative;
   padding: clamp(7rem, 12vw, 11rem) var(--pad);
 }
@@ -896,6 +911,8 @@ footer {
   --team-art-color: #2d3e7c;
   isolation: isolate;
   overflow: hidden;
+  padding-top: clamp(6rem, 9vw, 8rem);
+  padding-bottom: clamp(7.5rem, 10vw, 9rem);
   border-top: 1px solid var(--hairline);
   background-color: color-mix(in srgb, var(--team-art-color) 30%, var(--paper-deep));
   transition: background-color 980ms linear;
@@ -914,14 +931,15 @@ footer {
 .team-intro {
   position: relative;
   z-index: 1;
-  width: min(100%, 64rem);
-  margin: 0 auto clamp(4.5rem, 8vw, 7rem);
+  width: min(100%, 72rem);
+  margin: 0 auto clamp(3.25rem, 4.5vw, 4.25rem);
   text-align: center;
 }
 
 .team-intro .mixed-heading {
-  max-width: 11ch;
+  max-width: none;
   margin: 0 auto;
+  text-align: center;
 }
 
 .team-intro > p {
@@ -936,48 +954,81 @@ footer {
   position: relative;
   z-index: 1;
   display: grid;
-  width: min(100%, 66rem);
+  width: min(100%, 72rem);
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.25rem, 3vw, 2.5rem);
+  align-items: start;
+  gap: clamp(1.5rem, 3.2vw, 3rem);
   margin: 0 auto;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .people article {
+  position: relative;
   min-width: 0;
 }
 
+.people article:nth-child(2) {
+  margin-top: clamp(2rem, 3.5vw, 3.5rem);
+}
+
+.people article:nth-child(3) {
+  margin-top: clamp(0.75rem, 1.5vw, 1.5rem);
+}
+
 .portrait {
+  --portrait-shape: polygon(0 0, calc(100% - 1.25rem) 0, 100% 1.25rem, 100% 100%, 0 100%);
   position: relative;
   aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: #fff;
+  isolation: isolate;
+  background: transparent;
 }
 
-.portrait:empty {
-  background:
-    linear-gradient(var(--hairline), var(--hairline)) center / 1px 34% no-repeat,
-    linear-gradient(90deg, var(--hairline), var(--hairline)) center / 34% 1px no-repeat,
-    rgba(23, 23, 20, 0.025);
-}
-
-.portrait:empty::after {
+.portrait::before {
   position: absolute;
-  right: 0.75rem;
-  bottom: 0.7rem;
-  color: rgba(23, 23, 20, 0.45);
-  content: "PHOTO / SOON";
-  font-family: var(--mono);
-  font-size: 0.52rem;
-  letter-spacing: 0.08em;
+  z-index: 0;
+  inset: 0;
+  background: var(--ink);
+  clip-path: var(--portrait-shape);
+  content: "";
+  transform: translate(0.65rem, 0.65rem);
+}
+
+.portrait__crop {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  background: var(--paper-light);
+  clip-path: var(--portrait-shape);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portrait__crop::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(23, 23, 20, 0.22);
+  clip-path: var(--portrait-shape);
+  content: "";
+  pointer-events: none;
+}
+
+.portrait:hover .portrait__crop {
+  transform: translate(-0.24rem, -0.24rem);
 }
 
 .portrait img {
   display: block;
   width: 100%;
   height: 100%;
+  filter: saturate(0.92) contrast(1.025);
   object-fit: cover;
   object-position: center;
+  transition: filter 320ms ease;
+}
+
+.portrait:hover img {
+  filter: saturate(1) contrast(1);
 }
 
 .portrait--two img {
@@ -987,10 +1038,11 @@ footer {
 
 .person-line {
   display: grid;
-  justify-items: center;
-  gap: 0.35rem;
-  padding: 1.1rem 0 0;
-  text-align: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.35rem 0.8rem;
+  padding: 1.35rem 0.1rem 0;
+  text-align: left;
 }
 
 .person-line h3,
@@ -999,33 +1051,118 @@ footer {
 }
 
 .person-line h3 {
-  font-size: clamp(1rem, 1.35vw, 1.16rem);
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
   font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .person-line .person-role {
+  justify-self: end;
   color: var(--muted);
   font-family: var(--mono);
   font-size: 0.62rem;
   letter-spacing: 0.09em;
+  white-space: nowrap;
 }
 
 .person-line .person-bio {
-  max-width: 32ch;
-  margin-top: 0.45rem;
+  grid-column: 1 / -1;
+  max-width: 34ch;
+  margin-top: 0.55rem;
   color: var(--muted);
   font-size: 0.94rem;
   line-height: 1.45;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-.slop-ad {
+.team-recognition {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: min(100%, 66rem);
+  grid-template-columns: minmax(18rem, 0.95fr) minmax(18rem, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+  margin: clamp(1rem, 3vw, 2.25rem) auto 0;
+  padding: clamp(1.65rem, 3vw, 2.5rem);
+  background: var(--paper-light);
+  border: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+}
+
+.team-recognition__logos {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.9rem, 2.3vw, 1.7rem);
+}
+
+.team-recognition__logos img {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.team-recognition__openai {
+  display: inline-flex;
+  flex: 0 1 auto;
+  align-items: center;
+  gap: clamp(0.55rem, 1vw, 0.8rem);
+}
+
+.team-recognition__logos .team-recognition__openai-icon {
+  width: clamp(2.8rem, 4.5vw, 3.7rem);
+  max-height: none;
+}
+
+.team-recognition__logos .team-recognition__openai-wordmark {
+  width: clamp(7.2rem, 11vw, 9.6rem);
+  max-height: none;
+}
+
+.team-recognition__logos .team-recognition__onlab {
+  width: clamp(9.5rem, 15vw, 13.5rem);
+  max-height: 3.5rem;
+}
+
+.team-recognition__times {
+  flex: 0 0 auto;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+}
+
+.team-recognition__copy {
+  min-width: 0;
+}
+
+.team-recognition__copy h3,
+.team-recognition__copy p {
+  margin: 0;
+}
+
+.team-recognition__copy h3 {
+  font-size: clamp(1.9rem, 3.8vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.team-recognition__copy p {
+  margin-top: 0.9rem;
+  color: color-mix(in srgb, var(--ink) 70%, transparent);
+  font-family: var(--mono);
+  font-size: clamp(0.62rem, 0.82vw, 0.72rem);
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.contact {
   overflow: hidden;
   color: var(--paper);
   background: var(--night);
 }
 
-.slop-ad__copy {
+.contact__inner {
   position: relative;
   z-index: 1;
   width: min(100%, 72rem);
@@ -1033,13 +1170,13 @@ footer {
   text-align: center;
 }
 
-.slop-ad .mixed-heading {
+.contact .mixed-heading {
   max-width: 11ch;
   margin: 0 auto;
   font-size: clamp(3.8rem, 7.8vw, 7.5rem);
 }
 
-.slop-ad__link {
+.contact__link {
   position: relative;
   z-index: 1;
   display: flex;
@@ -1056,13 +1193,13 @@ footer {
   font-weight: 600;
 }
 
-.slop-ad__link > span:last-child {
+.contact__link > span:last-child {
   font-family: var(--sans);
   font-style: normal;
   transition: transform 240ms ease;
 }
 
-.slop-ad__link:hover > span:last-child {
+.contact__link:hover > span:last-child {
   transform: translate(0.2rem, -0.2rem);
 }
 
@@ -1127,7 +1264,7 @@ footer > span:last-child {
   .down-link {
     justify-self: start;
     margin-right: 0;
-    margin-left: max(0px, calc((100vw - var(--hero-art-size) - (2 * var(--pad)) - 3.5rem) / 2));
+    margin-left: max(0px, calc((100vw - var(--hero-art-size) - (2 * var(--pad)) - var(--hero-arrow-size)) / 2));
   }
 }
 
@@ -1154,6 +1291,7 @@ footer > span:last-child {
 
   .hero {
     --hero-art-size: clamp(15.5rem, 66vw, 18rem);
+    --hero-arrow-size: 4rem;
     min-height: clamp(44rem, 88svh, 47rem);
     padding-top: 5.25rem;
     padding-bottom: 1rem;
@@ -1188,6 +1326,12 @@ footer > span:last-child {
     max-width: 72vw;
   }
 
+  .down-link {
+    justify-self: start;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
   .mixed-heading {
     font-size: clamp(3.65rem, 16.2vw, 5.9rem);
   }
@@ -1195,7 +1339,7 @@ footer > span:last-child {
   .product,
   .approach,
   .team,
-  .slop-ad {
+  .contact {
     padding-top: 6.5rem;
     padding-bottom: 6.5rem;
   }
@@ -1257,13 +1401,92 @@ footer > span:last-child {
     margin-top: 3.75rem;
   }
 
-  .people {
-    width: min(100%, 22rem);
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .team-intro {
+    margin-bottom: 3.75rem;
   }
 
-  .slop-ad .mixed-heading {
+  .people {
+    width: min(100%, 35rem);
+    grid-template-columns: 1fr;
+    gap: clamp(3.25rem, 12vw, 5rem);
+    padding-bottom: 0;
+  }
+
+  .people article,
+  .people article:nth-child(2),
+  .people article:nth-child(3) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: clamp(1rem, 4.8vw, 1.5rem);
+    margin-top: 0;
+  }
+
+  .people article:nth-child(even) .portrait {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .people article:nth-child(even) .person-line {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .portrait::before {
+    transform: translate(0.42rem, 0.42rem);
+  }
+
+  .person-line {
+    grid-template-columns: 1fr;
+    align-content: center;
+    align-items: start;
+    gap: 0.35rem;
+    padding: 0;
+  }
+
+  .person-line h3 {
+    font-size: clamp(1rem, 4.8vw, 1.2rem);
+    line-height: 1.08;
+  }
+
+  .person-line .person-role {
+    justify-self: start;
+    font-size: 0.55rem;
+    white-space: normal;
+  }
+
+  .person-line .person-bio {
+    grid-column: 1;
+    margin-top: 0.55rem;
+    font-size: clamp(0.82rem, 3.7vw, 0.94rem);
+    line-height: 1.4;
+  }
+
+  .team-recognition {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 1rem;
+    text-align: center;
+  }
+
+  .team-recognition__logos {
+    gap: 0.55rem;
+  }
+
+  .team-recognition__logos .team-recognition__openai-icon {
+    width: clamp(2.1rem, 10vw, 3rem);
+  }
+
+  .team-recognition__logos .team-recognition__openai-wordmark {
+    width: clamp(5.2rem, 25vw, 7.5rem);
+  }
+
+  .team-recognition__logos .team-recognition__onlab {
+    width: clamp(6.8rem, 30vw, 10rem);
+    max-height: 2.7rem;
+  }
+
+  .contact .mixed-heading {
     font-size: clamp(3.55rem, 15.4vw, 5.4rem);
   }
 

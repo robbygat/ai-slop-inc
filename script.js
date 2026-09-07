@@ -505,7 +505,6 @@ const heroWarholSprite = document.querySelector("[data-hero-warhol-sprite]");
 
 if (heroWarholSprite) {
   const frames = [
-    { source: "photo", color: "#000000" },
     { source: [0, 0], color: "#d1060b" },
     { source: [1, 0], color: "#000000" },
     { source: [2, 0], color: "#2b850e" },
@@ -514,6 +513,7 @@ if (heroWarholSprite) {
     { source: [2, 1], color: "#3e509a" },
   ];
   const layers = [...heroWarholSprite.querySelectorAll(".hero-corner-art__frame")];
+  const heroSection = heroWarholSprite.closest(".hero");
   const reduceWarholMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   let frameIndex = 0;
   let activeLayer = 0;
@@ -522,18 +522,19 @@ if (heroWarholSprite) {
 
   const paintWarholFrame = (layer, index) => {
     const frame = frames[index];
-    const isPhoto = frame.source === "photo";
-    layer.classList.toggle("is-photo", isPhoto);
-
-    if (isPhoto) {
-      layer.style.removeProperty("--hero-sprite-x");
-      layer.style.removeProperty("--hero-sprite-y");
-      return;
-    }
-
     const [column, row] = frame.source;
     layer.style.setProperty("--hero-sprite-x", `${column * 50}%`);
     layer.style.setProperty("--hero-sprite-y", `${row * 100}%`);
+  };
+
+  const announceWarholFrame = () => {
+    const frame = frames[frameIndex];
+    heroSection?.style.setProperty("--hero-frame-color", frame.color);
+    heroWarholSprite.dispatchEvent(
+      new CustomEvent("warholframechange", {
+        detail: { index: frameIndex, color: frame.color },
+      }),
+    );
   };
 
   const showNextWarholFrame = () => {
@@ -543,11 +544,7 @@ if (heroWarholSprite) {
     layers[nextLayer].classList.add("is-active");
     layers[activeLayer].classList.remove("is-active");
     activeLayer = nextLayer;
-    heroWarholSprite.dispatchEvent(
-      new CustomEvent("warholframechange", {
-        detail: { index: frameIndex, color: frames[frameIndex].color },
-      }),
-    );
+    announceWarholFrame();
   };
 
   const syncWarholLoop = () => {
@@ -561,9 +558,7 @@ if (heroWarholSprite) {
 
   paintWarholFrame(layers[0], 0);
   paintWarholFrame(layers[1], 1);
-  heroWarholSprite.dispatchEvent(
-    new CustomEvent("warholframechange", { detail: { index: 0, color: frames[0].color } }),
-  );
+  announceWarholFrame();
 
   new IntersectionObserver(
     ([entry]) => {
