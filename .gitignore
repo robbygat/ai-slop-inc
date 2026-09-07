@@ -5,7 +5,9 @@
 /fe7b345ebe9365a3.JPG
 /assets/ai-slop-dot-wordmark-v1.png
 /assets/ai-slop-dot-wordmark-v2.png
+/exec-*.png
 
 # Local working directories.
 /scripts/
 /tools/
+/dist/

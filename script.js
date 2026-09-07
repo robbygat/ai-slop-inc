@@ -132,9 +132,10 @@ const asciiStage = document.querySelector(".ascii-lockup");
 
 if (asciiStage) {
   const bounceStage = asciiStage.closest(".ascii-bounce-stage");
-  const middleWave = asciiStage.querySelector('[data-dot-wave="middle"]');
-  const peakWave = asciiStage.querySelector('[data-dot-wave="peak"]');
+  const logoCanvas = asciiStage.querySelector("[data-dot-logo]");
+  const logoContext = logoCanvas?.getContext("2d");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let dotLogo = null;
   let isVisible = false;
   let bounceFrame = 0;
   let lastBounceTime = 0;
@@ -149,38 +150,69 @@ if (asciiStage) {
   let hasBouncePosition = false;
   let dotImpact = null;
 
-  const smootherStep = (value) => value * value * value * (value * (value * 6 - 15) + 10);
-
   const paintDotField = (time) => {
-    if (!middleWave || !peakWave) return;
+    if (!logoCanvas || !logoContext || !dotLogo || !logoCanvas.clientWidth || !logoCanvas.clientHeight) return;
+
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    const pixelWidth = Math.max(1, Math.round(logoCanvas.clientWidth * pixelRatio));
+    const pixelHeight = Math.max(1, Math.round(logoCanvas.clientHeight * pixelRatio));
+
+    if (logoCanvas.width !== pixelWidth || logoCanvas.height !== pixelHeight) {
+      logoCanvas.width = pixelWidth;
+      logoCanvas.height = pixelHeight;
+    }
+
+    logoContext.setTransform(1, 0, 0, 1, 0, 0);
+    logoContext.clearRect(0, 0, logoCanvas.width, logoCanvas.height);
+    logoContext.setTransform(
+      logoCanvas.width / dotLogo.width,
+      0,
+      0,
+      logoCanvas.height / dotLogo.height,
+      0,
+      0,
+    );
 
     const seconds = time / 1000;
-    const ambientX = reduceMotion.matches ? 285 : 285 + Math.sin((seconds * Math.PI * 2) / 10.5) * 235;
-    const ambientY = reduceMotion.matches ? 264 : 264 + Math.sin((seconds * Math.PI * 2) / 13.5 + 1.35) * 158;
-    const breathCycle = (seconds % 8.5) / 8.5;
-    const breathDirection = breathCycle < 0.5 ? breathCycle * 2 : (1 - breathCycle) * 2;
-    const breath = smootherStep(breathDirection);
-    let middleRadius = 197 + breath * 28;
-    let peakRadius = 118 + breath * 12;
+    const ambientX = reduceMotion.matches
+      ? dotLogo.width * 0.5
+      : dotLogo.width * (0.5 + Math.sin((seconds * Math.PI * 2) / 7.8) * 0.36);
+    const ambientY = reduceMotion.matches
+      ? dotLogo.height * 0.5
+      : dotLogo.height * (0.5 + Math.sin((seconds * Math.PI * 2) / 10.4 + 1.1) * 0.34);
+    const breath = reduceMotion.matches ? 0.5 : 0.5 + Math.sin((seconds * Math.PI * 2) / 6.4) * 0.5;
+    let impact = 0;
 
     if (dotImpact) {
       const progress = Math.min(1, (time - dotImpact.startedAt) / dotImpact.duration);
 
       if (progress < 1) {
-        const swell = Math.sin(progress * Math.PI) * dotImpact.strength;
-        middleRadius += swell * 30;
-        peakRadius += swell * 20;
+        impact = Math.sin(progress * Math.PI) * dotImpact.strength;
       } else {
         dotImpact = null;
       }
     }
 
-    [middleWave, peakWave].forEach((wave) => {
-      wave.setAttribute("cx", ambientX.toFixed(1));
-      wave.setAttribute("cy", ambientY.toFixed(1));
+    const bloomRadius = Math.min(dotLogo.width, dotLogo.height) * 0.24;
+    const baseRadius = dotLogo.radius * 0.79;
+
+    logoContext.fillStyle = "#000";
+    logoContext.beginPath();
+
+    dotLogo.points.forEach(([x, y]) => {
+      const distance = Math.hypot(x - ambientX, y - ambientY);
+      const bloom = Math.exp(-(distance * distance) / (2 * bloomRadius * bloomRadius));
+      const ripple = reduceMotion.matches ? 0.5 : 0.5 + Math.sin(seconds * 2.3 - distance * 0.032) * 0.5;
+      const radius =
+        baseRadius +
+        dotLogo.radius * (0.018 * breath + 0.27 * bloom + 0.02 * bloom * ripple) +
+        impact * dotLogo.radius * 0.08 * bloom;
+
+      logoContext.moveTo(x + radius, y);
+      logoContext.arc(x, y, radius, 0, Math.PI * 2);
     });
-    middleWave.setAttribute("r", middleRadius.toFixed(1));
-    peakWave.setAttribute("r", peakRadius.toFixed(1));
+
+    logoContext.fill();
   };
 
   const paintBouncePosition = () => {
@@ -188,9 +220,9 @@ if (asciiStage) {
   };
 
   const setLeavingVelocity = (cornerX, cornerY) => {
-    const speed = Math.max(34, Math.min(62, (bounceStage?.clientWidth || 800) * 0.052));
+    const speed = Math.max(46, Math.min(78, (bounceStage?.clientWidth || 800) * 0.06));
     velocityX = (cornerX === 0 ? 1 : -1) * speed;
-    velocityY = (cornerY === 0 ? 1 : -1) * speed * 0.67;
+    velocityY = (cornerY === 0 ? 1 : -1) * speed * 0.73;
   };
 
   const showBounceImpact = (isCorner) => {
@@ -214,7 +246,7 @@ if (asciiStage) {
     window.setTimeout(() => asciiStage.classList.remove("is-impact"), 360);
   };
 
-  const aimForCorner = (targetX, targetY, duration = 6800) => {
+  const aimForCorner = (targetX, targetY, duration = 5200) => {
     cornerRun = {
       startX: positionX,
       startY: positionY,
@@ -228,6 +260,19 @@ if (asciiStage) {
   const measureBounce = () => {
     if (!bounceStage) return;
 
+    const logoRatio = (dotLogo?.width || logoCanvas?.width || 970) / (dotLogo?.height || logoCanvas?.height || 865);
+    const preferredWidth = window.matchMedia("(max-width: 760px)").matches
+      ? Math.min(window.innerWidth * 0.96, 400)
+      : Math.min(Math.max(window.innerWidth * 0.53, 496), 736, window.innerWidth - 48);
+    const fittedWidth = Math.max(
+      1,
+      Math.min(preferredWidth, bounceStage.clientWidth - 8, Math.max(1, bounceStage.clientHeight - 24) * logoRatio),
+    );
+
+    if (Math.abs(asciiStage.offsetWidth - fittedWidth) > 0.5) {
+      asciiStage.style.width = `${fittedWidth.toFixed(2)}px`;
+    }
+
     maxX = Math.max(0, bounceStage.clientWidth - asciiStage.offsetWidth);
     maxY = Math.max(0, bounceStage.clientHeight - asciiStage.offsetHeight);
 
@@ -235,7 +280,7 @@ if (asciiStage) {
       positionX = maxX * 0.12;
       positionY = maxY * 0.16;
       hasBouncePosition = true;
-      aimForCorner(maxX, maxY, 7200);
+      aimForCorner(maxX, maxY, 4800);
     } else {
       positionX = Math.min(maxX, Math.max(0, positionX));
       positionY = Math.min(maxY, Math.max(0, positionY));
@@ -246,23 +291,39 @@ if (asciiStage) {
       }
     }
 
-    if (reduceMotion.matches || maxX === 0 || maxY === 0) {
+    if (reduceMotion.matches) {
       cornerRun = null;
       positionX = maxX / 2;
       positionY = maxY / 2;
+    } else {
+      if (maxX === 0) {
+        positionX = 0;
+        velocityX = 0;
+      }
+
+      if (maxY === 0) {
+        positionY = 0;
+        velocityY = 0;
+      }
+
+      if (maxX === 0 && maxY === 0) cornerRun = null;
     }
 
     paintBouncePosition();
+    paintDotField(performance.now());
   };
 
   const moveBounce = (time) => {
     if (!bounceFrame) return;
 
     if (!lastBounceTime) lastBounceTime = time;
-    const elapsed = Math.min((time - lastBounceTime) / 1000, 0.04);
+    const elapsed = Math.min((time - lastBounceTime) / 1000, 0.032);
     lastBounceTime = time;
 
-    if (cornerRun) {
+    const canBounceX = maxX > 0.5;
+    const canBounceY = maxY > 0.5;
+
+    if (cornerRun && (canBounceX || canBounceY)) {
       const progress = Math.min(1, (time - cornerRun.startedAt) / cornerRun.duration);
       positionX = cornerRun.startX + (cornerRun.targetX - cornerRun.startX) * progress;
       positionY = cornerRun.startY + (cornerRun.targetY - cornerRun.startY) * progress;
@@ -273,21 +334,21 @@ if (asciiStage) {
         cornerRun = null;
         collisionCount = 0;
         setLeavingVelocity(cornerX, cornerY);
-        showBounceImpact(true, true, true);
+        showBounceImpact(true);
       }
-    } else {
-      positionX += velocityX * elapsed;
-      positionY += velocityY * elapsed;
+    } else if (canBounceX || canBounceY) {
+      if (canBounceX) positionX += velocityX * elapsed;
+      if (canBounceY) positionY += velocityY * elapsed;
       let hitX = false;
       let hitY = false;
 
-      if (positionX <= 0 || positionX >= maxX) {
+      if (canBounceX && (positionX <= 0 || positionX >= maxX)) {
         positionX = Math.min(maxX, Math.max(0, positionX));
         velocityX *= -1;
         hitX = true;
       }
 
-      if (positionY <= 0 || positionY >= maxY) {
+      if (canBounceY && (positionY <= 0 || positionY >= maxY)) {
         positionY = Math.min(maxY, Math.max(0, positionY));
         velocityY *= -1;
         hitY = true;
@@ -317,7 +378,7 @@ if (asciiStage) {
     measureBounce();
     paintDotField(performance.now());
 
-    if (reduceMotion.matches || !isVisible || document.hidden || maxX === 0 || maxY === 0) return;
+    if (reduceMotion.matches || !isVisible || document.hidden) return;
 
     if (cornerRun) {
       cornerRun.startX = positionX;
@@ -349,6 +410,27 @@ if (asciiStage) {
   document.fonts?.ready.then(measureBounce);
   document.addEventListener("visibilitychange", syncAnimation);
   reduceMotion.addEventListener?.("change", syncAnimation);
+
+  const setDotLogo = (data) => {
+    dotLogo = data;
+    asciiStage.classList.add("is-logo-ready");
+    syncAnimation();
+  };
+
+  if (window.AISlopHeroDots) {
+    setDotLogo(window.AISlopHeroDots);
+  } else if (logoCanvas?.dataset.dotSource) {
+    fetch(logoCanvas.dataset.dotSource)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Dot logo failed to load (${response.status})`);
+        return response.json();
+      })
+      .then(setDotLogo)
+      .catch((error) => {
+        console.error(error);
+        asciiStage.classList.add("is-logo-error");
+      });
+  }
 }
 
 const wordCycle = document.querySelector("[data-word-cycle]");
@@ -379,7 +461,7 @@ if (wordCycle) {
 
     cycleTimer = window.setInterval(() => {
       activateWord((activeWord + 1) % words.length);
-    }, 1000);
+    }, 560);
   };
 
   words.forEach((word, index) => {

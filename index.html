@@ -8,9 +8,19 @@
       content="AI Slop Inc. makes digital abundance less annoying and builds creative tools for people with ideas."
     />
     <meta name="theme-color" content="#f5f2eb" />
+    <link rel="canonical" href="https://aislopinc.com/" />
     <meta property="og:title" content="AI Slop Inc." />
     <meta property="og:description" content="Digital abundance, minus the annoying part." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aislopinc.com/" />
+    <meta property="og:image" content="https://aislopinc.com/assets/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AI Slop Inc. dotted wordmark" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AI Slop Inc." />
+    <meta name="twitter:description" content="Digital abundance, minus the annoying part." />
+    <meta name="twitter:image" content="https://aislopinc.com/assets/og.png" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=Bebas+Neue&amp;family=Bodoni+Moda:ital,wght@0,600;1,600&amp;family=Bungee&amp;family=Cormorant+Garamond:ital,wght@0,600;1,600&amp;family=Gabarito:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;700&amp;family=Newsreader:ital,wght@0,600;1,600&amp;family=Silkscreen:wght@400&amp;family=Space+Grotesk:wght@500;600&amp;family=Syne:wght@600;700&amp;family=Unbounded:wght@500;600&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260907-14" />
+    <link rel="stylesheet" href="./styles.css?v=20260907-17" />
     <title>AI Slop Inc.</title>
   </head>
   <body>
@@ -26,42 +36,23 @@
 
     <header class="top-rail">
       <a class="mini-brand" href="#top" aria-label="AI Slop Inc. home">
-        <svg class="mini-wordmark" viewBox="0 0 126 30" aria-hidden="true" focusable="false">
-          <defs>
-            <pattern id="mini-dot-base" width="2.65" height="2.65" patternUnits="userSpaceOnUse">
-              <circle cx="1.325" cy="1.325" r="0.9" fill="currentColor" />
-            </pattern>
-            <pattern id="mini-dot-peak" width="2.65" height="2.65" patternUnits="userSpaceOnUse">
-              <circle cx="1.325" cy="1.325" r="1.2" fill="currentColor" />
-            </pattern>
-            <radialGradient id="mini-bloom-ink">
-              <stop offset="0" stop-color="#fff" />
-              <stop offset="0.48" stop-color="#fff" />
-              <stop offset="1" stop-color="#000" />
-            </radialGradient>
-            <mask id="mini-sweep-mask" x="0" y="0" width="126" height="30" maskUnits="userSpaceOnUse">
-              <circle class="mini-wordmark__sweep" cx="-24" cy="15" r="27" fill="url(#mini-bloom-ink)" />
-            </mask>
-          </defs>
-          <text class="mini-wordmark__text mini-wordmark__text--ghost" x="1" y="23.5">AI Slop Inc.</text>
-          <text class="mini-wordmark__text mini-wordmark__text--dots" x="1" y="23.5" fill="url(#mini-dot-base)">
-            AI Slop Inc.
-          </text>
-          <text
-            class="mini-wordmark__text mini-wordmark__text--peak"
-            x="1"
-            y="23.5"
-            fill="url(#mini-dot-peak)"
-            mask="url(#mini-sweep-mask)"
-          >
-            AI Slop Inc.
-          </text>
-        </svg>
+        <span class="mini-wordmark" aria-hidden="true">AI Slop Inc<span class="mini-wordmark__period">.</span></span>
       </a>
       <span class="established">EST. 2026</span>
       <nav aria-label="Primary navigation">
         <a href="#team">TEAM</a>
-        <a href="https://slop.game" target="_blank" rel="noreferrer">SLOP.GAME ↗</a>
+        <a
+          class="nav-product-link"
+          href="https://slop.game"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Slop.game (opens in a new tab)"
+        >
+          <span class="slop-game-lockup" aria-hidden="true"
+            ><span class="slop-game-lockup__slop">Slop.</span><span class="slop-game-lockup__game">game</span></span
+          >
+          <span aria-hidden="true">↗</span>
+        </a>
       </nav>
     </header>
 
@@ -77,96 +68,20 @@
         <div class="ascii-bounce-stage">
           <h1 id="hero-title" class="ascii-lockup">
             <span class="sr-only">AI Slop</span>
-            <svg class="ascii-wordmark" viewBox="0 0 570 527" aria-hidden="true" focusable="false">
-              <defs>
-                <pattern
-                  id="ascii-dot-base"
-                  width="18"
-                  height="18"
-                  patternUnits="userSpaceOnUse"
-                  patternContentUnits="userSpaceOnUse"
-                >
-                  <circle cx="4.5" cy="4.5" r="1.95" />
-                  <circle cx="13.5" cy="4.5" r="1.95" />
-                  <circle cx="4.5" cy="13.5" r="1.95" />
-                  <circle cx="13.5" cy="13.5" r="1.95" />
-                </pattern>
-                <pattern
-                  id="ascii-dot-middle"
-                  width="18"
-                  height="18"
-                  patternUnits="userSpaceOnUse"
-                  patternContentUnits="userSpaceOnUse"
-                >
-                  <circle cx="4.5" cy="4.5" r="2.8" />
-                  <circle cx="13.5" cy="4.5" r="2.8" />
-                  <circle cx="4.5" cy="13.5" r="2.8" />
-                  <circle cx="13.5" cy="13.5" r="2.8" />
-                </pattern>
-                <pattern
-                  id="ascii-dot-peak"
-                  width="18"
-                  height="18"
-                  patternUnits="userSpaceOnUse"
-                  patternContentUnits="userSpaceOnUse"
-                >
-                  <circle cx="4.5" cy="4.5" r="3.65" />
-                  <circle cx="13.5" cy="4.5" r="3.65" />
-                  <circle cx="4.5" cy="13.5" r="3.65" />
-                  <circle cx="13.5" cy="13.5" r="3.65" />
-                </pattern>
-                <radialGradient
-                  id="ascii-dot-wave-middle"
-                  data-dot-wave="middle"
-                  gradientUnits="userSpaceOnUse"
-                  cx="285"
-                  cy="264"
-                  r="210"
-                >
-                  <stop offset="0" stop-color="#fff" stop-opacity="1" />
-                  <stop offset="0.58" stop-color="#fff" stop-opacity="1" />
-                  <stop offset="1" stop-color="#fff" stop-opacity="0" />
-                </radialGradient>
-                <radialGradient
-                  id="ascii-dot-wave-peak"
-                  data-dot-wave="peak"
-                  gradientUnits="userSpaceOnUse"
-                  cx="285"
-                  cy="264"
-                  r="124"
-                >
-                  <stop offset="0" stop-color="#fff" stop-opacity="1" />
-                  <stop offset="0.5" stop-color="#fff" stop-opacity="1" />
-                  <stop offset="1" stop-color="#fff" stop-opacity="0" />
-                </radialGradient>
-                <mask id="ascii-dot-middle-mask" x="0" y="0" width="570" height="527" maskUnits="userSpaceOnUse">
-                  <rect width="570" height="527" fill="url(#ascii-dot-wave-middle)" />
-                </mask>
-                <mask id="ascii-dot-peak-mask" x="0" y="0" width="570" height="527" maskUnits="userSpaceOnUse">
-                  <rect width="570" height="527" fill="url(#ascii-dot-wave-peak)" />
-                </mask>
-              </defs>
-              <g class="dot-letter-layer dot-letter-layer--base" fill="url(#ascii-dot-base)">
-                <text x="70" y="258">ai</text>
-                <text x="0" y="415">slop</text>
-              </g>
-              <g
-                class="dot-letter-layer dot-letter-layer--middle"
-                fill="url(#ascii-dot-middle)"
-                mask="url(#ascii-dot-middle-mask)"
-              >
-                <text x="70" y="258">ai</text>
-                <text x="0" y="415">slop</text>
-              </g>
-              <g
-                class="dot-letter-layer dot-letter-layer--peak"
-                fill="url(#ascii-dot-peak)"
-                mask="url(#ascii-dot-peak-mask)"
-              >
-                <text x="70" y="258">ai</text>
-                <text x="0" y="415">slop</text>
-              </g>
-            </svg>
+            <img
+              class="ascii-wordmark ascii-wordmark--source"
+              src="./assets/aislopinc-logo.png?v=20260907-17"
+              alt=""
+              aria-hidden="true"
+            />
+            <canvas
+              class="ascii-wordmark ascii-wordmark--motion"
+              data-dot-logo
+              data-dot-source="./assets/ai-slop-hero-dots.json?v=20260907-17"
+              width="970"
+              height="865"
+              aria-hidden="true"
+            ></canvas>
           </h1>
         </div>
 
@@ -177,14 +92,11 @@
 
       <section class="product" id="product" aria-labelledby="product-title">
         <div class="product-copy">
-          <h2
-            id="product-title"
-            class="mixed-heading"
-            data-mixed-type="title"
-            data-type-seed="2"
-            data-tight-words
-          >
-            Slop. game
+          <h2 id="product-title" class="mixed-heading product-title-lockup">
+            <span class="sr-only">Slop.game</span>
+            <span class="slop-game-lockup" aria-hidden="true"
+              ><span class="slop-game-lockup__slop">Slop.</span><span class="slop-game-lockup__game">game</span></span
+            >
           </h2>
           <p class="product-subtitle">Our first product.</p>
           <div class="product-slop">
@@ -219,8 +131,18 @@
             </svg>
             <span><small>Download on the</small><strong>App Store</strong></span>
           </a>
-          <a class="product-site-link" href="https://slop.game" target="_blank" rel="noreferrer">
-            Visit slop.game ↗
+          <a
+            class="product-site-link"
+            href="https://slop.game"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit Slop.game (opens in a new tab)"
+          >
+            Visit
+            <span class="slop-game-lockup" aria-hidden="true"
+              ><span class="slop-game-lockup__slop">Slop.</span><span class="slop-game-lockup__game">game</span></span
+            >
+            <span aria-hidden="true">↗</span>
           </a>
         </div>
 
@@ -267,7 +189,7 @@
       <section class="approach" id="approach" aria-labelledby="approach-title">
         <div class="approach-layout">
           <h2 id="approach-title" class="mixed-heading" data-mixed-type="title" data-type-seed="5">
-            A comfortable<br />way into AI.
+            The AI Slop<br />Manifesto.
           </h2>
           <div class="approach-copy">
             <p>
@@ -283,6 +205,10 @@
               <strong>“AI Slop” is deliberate.</strong> The name lowers the temperature and puts us at eye level
               with the people using the technology. AI should feel less like a mandate and more like something
               anyone can try on their own terms.
+            </p>
+            <p class="art-note">
+              Andy Warhol turned mass culture into Pop Art. We believe it’s our turn to shape the next
+              evolution: “slop art,” made through software.
             </p>
           </div>
         </div>
@@ -347,8 +273,16 @@
           </h2>
         </div>
 
-        <a class="slop-ad__link" href="https://slop.game" target="_blank" rel="noreferrer">
-          <span>slop.game</span>
+        <a
+          class="slop-ad__link"
+          href="https://slop.game"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Slop.game (opens in a new tab)"
+        >
+          <span class="slop-game-lockup" aria-hidden="true"
+            ><span class="slop-game-lockup__slop">Slop.</span><span class="slop-game-lockup__game">game</span></span
+          >
           <span aria-hidden="true">↗</span>
         </a>
       </section>
@@ -366,7 +300,8 @@
       <span>© <span data-year></span></span>
     </footer>
 
-    <script src="./script.js?v=20260907-14"></script>
+    <script src="./assets/ai-slop-hero-dots.js?v=20260907-17"></script>
+    <script src="./script.js?v=20260907-18"></script>
     <script src="./slop-toon.js?v=20260907-4"></script>
   </body>
 </html>
