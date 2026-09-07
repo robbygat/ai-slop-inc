@@ -194,7 +194,7 @@ if (asciiStage) {
     }
 
     const bloomRadius = Math.min(dotLogo.width, dotLogo.height) * 0.24;
-    const baseRadius = dotLogo.radius * 0.79;
+    const baseRadius = dotLogo.radius * 0.72;
 
     logoContext.fillStyle = "#000";
     logoContext.beginPath();
@@ -205,7 +205,7 @@ if (asciiStage) {
       const ripple = reduceMotion.matches ? 0.5 : 0.5 + Math.sin(seconds * 2.3 - distance * 0.032) * 0.5;
       const radius =
         baseRadius +
-        dotLogo.radius * (0.018 * breath + 0.27 * bloom + 0.02 * bloom * ripple) +
+        dotLogo.radius * (0.02 * breath + 0.42 * bloom + 0.015 * bloom * ripple) +
         impact * dotLogo.radius * 0.08 * bloom;
 
       logoContext.moveTo(x + radius, y);
@@ -489,6 +489,64 @@ if (wordCycle) {
   wordObserver.observe(wordCycle);
   document.addEventListener("visibilitychange", syncWordCycle);
   reduceWordMotion.addEventListener?.("change", syncWordCycle);
+}
+
+const manifestoSprite = document.querySelector("[data-manifesto-sprite]");
+
+if (manifestoSprite) {
+  const spriteFrames = [
+    [0, 0],
+    [1, 0],
+    [2, 0],
+    [0, 1],
+    [1, 1],
+    [2, 1],
+  ];
+  const spriteLayers = [...manifestoSprite.querySelectorAll(".manifesto-art__frame")];
+  const reduceSpriteMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let spriteIndex = 0;
+  let activeSpriteLayer = 0;
+  let spriteTimer = 0;
+  let spriteVisible = false;
+
+  const paintSpriteFrame = (layer, frameIndex) => {
+    const [column, row] = spriteFrames[frameIndex];
+    layer.style.setProperty("--sprite-x", `${column * 50}%`);
+    layer.style.setProperty("--sprite-y", `${row * 100}%`);
+  };
+
+  const showNextSpriteFrame = () => {
+    const nextLayer = activeSpriteLayer === 0 ? 1 : 0;
+    spriteIndex = (spriteIndex + 1) % spriteFrames.length;
+    paintSpriteFrame(spriteLayers[nextLayer], spriteIndex);
+    spriteLayers[nextLayer].classList.add("is-active");
+    spriteLayers[activeSpriteLayer].classList.remove("is-active");
+    activeSpriteLayer = nextLayer;
+  };
+
+  const syncSpriteLoop = () => {
+    window.clearInterval(spriteTimer);
+    spriteTimer = 0;
+
+    if (!reduceSpriteMotion.matches && spriteVisible && !document.hidden) {
+      spriteTimer = window.setInterval(showNextSpriteFrame, 1000);
+    }
+  };
+
+  paintSpriteFrame(spriteLayers[0], 0);
+  paintSpriteFrame(spriteLayers[1], 1);
+
+  const spriteObserver = new IntersectionObserver(
+    ([entry]) => {
+      spriteVisible = entry.isIntersecting;
+      syncSpriteLoop();
+    },
+    { rootMargin: "120px" },
+  );
+
+  spriteObserver.observe(manifestoSprite);
+  document.addEventListener("visibilitychange", syncSpriteLoop);
+  reduceSpriteMotion.addEventListener?.("change", syncSpriteLoop);
 }
 
 const slopCarousel = document.querySelector(".slop-carousel");
