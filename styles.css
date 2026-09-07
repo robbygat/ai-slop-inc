@@ -454,7 +454,7 @@ footer {
   top: 0;
   left: 0;
   display: block;
-  width: min(clamp(28rem, 48vw, 41.25rem), calc(100vw - 3rem), calc(112.185svh - 22.437rem));
+  width: min(clamp(19.6rem, 33.6vw, 28.875rem), calc(100vw - 3rem), calc(112.185svh - 22.437rem));
   height: auto;
   aspect-ratio: 969.87 / 864.52;
   margin: 0;
@@ -470,7 +470,7 @@ footer {
   bottom: clamp(0.9rem, 2vw, 1.75rem);
   display: block;
   width: auto;
-  height: clamp(4.5rem, 7.5vw, 6.75rem);
+  height: clamp(13.5rem, 22.5vw, 20.25rem);
   pointer-events: none;
 }
 
@@ -1106,7 +1106,7 @@ footer > span:last-child {
   }
 
   .ascii-lockup {
-    width: min(88vw, 23rem);
+    width: min(61.6vw, 16.1rem);
     max-width: calc(100% - 1rem);
     height: auto;
   }
