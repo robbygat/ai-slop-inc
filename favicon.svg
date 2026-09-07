@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="11" fill="#f5f2eb" />
+  <defs>
+    <pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.35" fill="#171715" />
+    </pattern>
+  </defs>
+  <text x="7" y="46" fill="url(#dots)" font-family="Arial, sans-serif" font-size="45" font-weight="700" letter-spacing="-3">ai</text>
+</svg>

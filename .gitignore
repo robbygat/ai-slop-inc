@@ -1,0 +1,11 @@
+.DS_Store
+
+# Local source/reference images that are not used by the production site.
+/1788421968676(1).jpg
+/fe7b345ebe9365a3.JPG
+/assets/ai-slop-dot-wordmark-v1.png
+/assets/ai-slop-dot-wordmark-v2.png
+
+# Local working directories.
+/scripts/
+/tools/
