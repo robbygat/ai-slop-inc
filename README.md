@@ -1,7 +1,7 @@
 # AI Slop Inc.
 
 The official website for AI Slop Inc. A minimalist, responsive static site introducing the company,
-its approach, team, and first product: [Slop.game](https://slop.game).
+its approach, recognition, and first product: [Slop.game](https://slop.game).
 
 ## Preview
 
