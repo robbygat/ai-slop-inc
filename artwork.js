@@ -8,133 +8,93 @@
   const source = new Image();
   const outgoing = document.createElement("canvas");
   const outgoingContext = outgoing.getContext("2d");
-  if (!outgoingContext) return;
+  const incoming = document.createElement("canvas");
+  const incomingContext = incoming.getContext("2d");
+  if (!outgoingContext || !incomingContext) return;
 
-  const columns = 18;
-  const rows = 20;
-  const printDuration = 1150;
-  const pulseDuration = 750;
+  const dissolveDuration = 1400;
+  const colorways = [
+    { x: 1, y: 0, paper: "#e7bbce" },
+    { x: 2, y: 1, paper: "#bdd4de" },
+    { x: 0, y: 0, paper: "#f0c5a7" },
+    { x: 1, y: 1, paper: "#ccbfdd" },
+  ];
   let width = 0;
   let height = 0;
   let frame = 0;
   let ready = false;
   let visible = !("IntersectionObserver" in window);
   let transitionAt = null;
-  let pulseAt = -Infinity;
-  let pointer = { x: 0, y: 0 };
-  let crop = { x: 0, y: 0, width: 0, height: 0 };
+  let colorwayIndex = 0;
 
   const clamp = (value) => Math.max(0, Math.min(1, value));
   const canAnimate = () =>
-    visible && !document.hidden && !reducedMotion.matches;
+    visible &&
+    !document.hidden &&
+    !reducedMotion.matches &&
+    !navigator.connection?.saveData;
 
-  function readCrop() {
+  function readColorwayIndex() {
     const position = getComputedStyle(portrait).backgroundPosition.split(" ");
     const fraction = (value) => clamp(parseFloat(value) / 100 || 0);
-    return {
-      x: ((source.naturalWidth * 2) / 3) * fraction(position[0]),
-      y: (source.naturalHeight / 2) * fraction(position[1]),
-      width: source.naturalWidth / 3,
-      height: source.naturalHeight / 2,
-    };
-  }
-
-  function drawPortrait() {
-    context.drawImage(
-      source,
-      crop.x,
-      crop.y,
-      crop.width,
-      crop.height,
+    return Math.max(
       0,
-      0,
-      width,
-      height,
+      colorways.findIndex(
+        (colorway) =>
+          colorway.x === 2 * fraction(position[0]) &&
+          colorway.y === fraction(position[1]),
+      ),
     );
   }
 
-  function drawTile(column, row, offsetX = 0, offsetY = 0) {
-    context.drawImage(
-      source,
-      crop.x + (column * crop.width) / columns,
-      crop.y + (row * crop.height) / rows,
-      crop.width / columns,
-      crop.height / rows,
-      (column * width) / columns + offsetX,
-      (row * height) / rows + offsetY,
-      width / columns,
-      height / rows,
-    );
+  function preparePlate() {
+    if (!ready || !width || !height) return;
+    incomingContext.clearRect(0, 0, width, height);
+    const cropWidth = source.naturalWidth / 3;
+    const cropHeight = source.naturalHeight / 2;
+    for (let quadrant = 0; quadrant < 4; quadrant++) {
+      const colorway = colorways[(colorwayIndex + quadrant) % colorways.length];
+      const x = (quadrant % 2) * (width / 2);
+      const y = Math.floor(quadrant / 2) * (height / 2);
+      incomingContext.fillStyle = colorway.paper;
+      incomingContext.fillRect(x, y, width / 2, height / 2);
+      incomingContext.drawImage(
+        source,
+        colorway.x * cropWidth,
+        colorway.y * cropHeight,
+        cropWidth,
+        cropHeight,
+        x,
+        y,
+        width / 2,
+        height / 2,
+      );
+    }
   }
 
   function paint(time = performance.now()) {
     if (!ready || !width || !height) return false;
     context.clearRect(0, 0, width, height);
     const progress =
-      transitionAt === null ? 1 : clamp((time - transitionAt) / printDuration);
+      transitionAt === null
+        ? 1
+        : clamp((time - transitionAt) / dissolveDuration);
 
     if (progress < 1) {
-      // The complete outgoing print stays underneath every incoming ink cell.
-      // This also preserves an interrupted transition without reading pixels.
+      // Keep the complete outgoing print opaque while the next colorway
+      // dissolves over it. Nothing moves, fragments, or fades to white.
       context.drawImage(outgoing, 0, 0, width, height);
-      const tileWidth = width / columns;
-      const tileHeight = height / rows;
-      const radius = Math.hypot(tileWidth, tileHeight) / 2;
-      for (let row = 0; row < rows; row++) {
-        for (let column = 0; column < columns; column++) {
-          const delay =
-            ((0.6 * column) / (columns - 1) + (0.4 * row) / (rows - 1)) * 0.48;
-          const cell = clamp((progress - delay) / 0.52);
-          if (!cell) continue;
-          if (cell === 1) {
-            drawTile(column, row);
-            continue;
-          }
-          const ink = cell * cell * (3 - 2 * cell);
-          const x = column * tileWidth;
-          const y = row * tileHeight;
-          context.save();
-          context.beginPath();
-          context.rect(x, y, tileWidth, tileHeight);
-          context.clip();
-          context.beginPath();
-          context.arc(
-            x + tileWidth / 2,
-            y + tileHeight / 2,
-            radius * ink,
-            0,
-            Math.PI * 2,
-          );
-          context.clip();
-          drawTile(column, row);
-          context.restore();
-        }
+      if (progress > 0) {
+        context.globalAlpha = progress * progress * (3 - 2 * progress);
+        context.drawImage(incoming, 0, 0, width, height);
+        context.globalAlpha = 1;
       }
       return true;
     }
 
     transitionAt = null;
-    drawPortrait();
-    const pulse = (time - pulseAt) / pulseDuration;
-    if (!canAnimate() || pulse < 0 || pulse >= 1) return false;
-    const diagonal = Math.hypot(width, height);
-    for (let row = 0; row < rows; row++) {
-      for (let column = 0; column < columns; column++) {
-        const dx = ((column + 0.5) * width) / columns - pointer.x;
-        const dy = ((row + 0.5) * height) / rows - pointer.y;
-        const distance = Math.hypot(dx, dy);
-        const ring = distance / diagonal - pulse * 1.15;
-        const ripple =
-          Math.sin(ring * 24) * Math.exp(-ring * ring * 28) * (1 - pulse) * 3;
-        drawTile(
-          column,
-          row,
-          (ripple * dx) / (distance || 1),
-          (ripple * dy) / (distance || 1),
-        );
-      }
-    }
-    return true;
+    context.drawImage(incoming, 0, 0, width, height);
+    return false;
   }
 
   function tick(time) {
@@ -148,7 +108,7 @@
 
   function wake() {
     if (!ready || !width || !height || !canAnimate() || frame) return;
-    if (transitionAt !== null || performance.now() - pulseAt < pulseDuration) {
+    if (transitionAt !== null) {
       frame = requestAnimationFrame(tick);
     }
   }
@@ -157,7 +117,6 @@
     cancelAnimationFrame(frame);
     frame = 0;
     transitionAt = null;
-    pulseAt = -Infinity;
     paint();
   }
 
@@ -169,6 +128,8 @@
     const ratio = Math.min(devicePixelRatio || 1, 2);
     canvas.width = Math.round(width * ratio);
     canvas.height = Math.round(height * ratio);
+    incoming.width = canvas.width;
+    incoming.height = canvas.height;
     context.setTransform(
       canvas.width / width,
       0,
@@ -177,43 +138,29 @@
       0,
       0,
     );
+    incomingContext.setTransform(
+      canvas.width / width,
+      0,
+      0,
+      canvas.height / height,
+      0,
+      0,
+    );
     if (ready) {
+      preparePlate();
       paint();
       portrait.classList.add("has-canvas");
     }
     wake();
   }
 
-  portrait.addEventListener(
-    "pointermove",
-    (event) => {
-      if (
-        !ready ||
-        !width ||
-        !height ||
-        !canAnimate() ||
-        event.pointerType === "touch" ||
-        transitionAt !== null
-      )
-        return;
-      const bounds = portrait.getBoundingClientRect();
-      if (!bounds.width || !bounds.height) return;
-      pointer = {
-        x: ((event.clientX - bounds.left) * width) / bounds.width,
-        y: ((event.clientY - bounds.top) * height) / bounds.height,
-      };
-      pulseAt = performance.now();
-      wake();
-    },
-    { passive: true },
-  );
-
   new MutationObserver(() => {
     if (!ready) return;
-    const next = readCrop();
-    if (next.x === crop.x && next.y === crop.y) return;
+    const next = readColorwayIndex();
+    if (next === colorwayIndex) return;
     if (!width || !height || !canAnimate()) {
-      crop = next;
+      colorwayIndex = next;
+      preparePlate();
       settle();
       return;
     }
@@ -223,8 +170,8 @@
     outgoing.width = canvas.width;
     outgoing.height = canvas.height;
     outgoingContext.drawImage(canvas, 0, 0);
-    crop = next;
-    pulseAt = -Infinity;
+    colorwayIndex = next;
+    preparePlate();
     transitionAt = time;
     wake();
   }).observe(portrait, { attributes: true, attributeFilter: ["style"] });
@@ -245,10 +192,11 @@
     document.hidden ? settle() : wake(),
   );
   reducedMotion.addEventListener("change", settle);
+  navigator.connection?.addEventListener?.("change", settle);
 
   source.onload = () => {
     ready = true;
-    crop = readCrop();
+    colorwayIndex = readColorwayIndex();
     resize();
   };
   source.src = new URL(

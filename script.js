@@ -1,65 +1,23 @@
-const menuButton = document.querySelector("[data-menu-button]");
-const navigation = document.querySelector("[data-nav]");
-function closeMenu() {
-  menuButton?.setAttribute("aria-expanded", "false");
-  if (menuButton)
-    menuButton.innerHTML = 'Menu <span aria-hidden="true">+</span>';
-  navigation?.classList.remove("is-open");
-}
-menuButton?.addEventListener("click", () => {
-  const open = menuButton.getAttribute("aria-expanded") !== "true";
-  menuButton.setAttribute("aria-expanded", String(open));
-  menuButton.innerHTML = open
-    ? 'Close <span aria-hidden="true">−</span>'
-    : 'Menu <span aria-hidden="true">+</span>';
-  navigation?.classList.toggle("is-open", open);
-});
-navigation
-  ?.querySelectorAll("a")
-  .forEach((link) => link.addEventListener("click", closeMenu));
-document.addEventListener("keydown", (event) => {
-  if (
-    event.key === "Escape" &&
-    menuButton?.getAttribute("aria-expanded") === "true"
-  ) {
-    closeMenu();
-    menuButton.focus();
-  }
-});
-window.matchMedia("(min-width: 761px)").addEventListener("change", (event) => {
-  if (event.matches) closeMenu();
-});
 document.querySelectorAll("[data-year]").forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
 const portrait = document.querySelector("[data-art-portrait]");
-const print = document.querySelector("[data-art-print]");
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-const prints = [
-  { position: "50% 0%", paper: "#e7bbce", rotation: "-5deg" },
-  { position: "100% 100%", paper: "#b5cbd4", rotation: "3deg" },
-  { position: "0% 0%", paper: "#ebbd9b", rotation: "-3deg" },
-  { position: "50% 100%", paper: "#e5b8cb", rotation: "5deg" },
-];
+const prints = ["50% 0%", "100% 100%", "0% 0%", "50% 100%"];
 let printIndex = 0;
 let portraitVisible = !("IntersectionObserver" in window);
 let printTimer = 0;
 
 function nextPrint() {
-  if (!portrait || !print) return;
+  if (!portrait) return;
   printIndex = (printIndex + 1) % prints.length;
-  const next = prints[printIndex];
-  portrait.style.backgroundPosition = next.position;
-  print.style.background = next.paper;
-  print.style.setProperty("--print-angle", next.rotation);
-  print.parentElement.style.setProperty("--paper-angle", next.rotation);
+  portrait.style.backgroundPosition = prints[printIndex];
 }
 
 function canCyclePrint() {
   return (
     portrait &&
-    print &&
     portraitVisible &&
     !document.hidden &&
     !motionPreference.matches &&
@@ -75,10 +33,10 @@ function syncPrintCycle() {
     printTimer = 0;
     if (canCyclePrint()) nextPrint();
     syncPrintCycle();
-  }, 3800);
+  }, 6000);
 }
 
-if (portrait && print) {
+if (portrait) {
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(
       ([entry]) => {
@@ -171,7 +129,7 @@ if ("IntersectionObserver" in window) {
     { threshold: 0, rootMargin: "0px 0px 60px 0px" },
   );
   const revealNodes = document.querySelectorAll(
-    ".product__heading, .anki-copy, .approach__copy, .approach h2, .rhythm, .recognition__copy, .recognition__logos, .footer__top",
+    ".product__heading, .anki-copy, .approach__copy, .approach h2, .rhythm, .recognition__copy, .recognition__logos",
   );
   revealNodes.forEach((node) => {
     if (!motionPreference.matches) node.classList.add("is-reveal-pending");
@@ -186,24 +144,3 @@ if ("IntersectionObserver" in window) {
     queueSceneFrame();
   });
 }
-
-const art = document.querySelector(".hero-art");
-const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
-art?.addEventListener("pointermove", (event) => {
-  if (motionPreference.matches || !finePointer.matches) return;
-  const rect = art.getBoundingClientRect();
-  art.style.setProperty(
-    "--art-y",
-    (((event.clientX - rect.left) / rect.width) * 6 - 3).toFixed(2) + "deg",
-  );
-  art.style.setProperty(
-    "--art-x",
-    (3 - ((event.clientY - rect.top) / rect.height) * 6).toFixed(2) + "deg",
-  );
-});
-function resetArtPose() {
-  art?.style.setProperty("--art-x", "0deg");
-  art?.style.setProperty("--art-y", "0deg");
-}
-art?.addEventListener("pointerleave", resetArtPose);
-motionPreference.addEventListener("change", resetArtPose);
