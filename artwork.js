@@ -13,7 +13,6 @@
   if (!outgoingContext || !incomingContext) return;
 
   const dissolveDuration = 900;
-  const paper = "#fafafa";
   const colorways = [
     { x: 1, y: 0 },
     { x: 2, y: 1 },
@@ -70,8 +69,6 @@
   function preparePlate() {
     if (!ready || !width || !height) return;
     incomingContext.clearRect(0, 0, width, height);
-    incomingContext.fillStyle = paper;
-    incomingContext.fillRect(0, 0, width, height);
     const size = Math.min(width, height) * 0.86;
     const x = (width - size) / 2;
     const y = (height - size) / 2;
@@ -94,7 +91,7 @@
       incomingContext.beginPath();
       incomingContext.rect(0, y + size * top, width, size * depth);
       incomingContext.clip();
-      incomingContext.fillRect(0, 0, width, height);
+      incomingContext.clearRect(0, 0, width, height);
       drawPortrait(incomingContext, colorwayIndex, x, y, size, size * offset);
       drawPortrait(
         incomingContext,
@@ -123,7 +120,7 @@
     );
   }
 
-  function drawSignalPass(progress) {
+  function drawSignalPass(progress, eased) {
     // Only two displacement beats, softened by opacity over the full dissolve.
     const beat =
       progress >= 0.12 && progress < 0.34
@@ -146,7 +143,13 @@
       context.beginPath();
       context.rect(0, y + size * top, width, size * depth);
       context.clip();
-      context.globalAlpha = opacity;
+      context.clearRect(0, 0, width, height);
+      context.globalAlpha = 1 - eased;
+      drawPlate(outgoing);
+      context.globalCompositeOperation = "lighter";
+      context.globalAlpha = eased * (1 - opacity);
+      drawPlate(incoming);
+      context.globalAlpha = eased * opacity;
       context.drawImage(
         incoming,
         size * beat.offset * direction,
@@ -161,22 +164,25 @@
   function paint(time = performance.now()) {
     if (!ready || !width || !height) return false;
     context.clearRect(0, 0, width, height);
-    context.fillStyle = paper;
-    context.fillRect(0, 0, width, height);
     const progress =
       transitionAt === null
         ? 1
         : clamp((time - transitionAt) / dissolveDuration);
 
     if (progress < 1) {
-      // An opaque, complete portrait remains underneath every transition frame.
+      // Blend premultiplied color and alpha together, with no painted backdrop.
+      // An opaque outgoing underlay would retain old dots until the final frame.
+      const eased = progress * progress * (3 - 2 * progress);
+      context.save();
+      context.globalAlpha = 1 - eased;
       drawPlate(outgoing);
       if (progress > 0) {
-        context.globalAlpha = progress * progress * (3 - 2 * progress);
+        context.globalCompositeOperation = "lighter";
+        context.globalAlpha = eased;
         drawPlate(incoming);
-        context.globalAlpha = 1;
-        drawSignalPass(progress);
       }
+      context.restore();
+      drawSignalPass(progress, eased);
       return true;
     }
 

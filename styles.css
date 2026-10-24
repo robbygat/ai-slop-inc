@@ -137,22 +137,27 @@ em {
 }
 .hero {
   overflow: clip;
-  border-block: 1px solid var(--line);
 }
 .hero__main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   align-items: center;
   max-width: 1680px;
   margin-inline: auto;
+  padding-bottom: 2.5rem;
 }
 .hero__copy {
-  padding: 3.5rem 2rem 3.5rem var(--pad);
+  position: relative;
+  z-index: 2;
+  grid-column: 1 / 8;
+  grid-row: 1;
+  padding: 3.5rem 0 3.5rem var(--pad);
+  margin-top: 4rem;
 }
 .hero h1 {
   position: relative;
   z-index: 2;
-  font-size: clamp(3.6rem, 8.15vw, 9.5rem);
+  font-size: clamp(3.6rem, 10.3vw, 11.8rem);
   font-weight: 520;
   line-height: 0.88;
   letter-spacing: -0.055em;
@@ -166,7 +171,7 @@ em {
   color: var(--red);
 }
 .hero-heading-row--main {
-  font-weight: 800;
+  font-weight: 520;
   letter-spacing: -0.06em;
 }
 .hero-slop {
@@ -184,13 +189,18 @@ em {
   position: relative;
   min-width: 0;
   width: 100%;
+  max-width: 46rem;
+  grid-column: 6 / -1;
+  grid-row: 1;
+  justify-self: center;
+  margin-block: 1rem;
+  pointer-events: none;
 }
 .hero-art__print {
   position: relative;
   aspect-ratio: 1;
   width: 100%;
-  overflow: hidden;
-  background: #fafafa;
+  overflow: visible;
 }
 .hero-art__portrait {
   position: absolute;
@@ -589,10 +599,11 @@ em {
 }
 @media (max-width: 1100px) {
   .hero__copy {
-    padding-right: 1.25rem;
+    margin-top: 1.5rem;
   }
   .hero__copy > p {
     margin-top: 2rem;
+    max-width: 30vw;
   }
   .product__intro {
     display: block;
@@ -637,12 +648,16 @@ em {
   }
   .hero__main {
     grid-template-columns: 1fr;
+    padding-bottom: 1.5rem;
   }
   .hero__copy {
-    padding: 3.1rem var(--pad) 2.75rem;
+    grid-column: 1;
+    grid-row: auto;
+    padding: 2.8rem var(--pad) 1.5rem;
+    margin-top: 0;
   }
   .hero h1 {
-    font-size: clamp(3.25rem, 16.5vw, 7.5rem);
+    font-size: clamp(3.25rem, 19vw, 8rem);
     line-height: 0.9;
     letter-spacing: -0.055em;
   }
@@ -653,6 +668,10 @@ em {
   }
   .hero-art {
     width: 100%;
+    max-width: 32rem;
+    grid-column: 1;
+    grid-row: auto;
+    margin-block: 0;
   }
   .product--slop {
     padding-top: 3.3rem;

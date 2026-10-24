@@ -13,6 +13,9 @@ AnkiDuo's previews form a native, keyboard-accessible horizontal gallery. Hero a
 type entrances, and scroll-linked product motion respect reduced-motion preferences and
 stop updating offscreen. Marilyn's original dotted color variants form a single
 digital portrait with sparse displaced bands and restrained color registration.
+The source transparency is preserved in every canvas frame; there is no painted
+rectangle behind the artwork. An overlapping editorial grid lets the portrait
+and oversized type share the page rather than occupy separate panels.
 Colorways change every six seconds while visible. There are no artwork controls,
 pointer effects, or continuous jitter. Reduced-motion and data-saving modes keep
 a static portrait. All content remains readable without JavaScript, including a

@@ -6,8 +6,12 @@
     </symbol>
     <clipPath id="signal-a"><rect x="685" y="277" width="515" height="24"/></clipPath>
     <clipPath id="signal-b"><rect x="685" y="420" width="515" height="13"/></clipPath>
+    <mask id="portrait-bands">
+      <rect width="1200" height="630" fill="white"/>
+      <rect x="685" y="277" width="515" height="24" fill="black"/>
+      <rect x="685" y="420" width="515" height="13" fill="black"/>
+    </mask>
   </defs>
-  <rect x="685" y="108" width="515" height="522" fill="#fafafa"/>
   <g fill="#181818" font-family="Arial, sans-serif">
     <text x="55" y="76" fill="#dc2d22" font-size="31" font-weight="700" letter-spacing="-1.3">AI Slop Inc.</text>
     <path d="M55 107h1090" stroke="#d9d9d9" stroke-width="1"/>
@@ -19,13 +23,11 @@
     <text x="55" y="482" font-size="23">Making playgrounds where it can thrive.</text>
     <text x="55" y="565" font-size="21">Built on open source.</text>
   </g>
-  <use xlink:href="#portrait" x="720" y="150" width="445" height="445"/>
+  <use xlink:href="#portrait" x="720" y="150" width="445" height="445" mask="url(#portrait-bands)"/>
   <g clip-path="url(#signal-a)">
-    <rect x="685" y="277" width="515" height="24" fill="#fafafa"/>
     <use xlink:href="#portrait" x="736" y="150" width="445" height="445"/>
   </g>
   <g clip-path="url(#signal-b)">
-    <rect x="685" y="420" width="515" height="13" fill="#fafafa"/>
     <use xlink:href="#portrait" x="712" y="150" width="445" height="445"/>
   </g>
 </svg>
