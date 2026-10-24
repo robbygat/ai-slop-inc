@@ -53,6 +53,7 @@ function nextPrint() {
   portrait.style.backgroundPosition = next.position;
   print.style.background = next.paper;
   print.style.setProperty("--print-angle", next.rotation);
+  print.parentElement.style.setProperty("--paper-angle", next.rotation);
 }
 
 function canCyclePrint() {

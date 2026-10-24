@@ -209,7 +209,8 @@ em {
   width: 88%;
   height: 91%;
   background: var(--red);
-  transform: rotate(8deg);
+  transform: rotate(calc(3deg - var(--paper-angle, -5deg)));
+  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-art::after {
   position: absolute;
@@ -217,7 +218,8 @@ em {
   content: "";
   inset: 1% -2% 4% 8%;
   border: 1px solid var(--red);
-  transform: rotate(-10deg);
+  transform: rotate(calc(var(--paper-angle, -5deg) - 5deg));
+  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-art__print {
   position: relative;
@@ -227,8 +229,8 @@ em {
   background: #e7bbce;
   transform: rotate(-5deg);
   transition:
-    background 0.35s,
-    transform 0.35s;
+    background 1.15s ease,
+    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .hero-art__portrait {
   position: absolute;
@@ -379,20 +381,9 @@ em {
 .anki-copy {
   color: #29213f;
   max-width: 35rem;
-  align-self: end;
+  align-self: center;
   grid-column: 1;
   grid-row: 1;
-}
-.product-status {
-  display: block;
-  width: fit-content;
-  margin-top: 1rem;
-  padding: 0.4rem 0.7rem;
-  border: 1px solid #625775;
-  border-radius: 2rem;
-  font-size: 0.85rem;
-  letter-spacing: 0;
-  font-weight: 400;
 }
 .anki-copy h3 {
   margin-top: 0;
@@ -411,40 +402,6 @@ em {
   line-height: 1.5;
   color: #534b61;
 }
-.anki-details {
-  color: #29213f;
-  align-self: start;
-  grid-column: 1;
-  grid-row: 2;
-}
-.anki-details .text-link {
-  margin-top: 1.8rem;
-}
-.anki-details .release-note {
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  color: #534b61;
-}
-.anki-features {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  font-size: 1.05rem;
-  line-height: 1.35;
-  max-width: 28rem;
-}
-.anki-features li {
-  display: flex;
-  align-items: baseline;
-  gap: 1.1rem;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid #d9d6e2;
-}
-.anki-features span {
-  min-width: 1rem;
-  color: #5946c6;
-  font-size: 1.3rem;
-}
 .anki-stage {
   position: relative;
   display: flex;
@@ -454,7 +411,7 @@ em {
   min-width: 0;
   padding: 1.5rem 0.3rem 1.5rem 1.6rem;
   grid-column: 2;
-  grid-row: 1 / span 2;
+  grid-row: 1;
 }
 .approach {
   display: grid;
@@ -940,19 +897,12 @@ em {
     padding-top: 2.25rem;
   }
   .anki-copy,
-  .anki-stage,
-  .anki-details {
+  .anki-stage {
     grid-column: auto;
     grid-row: auto;
   }
   .anki-copy {
     max-width: none;
-  }
-  .product-status {
-    display: block;
-    margin: 1rem 0 0;
-    font-size: 0.75rem;
-    padding: 0.4rem 0.55rem;
   }
   .anki-copy h3 {
     margin-top: 0;
@@ -961,9 +911,6 @@ em {
   .anki-copy p {
     font-size: 1.07rem;
     margin-top: 1.2rem;
-  }
-  .anki-copy .text-link {
-    margin-top: 1.5rem;
   }
   .anki-stage {
     padding: 1.3rem 0.2rem 1.5rem;
@@ -1100,10 +1047,6 @@ em {
 @media (max-width: 359px) {
   :root {
     --pad: 1rem;
-  }
-  .product-status {
-    display: block;
-    margin: 1rem 0 0;
   }
   .product__intro {
     align-items: flex-start;
