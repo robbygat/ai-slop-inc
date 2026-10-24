@@ -1,16 +1,19 @@
 # AI Slop Inc.
 
-The official website for AI Slop Inc., showcasing [Slop.game](https://slop.game) and Anki Duo.
+The official website for AI Slop Inc., showcasing [Slop.game](https://slop.game) and AnkiDuo.
 Static HTML, CSS, and JavaScript; no build step or package dependencies.
 
 Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
 The font is served locally. The muted gameplay film loads when visible and respects reduced-motion
-and data-saving preferences. Anki Duo is clearly identified as in development.
+and data-saving preferences. AnkiDuo is marked development complete per the product owner's
+October 24 update; its GitHub link is pending and no download availability is implied.
 
 App screenshots use source-specific aspect ratios inside shared device frames. On mobile,
-Anki Duo's previews form a native, keyboard-accessible horizontal gallery. Hero artwork,
+AnkiDuo's previews form a native, keyboard-accessible horizontal gallery. Hero artwork,
 type entrances, and scroll-linked product motion respect reduced-motion preferences and
-stop updating offscreen. All content remains readable without JavaScript.
+stop updating offscreen. Marilyn's original dotted color variants cycle automatically
+every 3.8 seconds while visible, with no manual controls. All content remains readable
+without JavaScript.
 
 ## Preview
 

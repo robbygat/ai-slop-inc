@@ -35,7 +35,7 @@ document.querySelectorAll("[data-year]").forEach((node) => {
 
 const portrait = document.querySelector("[data-art-portrait]");
 const print = document.querySelector("[data-art-print]");
-const remix = document.querySelector("[data-remix]");
+const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 const prints = [
   { position: "50% 0%", paper: "#e7bbce", rotation: "-5deg" },
   { position: "100% 100%", paper: "#b5cbd4", rotation: "3deg" },
@@ -43,16 +43,58 @@ const prints = [
   { position: "50% 100%", paper: "#e5b8cb", rotation: "5deg" },
 ];
 let printIndex = 0;
-remix?.addEventListener("click", () => {
+let portraitVisible = !("IntersectionObserver" in window);
+let printTimer = 0;
+
+function nextPrint() {
+  if (!portrait || !print) return;
   printIndex = (printIndex + 1) % prints.length;
   const next = prints[printIndex];
   portrait.style.backgroundPosition = next.position;
   print.style.background = next.paper;
   print.style.setProperty("--print-angle", next.rotation);
-});
+}
+
+function canCyclePrint() {
+  return (
+    portrait &&
+    print &&
+    portraitVisible &&
+    !document.hidden &&
+    !motionPreference.matches &&
+    !navigator.connection?.saveData
+  );
+}
+
+function syncPrintCycle() {
+  window.clearTimeout(printTimer);
+  printTimer = 0;
+  if (!canCyclePrint()) return;
+  printTimer = window.setTimeout(() => {
+    printTimer = 0;
+    if (canCyclePrint()) nextPrint();
+    syncPrintCycle();
+  }, 3800);
+}
+
+if (portrait && print) {
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        portraitVisible =
+          entry.isIntersecting && entry.intersectionRatio >= 0.15;
+        syncPrintCycle();
+      },
+      { threshold: 0.15 },
+    ).observe(portrait);
+  }
+  motionPreference.addEventListener("change", syncPrintCycle);
+  document.addEventListener("visibilitychange", syncPrintCycle);
+  navigator.connection?.addEventListener?.("change", syncPrintCycle);
+  syncPrintCycle();
+}
 
 const film = document.querySelector("[data-film]");
-const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
 let filmVisible = false;
 function syncFilmPlayback() {
   if (!film) return;
