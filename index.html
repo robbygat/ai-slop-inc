@@ -40,8 +40,9 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261024-6" />
-    <script src="./script.js?v=20261024-6" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261024-7" />
+    <script src="./script.js?v=20261024-7" defer></script>
+    <script src="./artwork.js?v=20261024-7" defer></script>
     <title>AI Slop Inc. — Ship the future</title>
   </head>
   <body>
@@ -77,8 +78,11 @@
         <div class="hero__main">
           <div class="hero__copy">
             <h1 id="hero-title">
-              <span>Borrow the good.</span><span>Fix what’s not.</span
-              ><span>Ship the <em>future.</em></span>
+              <span><span class="hero-line">Borrow the good.</span></span>
+              <span><span class="hero-line">Fix what’s not.</span></span>
+              <span
+                ><span class="hero-line">Ship the <em>future.</em></span></span
+              >
             </h1>
             <p>AI is inevitable.<br />Let’s make something worth using.</p>
             <a class="text-link" href="#products"
@@ -92,7 +96,9 @@
                 role="img"
                 aria-label="A colorful pop-art portrait of Marilyn Monroe"
                 data-art-portrait
-              ></div>
+              >
+                <canvas data-art-canvas aria-hidden="true"></canvas>
+              </div>
               <span
                 class="hero-art__cross hero-art__cross--top"
                 aria-hidden="true"
@@ -134,16 +140,18 @@
               >
             </div>
           </div>
-          <div class="slop-stage">
+          <div class="slop-stage" data-motion-scene>
             <span class="slop-stage__type" aria-hidden="true">PLAY</span>
-            <figure class="app-screen app-screen--feed">
-              <img
-                src="./assets/slop-current/newest-lagoon.webp"
-                width="828"
-                height="1800"
-                alt="Slop.game’s swipeable feed, with a playable game ready to launch"
-                loading="lazy"
-              />
+            <figure class="device device--ios device--feed">
+              <div class="device__screen">
+                <img
+                  src="./assets/slop-current/newest-lagoon.webp"
+                  width="828"
+                  height="1800"
+                  alt="Slop.game’s swipeable feed, with a playable game ready to launch"
+                  loading="lazy"
+                />
+              </div>
             </figure>
             <div class="slop-film">
               <video
@@ -161,15 +169,6 @@
                 />
               </video>
             </div>
-            <figure class="app-screen app-screen--workshop">
-              <img
-                src="./assets/slop-current/workshop.webp"
-                width="828"
-                height="1800"
-                alt="The Slop.game Workshop and its current character collection"
-                loading="lazy"
-              />
-            </figure>
           </div>
           <div class="product__foot">
             <p>
@@ -204,24 +203,33 @@
               >Follow the progress <span aria-hidden="true">↗</span></a
             >
           </div>
-          <div class="anki-stage" aria-label="Anki Duo app preview">
-            <figure class="anki-screen anki-screen--path">
-              <img
-                src="./assets/anki-duo-current/study-path.webp"
-                width="720"
-                height="1680"
-                alt="Anki Duo’s study path in dark mode, with a daily goal and review cards"
-                loading="lazy"
-              />
+          <div
+            class="anki-stage"
+            aria-label="Anki Duo app previews; swipe horizontally on mobile"
+            data-motion-scene
+            tabindex="0"
+          >
+            <figure class="device device--android device--home">
+              <div class="device__screen">
+                <img
+                  src="./assets/anki-duo-current/home-clean.webp"
+                  width="720"
+                  height="1680"
+                  alt="Anki Duo’s current home screen, with Kado, daily practice, and a bookshelf of Anki decks"
+                  loading="lazy"
+                />
+              </div>
             </figure>
-            <figure class="anki-screen anki-screen--home">
-              <img
-                src="./assets/anki-duo-current/home.webp"
-                width="720"
-                height="1680"
-                alt="Anki Duo’s current home screen, with Kado, daily practice, and a bookshelf of Anki decks"
-                loading="lazy"
-              />
+            <figure class="device device--android device--path">
+              <div class="device__screen">
+                <img
+                  src="./assets/anki-duo-current/study-path.webp"
+                  width="720"
+                  height="1680"
+                  alt="Anki Duo’s study path in dark mode, with a daily goal and review cards"
+                  loading="lazy"
+                />
+              </div>
             </figure>
           </div>
         </article>
