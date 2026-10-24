@@ -129,7 +129,7 @@ if ("IntersectionObserver" in window) {
     { threshold: 0, rootMargin: "0px 0px 60px 0px" },
   );
   const revealNodes = document.querySelectorAll(
-    ".product__heading, .anki-copy, .approach__copy, .approach h2, .rhythm, .recognition__copy, .recognition__logos",
+    ".product__heading, .anki-copy, .approach__copy, .approach h2, .recognition__copy, .recognition__logos",
   );
   revealNodes.forEach((node) => {
     if (!motionPreference.matches) node.classList.add("is-reveal-pending");

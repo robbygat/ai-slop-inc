@@ -12,12 +12,13 @@
   const incomingContext = incoming.getContext("2d");
   if (!outgoingContext || !incomingContext) return;
 
-  const dissolveDuration = 1400;
+  const dissolveDuration = 900;
+  const paper = "#fafafa";
   const colorways = [
-    { x: 1, y: 0, paper: "#e7bbce" },
-    { x: 2, y: 1, paper: "#bdd4de" },
-    { x: 0, y: 0, paper: "#f0c5a7" },
-    { x: 1, y: 1, paper: "#ccbfdd" },
+    { x: 1, y: 0 },
+    { x: 2, y: 1 },
+    { x: 0, y: 0 },
+    { x: 1, y: 1 },
   ];
   let width = 0;
   let height = 0;
@@ -47,53 +48,140 @@
     );
   }
 
+  function drawPortrait(target, index, x, y, size, offset = 0, alpha = 1) {
+    const cropWidth = source.naturalWidth / 3;
+    const cropHeight = source.naturalHeight / 2;
+    const colorway = colorways[index];
+    target.globalAlpha = alpha;
+    target.drawImage(
+      source,
+      colorway.x * cropWidth,
+      colorway.y * cropHeight,
+      cropWidth,
+      cropHeight,
+      x + offset,
+      y,
+      size,
+      size,
+    );
+    target.globalAlpha = 1;
+  }
+
   function preparePlate() {
     if (!ready || !width || !height) return;
     incomingContext.clearRect(0, 0, width, height);
-    const cropWidth = source.naturalWidth / 3;
-    const cropHeight = source.naturalHeight / 2;
-    for (let quadrant = 0; quadrant < 4; quadrant++) {
-      const colorway = colorways[(colorwayIndex + quadrant) % colorways.length];
-      const x = (quadrant % 2) * (width / 2);
-      const y = Math.floor(quadrant / 2) * (height / 2);
-      incomingContext.fillStyle = colorway.paper;
-      incomingContext.fillRect(x, y, width / 2, height / 2);
-      incomingContext.drawImage(
-        source,
-        colorway.x * cropWidth,
-        colorway.y * cropHeight,
-        cropWidth,
-        cropHeight,
+    incomingContext.fillStyle = paper;
+    incomingContext.fillRect(0, 0, width, height);
+    const size = Math.min(width, height) * 0.86;
+    const x = (width - size) / 2;
+    const y = (height - size) / 2;
+    const quiet = reducedMotion.matches || navigator.connection?.saveData;
+    const alternate = (colorwayIndex + 1) % colorways.length;
+
+    // Registration is part of the still composition, not an idle animation.
+    if (!quiet) {
+      drawPortrait(incomingContext, alternate, x, y, size, -size * 0.008, 0.12);
+    }
+    drawPortrait(incomingContext, colorwayIndex, x, y, size);
+    if (quiet) return;
+
+    // Two restrained signal breaks leave the eyes and mouth readable.
+    for (const [top, depth, offset] of [
+      [0.27, 0.046, 0.018],
+      [0.64, 0.025, -0.026],
+    ]) {
+      incomingContext.save();
+      incomingContext.beginPath();
+      incomingContext.rect(0, y + size * top, width, size * depth);
+      incomingContext.clip();
+      incomingContext.fillRect(0, 0, width, height);
+      drawPortrait(incomingContext, colorwayIndex, x, y, size, size * offset);
+      drawPortrait(
+        incomingContext,
+        alternate,
         x,
         y,
-        width / 2,
-        height / 2,
+        size,
+        size * (offset - 0.012),
+        0.2,
       );
+      incomingContext.restore();
+    }
+  }
+
+  function drawPlate(plate) {
+    // A viewport resize must never stretch the outgoing portrait.
+    const scale = Math.min(width / plate.width, height / plate.height);
+    const drawWidth = plate.width * scale;
+    const drawHeight = plate.height * scale;
+    context.drawImage(
+      plate,
+      (width - drawWidth) / 2,
+      (height - drawHeight) / 2,
+      drawWidth,
+      drawHeight,
+    );
+  }
+
+  function drawSignalPass(progress) {
+    // Only two displacement beats, softened by opacity over the full dissolve.
+    const beat =
+      progress >= 0.12 && progress < 0.34
+        ? { start: 0.12, end: 0.34, offset: 0.036 }
+        : progress >= 0.48 && progress < 0.72
+          ? { start: 0.48, end: 0.72, offset: -0.024 }
+          : null;
+    if (!beat) return;
+    const opacity =
+      Math.sin(((progress - beat.start) / (beat.end - beat.start)) * Math.PI) *
+      0.76;
+    const size = Math.min(width, height) * 0.86;
+    const y = (height - size) / 2;
+    for (const [top, depth, direction] of [
+      [0.23, 0.065, 1],
+      [0.49, 0.018, -1],
+      [0.7, 0.045, 0.65],
+    ]) {
+      context.save();
+      context.beginPath();
+      context.rect(0, y + size * top, width, size * depth);
+      context.clip();
+      context.globalAlpha = opacity;
+      context.drawImage(
+        incoming,
+        size * beat.offset * direction,
+        0,
+        width,
+        height,
+      );
+      context.restore();
     }
   }
 
   function paint(time = performance.now()) {
     if (!ready || !width || !height) return false;
     context.clearRect(0, 0, width, height);
+    context.fillStyle = paper;
+    context.fillRect(0, 0, width, height);
     const progress =
       transitionAt === null
         ? 1
         : clamp((time - transitionAt) / dissolveDuration);
 
     if (progress < 1) {
-      // Keep the complete outgoing print opaque while the next colorway
-      // dissolves over it. Nothing moves, fragments, or fades to white.
-      context.drawImage(outgoing, 0, 0, width, height);
+      // An opaque, complete portrait remains underneath every transition frame.
+      drawPlate(outgoing);
       if (progress > 0) {
         context.globalAlpha = progress * progress * (3 - 2 * progress);
-        context.drawImage(incoming, 0, 0, width, height);
+        drawPlate(incoming);
         context.globalAlpha = 1;
+        drawSignalPass(progress);
       }
       return true;
     }
 
     transitionAt = null;
-    context.drawImage(incoming, 0, 0, width, height);
+    drawPlate(incoming);
     return false;
   }
 
@@ -179,11 +267,11 @@
   if ("IntersectionObserver" in window) {
     new IntersectionObserver(
       ([entry]) => {
-        visible = entry.isIntersecting;
+        visible = entry.isIntersecting && entry.intersectionRatio >= 0.15;
         if (visible) wake();
         else settle();
       },
-      { threshold: 0.05 },
+      { threshold: 0.15 },
     ).observe(portrait);
   }
   if ("ResizeObserver" in window) new ResizeObserver(resize).observe(portrait);
@@ -191,8 +279,12 @@
   document.addEventListener("visibilitychange", () =>
     document.hidden ? settle() : wake(),
   );
-  reducedMotion.addEventListener("change", settle);
-  navigator.connection?.addEventListener?.("change", settle);
+  const refreshPreference = () => {
+    preparePlate();
+    settle();
+  };
+  reducedMotion.addEventListener("change", refreshPreference);
+  navigator.connection?.addEventListener?.("change", refreshPreference);
 
   source.onload = () => {
     ready = true;

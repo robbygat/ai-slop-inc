@@ -1,18 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="#ffffff"/>
+  <defs>
+    <symbol id="portrait" viewBox="512 0 512 512">
+      <image xlink:href="slop-art-portraits.png" width="1536" height="1024"/>
+    </symbol>
+    <clipPath id="signal-a"><rect x="685" y="277" width="515" height="24"/></clipPath>
+    <clipPath id="signal-b"><rect x="685" y="420" width="515" height="13"/></clipPath>
+  </defs>
+  <rect x="685" y="108" width="515" height="522" fill="#fafafa"/>
   <g fill="#181818" font-family="Arial, sans-serif">
     <text x="55" y="76" fill="#dc2d22" font-size="31" font-weight="700" letter-spacing="-1.3">AI Slop Inc.</text>
     <path d="M55 107h1090" stroke="#d9d9d9" stroke-width="1"/>
     <g font-size="104" font-weight="700" letter-spacing="-7">
-      <text x="55" y="265">We make</text>
-      <text x="55" y="375"><tspan fill="#dc2d22">slop</tspan> work<tspan fill="#dc2d22">.</tspan></text>
+      <text x="55" y="265"><tspan fill="#dc2d22">Slop</tspan> has</text>
+      <text x="55" y="375">its place<tspan fill="#dc2d22">.</tspan></text>
     </g>
-    <text x="55" y="455" font-size="25">An experimental AI software lab.</text>
-    <text x="55" y="565" font-size="21">Open source. No ads. Yours to make better.</text>
+    <text x="55" y="450" font-size="23">Taking slop out of everyday tools.</text>
+    <text x="55" y="482" font-size="23">Making playgrounds where it can thrive.</text>
+    <text x="55" y="565" font-size="21">Built on open source.</text>
   </g>
-  <g transform="translate(790 170) rotate(-5 165 170)">
-    <rect x="17" y="13" width="325" height="350" fill="#dc2d22" transform="rotate(10 170 185)"/>
-    <rect width="325" height="350" fill="#e7bbce"/>
-    <svg x="0" y="14" width="325" height="325" viewBox="512 0 512 512"><image xlink:href="slop-art-portraits.png" width="1536" height="1024"/></svg>
+  <use xlink:href="#portrait" x="720" y="150" width="445" height="445"/>
+  <g clip-path="url(#signal-a)">
+    <rect x="685" y="277" width="515" height="24" fill="#fafafa"/>
+    <use xlink:href="#portrait" x="736" y="150" width="445" height="445"/>
+  </g>
+  <g clip-path="url(#signal-b)">
+    <rect x="685" y="420" width="515" height="13" fill="#fafafa"/>
+    <use xlink:href="#portrait" x="712" y="150" width="445" height="445"/>
   </g>
 </svg>

@@ -25,8 +25,8 @@ Device screens preserve their original aspect ratios: 23:50 for Slop and 3:7 for
 
 ## Existing artwork retained
 
-| Website file                    | Use                                                                                                                                                                                                                        |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assets/slop-art-portraits.png` | Existing 1536 × 1024 pop-art portrait sheet, reused for the hero's Marilyn Monroe composition and automatic color cycling. `artwork.js` animates tiles from this same source; a static CSS rendition remains the fallback. |
+| Website file                    | Use                                                                                                                                                                                                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `assets/slop-art-portraits.png` | Existing 1536 × 1024 dotted portrait sheet, reused for the hero's single Marilyn Monroe composition. `artwork.js` adds restrained color registration and horizontal signal distortions from the original pixels; a static CSS rendition remains the fallback. |
 
 OpenAI and Open Network Lab marks identify the organizations associated with the stated award recognition; they are not presented as an endorsement of AI Slop Inc. or its products.

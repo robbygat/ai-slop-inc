@@ -11,10 +11,12 @@ labels or placeholder links. Its GitHub URL has not yet been supplied.
 App screenshots use source-specific aspect ratios inside shared device frames. On mobile,
 AnkiDuo's previews form a native, keyboard-accessible horizontal gallery. Hero artwork,
 type entrances, and scroll-linked product motion respect reduced-motion preferences and
-stop updating offscreen. Marilyn's original dotted color variants form a frameless
-2×2 pop-art plate, with a slow full-image dissolve every six seconds while visible.
-There are no artwork controls or pointer effects. All content remains readable
-without JavaScript, including a four-color CSS artwork fallback.
+stop updating offscreen. Marilyn's original dotted color variants form a single
+digital portrait with sparse displaced bands and restrained color registration.
+Colorways change every six seconds while visible. There are no artwork controls,
+pointer effects, or continuous jitter. Reduced-motion and data-saving modes keep
+a static portrait. All content remains readable without JavaScript, including a
+CSS artwork fallback.
 
 ## Preview
 
