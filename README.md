@@ -1,7 +1,11 @@
 # AI Slop Inc.
 
-The official website for AI Slop Inc. A minimalist, responsive static site introducing the company,
-its approach, recognition, and first product: [Slop.game](https://slop.game).
+The official website for AI Slop Inc., showcasing [Slop.game](https://slop.game) and Anki Duo.
+Static HTML, CSS, and JavaScript; no build step or package dependencies.
+
+Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
+The font is served locally. The muted gameplay film loads when visible and respects reduced-motion
+and data-saving preferences. Anki Duo is clearly identified as in development.
 
 ## Preview
 
