@@ -28,7 +28,7 @@ uses the app's actual Android permissions and review scheduler only inside a
 temporary read-only emulator; that session was closed after recording. Its final
 Home screen shows updated review counts, so the loop is not pixel-identical.
 
-Device screens preserve their original aspect ratios: 23:50 for Slop and 3:7 for the AnkiDuo library screenshot. Both films are displayed at their own 9:16 delivery ratio with `object-fit: contain`; the AnkiDuo film is not nested inside an incompatible phone frame. The Workshop capture is no longer displayed because its source had a status-bar overlap. No AI edits were made to app screenshots.
+The feed (`newest-lagoon.webp`), library (`home-clean.webp`), and study-path stills are retained source assets, not displayed in the current product sections. Each product now has just one film, displayed at its own 9:16 delivery ratio with `object-fit: contain`; neither is nested inside a decorative phone frame. The Workshop capture is no longer displayed because its source had a status-bar overlap. No AI edits were made to app screenshots.
 
 `assets/anki-duo-current/launcher.webp` is the retained October 24 13:14 Android launcher capture `slopui-shots/final-cover-night.png`, resized from 1080 × 2520 to 720 × 1680. The visible showcase now uses the real interaction film instead of that still. App-blocking wording was originally cross-checked against the same-day `cd13-FocusSettingsActivity.png` and is now demonstrated by the actual Home → block → review → unlock flow. The temporary emulator used the app's Home role and accessibility permission with the product owner's approval; the demonstration is Android, not a Samsung-specific capture.
 

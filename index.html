@@ -40,7 +40,7 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261024-15" />
+    <link rel="stylesheet" href="./styles.css?v=20261024-16" />
     <script src="./script.js?v=20261024-15" defer></script>
     <script src="./artwork.js?v=20261024-15" defer></script>
     <title>AI Slop Inc. — Slop has its place.</title>
@@ -102,15 +102,15 @@
       </section>
       <section class="products" id="products" aria-label="Our products">
         <article class="product product--slop" aria-labelledby="slop-title">
-          <header class="product__heading">
-            <h2 id="slop-title">
-              <a href="https://slop.game" target="_blank" rel="noreferrer"
-                >Slop<span>.game</span
-                ><span class="product-arrow" aria-hidden="true">↗</span></a
-              >
-            </h2>
-          </header>
-          <div class="slop-showcase">
+          <div class="product__content">
+            <header class="product__heading">
+              <h2 id="slop-title">
+                <a href="https://slop.game" target="_blank" rel="noreferrer"
+                  >Slop<span>.game</span
+                  ><span class="product-arrow" aria-hidden="true">↗</span></a
+                >
+              </h2>
+            </header>
             <div class="product__intro">
               <h3>A feed you can play.</h3>
               <p>
@@ -125,34 +125,25 @@
                 >Get the iOS app <span aria-hidden="true">↗</span></a
               >
             </div>
-            <div class="slop-stage" data-motion-scene>
-              <div class="slop-film">
-                <video
-                  muted
-                  loop
-                  playsinline
-                  preload="none"
-                  poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
-                  aria-label="Slop.game gameplay film"
-                  data-film
-                >
-                  <source
-                    src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
-                    type="video/mp4"
-                  />
-                </video>
-              </div>
-              <figure class="device device--ios device--feed">
-                <div class="device__screen">
-                  <img
-                    src="./assets/slop-current/newest-lagoon.webp"
-                    width="828"
-                    height="1800"
-                    alt="Slop.game’s swipeable feed, with a playable game ready to launch"
-                    loading="lazy"
-                  />
-                </div>
-              </figure>
+          </div>
+          <div class="product__media slop-stage">
+            <div class="slop-film">
+              <video
+                width="1080"
+                height="1920"
+                muted
+                loop
+                playsinline
+                preload="none"
+                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
+                aria-label="Slop.game gameplay film"
+                data-film
+              >
+                <source
+                  src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
+                  type="video/mp4"
+                />
+              </video>
             </div>
           </div>
         </article>
@@ -161,10 +152,10 @@
           id="ankiduo"
           aria-labelledby="anki-title"
         >
-          <header class="anki-heading">
-            <h2 id="anki-title">AnkiDuo</h2>
-          </header>
-          <div class="anki-layout" data-motion-scene>
+          <div class="product__content">
+            <header class="anki-heading">
+              <h2 id="anki-title">AnkiDuo</h2>
+            </header>
             <div class="anki-copy">
               <h3>Learn at an<br /><em>operating-system level.</em></h3>
               <p>
@@ -173,38 +164,24 @@
                 unlock them.
               </p>
             </div>
-            <div class="anki-stage">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/anki-duo-current/ankiduo-film-poster.webp?v=20261024-15"
-                aria-label="AnkiDuo on Android: open a blocked app, review a card, and return to the unlocked app"
-                data-film
-              >
-                <source
-                  src="./assets/anki-duo-current/ankiduo-film-web.mp4?v=20261024-15"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <figure class="anki-preview">
-              <div class="device device--android device--home">
-                <div class="device__screen">
-                  <img
-                    src="./assets/anki-duo-current/home-clean.webp"
-                    width="720"
-                    height="1680"
-                    alt="AnkiDuo’s review dashboard, with daily practice and a bookshelf of Anki decks"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <figcaption>Your Anki decks</figcaption>
-            </figure>
+          </div>
+          <div class="product__media anki-stage">
+            <video
+              width="1080"
+              height="1920"
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="./assets/anki-duo-current/ankiduo-film-poster.webp?v=20261024-15"
+              aria-label="AnkiDuo on Android: open a blocked app, review a card, and return to the unlocked app"
+              data-film
+            >
+              <source
+                src="./assets/anki-duo-current/ankiduo-film-web.mp4?v=20261024-15"
+                type="video/mp4"
+              />
+            </video>
           </div>
         </article>
       </section>
