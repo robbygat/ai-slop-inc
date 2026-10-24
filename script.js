@@ -55,13 +55,26 @@ if (portrait) {
 
 const films = [...document.querySelectorAll("[data-film]")];
 const filmVisibility = new Map(films.map((film) => [film, false]));
-function syncFilmPlayback(film) {
-  if (
-    filmVisibility.get(film) &&
+const nearbyFilms = new Set();
+const warmedFilms = new WeakSet();
+function canUseFilmMotion() {
+  return (
     !document.hidden &&
     !motionPreference.matches &&
     !navigator.connection?.saveData
-  ) {
+  );
+}
+function warmFilm(film) {
+  if (warmedFilms.has(film) || !canUseFilmMotion()) return;
+  warmedFilms.add(film);
+  film.preload = "auto";
+  // Begin buffering once, before playback; never reload on a later scroll.
+  film.load();
+}
+function syncFilmPlayback(film) {
+  const visible = filmVisibility.get(film);
+  if (nearbyFilms.has(film) || visible) warmFilm(film);
+  if (visible && canUseFilmMotion()) {
     if (film.paused) {
       film.play().catch(() => {
         /* The poster remains visible if autoplay is unavailable. */
@@ -76,19 +89,34 @@ function syncAllFilmPlayback() {
 }
 if (films.length) {
   if ("IntersectionObserver" in window) {
+    const warmObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) nearbyFilms.add(entry.target);
+          else nearbyFilms.delete(entry.target);
+          syncFilmPlayback(entry.target);
+        });
+      },
+      { rootMargin: "400px 0px", threshold: 0 },
+    );
     const filmObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Start at 15%, then keep playing down to 2% to avoid edge chatter.
+          const threshold = filmVisibility.get(entry.target) ? 0.02 : 0.15;
           filmVisibility.set(
             entry.target,
-            entry.isIntersecting && entry.intersectionRatio >= 0.15,
+            entry.isIntersecting && entry.intersectionRatio >= threshold,
           );
           syncFilmPlayback(entry.target);
         });
       },
-      { threshold: 0.15 },
+      { threshold: [0.02, 0.15] },
     );
-    films.forEach((film) => filmObserver.observe(film));
+    films.forEach((film) => {
+      warmObserver.observe(film);
+      filmObserver.observe(film);
+    });
   }
   motionPreference.addEventListener("change", syncAllFilmPlayback);
   document.addEventListener("visibilitychange", syncAllFilmPlayback);

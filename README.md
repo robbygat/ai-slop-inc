@@ -11,15 +11,21 @@ credits, not funding or an endorsement. No adoption metrics or public AnkiDuo
 repository/download are implied.
 
 Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
-The font is served locally. Both muted product films play independently when at least
-15% visible, and pause offscreen, in a hidden tab, or when reduced-motion/data-saving
-preferences apply. AnkiDuo's section focuses on the product, without release-status
+The font is served locally. Both muted product films buffer once within 400px of the
+viewport, start independently when at least 15% visible, and keep playing until
+less than 2% remains visible. They pause in a hidden tab or when reduced-motion/data-saving
+preferences apply; those preferences also prevent new warm loads. AnkiDuo's section focuses on the product, without release-status
 labels or placeholder links. Its GitHub URL has not yet been supplied.
 
 App screenshots use source-specific aspect ratios inside shared device frames. Slop's
-gameplay film and complete feed phone share an overlapping, unboxed composition.
+gameplay film and complete feed phone share a staggered, unboxed composition with
+no overlap over the footage. On mobile, the film takes the full content width and
+the smaller feed phone follows below.
 AnkiDuo's 9:16 Tesseract film demonstrates a real Android Home launcher, app block,
-card review, and successful unlock. The film is displayed on its own plane rather
+card review, and successful unlock in one continuous 7.3-second take. Both films
+are delivered at 1080p60; Slop preserves its original 60fps master, while AnkiDuo
+uses a new variable-frame-rate capture with its action cadence checked before editing.
+The film is displayed on its own plane rather
 than squeezed into a 3:7 phone frame. One complementary deck-library screenshot
 retains its full 3:7 ratio. On mobile, the complete film comes first and the library
 phone follows beneath it; there is no hidden carousel or overlapping video UI. Hero artwork,

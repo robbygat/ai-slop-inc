@@ -288,18 +288,19 @@ em {
 .slop-stage {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 0.47fr) minmax(0, 1fr);
   align-items: end;
+  gap: clamp(1.5rem, 2vw, 2.5rem);
   width: 100%;
-  max-width: 39rem;
+  max-width: 42rem;
   justify-self: end;
   min-width: 0;
-  padding: 0 0 4rem;
+  padding: 0 0 1rem;
   isolation: isolate;
 }
 .slop-film {
   position: relative;
-  grid-column: 5 / -1;
+  grid-column: 2;
   grid-row: 1;
   width: 100%;
   aspect-ratio: 9/16;
@@ -535,13 +536,11 @@ em {
   --bezel: 4px;
 }
 .device--feed {
-  grid-column: 1 / 6;
+  grid-column: 1;
   grid-row: 1;
-  z-index: 1;
   width: 100%;
   max-width: none;
-  transform: translateY(calc(3rem + var(--scene-progress, 0) * 22px))
-    rotate(-4deg);
+  transform: translateY(calc(var(--scene-progress, 0) * 14px)) rotate(-2deg);
 }
 .device--home {
   transform: translateY(calc(var(--scene-progress, 0) * 22px)) rotate(-1.5deg);
@@ -834,24 +833,28 @@ em {
 }
 @media (max-width: 760px) {
   .slop-stage {
-    width: calc(100% + var(--pad));
-    max-width: 34rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.75rem;
+    width: 100%;
+    max-width: 26rem;
     justify-self: center;
-    margin-inline: calc(-0.5 * var(--pad));
-    padding: 0 0 3rem;
+    margin-inline: 0;
+    padding: 0;
   }
   .device--feed {
-    grid-column: 1 / 7;
-    width: 100%;
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+    width: 62%;
+    max-width: 15rem;
     --bezel: 3px;
     --device-radius: 19px;
-    transform: translateY(calc(2rem + var(--scene-progress, 0) * 10px))
-      rotate(-2deg);
+    transform: none;
   }
   .slop-film {
-    grid-column: 4 / -1;
+    grid-column: 1;
     width: 100%;
-    transform: translateY(calc(var(--scene-progress, 0) * -12px));
+    transform: none;
   }
 }
 @media (max-width: 359px) {
