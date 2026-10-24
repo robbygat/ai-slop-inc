@@ -40,9 +40,9 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261024-13" />
-    <script src="./script.js?v=20261024-13" defer></script>
-    <script src="./artwork.js?v=20261024-13" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261024-14" />
+    <script src="./script.js?v=20261024-14" defer></script>
+    <script src="./artwork.js?v=20261024-14" defer></script>
     <title>AI Slop Inc. — Slop has its place.</title>
   </head>
   <body>
@@ -102,13 +102,15 @@
       </section>
       <section class="products" id="products" aria-label="Our products">
         <article class="product product--slop" aria-labelledby="slop-title">
-          <div class="product__heading">
+          <header class="product__heading">
             <h2 id="slop-title">
               <a href="https://slop.game" target="_blank" rel="noreferrer"
                 >Slop<span>.game</span
                 ><span class="product-arrow" aria-hidden="true">↗</span></a
               >
             </h2>
+          </header>
+          <div class="slop-showcase">
             <div class="product__intro">
               <h3>A feed you can play.</h3>
               <p>
@@ -123,34 +125,34 @@
                 >Get the iOS app <span aria-hidden="true">↗</span></a
               >
             </div>
-          </div>
-          <div class="slop-stage" data-motion-scene>
-            <figure class="device device--ios device--feed">
-              <div class="device__screen">
-                <img
-                  src="./assets/slop-current/newest-lagoon.webp"
-                  width="828"
-                  height="1800"
-                  alt="Slop.game’s swipeable feed, with a playable game ready to launch"
-                  loading="lazy"
-                />
+            <div class="slop-stage" data-motion-scene>
+              <div class="slop-film">
+                <video
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="./assets/slop-current/slop-film-poster.webp"
+                  aria-label="Slop.game gameplay film"
+                  data-film
+                >
+                  <source
+                    src="./assets/slop-current/slop-film-web.mp4"
+                    type="video/mp4"
+                  />
+                </video>
               </div>
-            </figure>
-            <div class="slop-film">
-              <video
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/slop-current/slop-film-poster.webp"
-                aria-label="Slop.game gameplay film"
-                data-film
-              >
-                <source
-                  src="./assets/slop-current/slop-film-web.mp4"
-                  type="video/mp4"
-                />
-              </video>
+              <figure class="device device--ios device--feed">
+                <div class="device__screen">
+                  <img
+                    src="./assets/slop-current/newest-lagoon.webp"
+                    width="828"
+                    height="1800"
+                    alt="Slop.game’s swipeable feed, with a playable game ready to launch"
+                    loading="lazy"
+                  />
+                </div>
+              </figure>
             </div>
           </div>
         </article>
@@ -162,51 +164,47 @@
           <header class="anki-heading">
             <h2 id="anki-title">AnkiDuo</h2>
           </header>
-          <div class="anki-layout">
+          <div class="anki-layout" data-motion-scene>
             <div class="anki-copy">
               <h3>Learn at an<br /><em>operating-system level.</em></h3>
               <p>
-                Language learning on your Samsung home screen, built on
+                Language learning on your Android home screen, built on
                 AnkiDroid. Block distracting apps and review your Anki cards to
                 unlock them.
               </p>
             </div>
-            <div
-              class="anki-stage"
-              aria-label="AnkiDuo app previews; swipe horizontally on mobile"
-              role="region"
-              data-motion-scene
-              tabindex="0"
-            >
-              <figure class="anki-preview">
-                <div class="device device--android device--launcher">
-                  <div class="device__screen">
-                    <img
-                      src="./assets/anki-duo-current/launcher.webp"
-                      width="720"
-                      height="1680"
-                      alt="AnkiDuo’s study-first Android home screen with app favorites, daily progress, and a direct Study action"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                <figcaption>Study-first home screen</figcaption>
-              </figure>
-              <figure class="anki-preview">
-                <div class="device device--android device--home">
-                  <div class="device__screen">
-                    <img
-                      src="./assets/anki-duo-current/home-clean.webp"
-                      width="720"
-                      height="1680"
-                      alt="AnkiDuo’s review dashboard, with daily practice and a bookshelf of Anki decks"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-                <figcaption>Your Anki decks</figcaption>
-              </figure>
+            <div class="anki-stage">
+              <video
+                width="720"
+                height="1280"
+                muted
+                loop
+                playsinline
+                preload="none"
+                poster="./assets/anki-duo-current/ankiduo-film-poster.webp"
+                aria-label="AnkiDuo on Android: open a blocked app, review a card, and return to the unlocked app"
+                data-film
+              >
+                <source
+                  src="./assets/anki-duo-current/ankiduo-film-web.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </div>
+            <figure class="anki-preview">
+              <div class="device device--android device--home">
+                <div class="device__screen">
+                  <img
+                    src="./assets/anki-duo-current/home-clean.webp"
+                    width="720"
+                    height="1680"
+                    alt="AnkiDuo’s review dashboard, with daily practice and a bookshelf of Anki decks"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <figcaption>Your Anki decks</figcaption>
+            </figure>
           </div>
         </article>
       </section>

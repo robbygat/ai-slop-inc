@@ -53,33 +53,47 @@ if (portrait) {
   syncPrintCycle();
 }
 
-const film = document.querySelector("[data-film]");
-let filmVisible = false;
-function syncFilmPlayback() {
-  if (!film) return;
+const films = [...document.querySelectorAll("[data-film]")];
+const filmVisibility = new Map(films.map((film) => [film, false]));
+function syncFilmPlayback(film) {
   if (
-    filmVisible &&
+    filmVisibility.get(film) &&
     !document.hidden &&
     !motionPreference.matches &&
     !navigator.connection?.saveData
   ) {
-    film.play().catch(() => {
-      /* The poster remains visible if autoplay is unavailable. */
-    });
+    if (film.paused) {
+      film.play().catch(() => {
+        /* The poster remains visible if autoplay is unavailable. */
+      });
+    }
   } else {
     film.pause();
   }
 }
-if (film && "IntersectionObserver" in window) {
-  new IntersectionObserver(
-    (entries) => {
-      filmVisible = entries[0].isIntersecting;
-      syncFilmPlayback();
-    },
-    { threshold: 0.15 },
-  ).observe(film);
-  motionPreference.addEventListener("change", syncFilmPlayback);
-  document.addEventListener("visibilitychange", syncFilmPlayback);
+function syncAllFilmPlayback() {
+  films.forEach(syncFilmPlayback);
+}
+if (films.length) {
+  if ("IntersectionObserver" in window) {
+    const filmObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          filmVisibility.set(
+            entry.target,
+            entry.isIntersecting && entry.intersectionRatio >= 0.15,
+          );
+          syncFilmPlayback(entry.target);
+        });
+      },
+      { threshold: 0.15 },
+    );
+    films.forEach((film) => filmObserver.observe(film));
+  }
+  motionPreference.addEventListener("change", syncAllFilmPlayback);
+  document.addEventListener("visibilitychange", syncAllFilmPlayback);
+  navigator.connection?.addEventListener?.("change", syncAllFilmPlayback);
+  syncAllFilmPlayback();
 }
 
 // Motion follows the visitor's scroll rather than running an idle animation loop.

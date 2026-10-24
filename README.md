@@ -11,12 +11,18 @@ credits, not funding or an endorsement. No adoption metrics or public AnkiDuo
 repository/download are implied.
 
 Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
-The font is served locally. The muted gameplay film loads when visible and respects reduced-motion
-and data-saving preferences. AnkiDuo's section focuses on the product, without release-status
+The font is served locally. Both muted product films play independently when at least
+15% visible, and pause offscreen, in a hidden tab, or when reduced-motion/data-saving
+preferences apply. AnkiDuo's section focuses on the product, without release-status
 labels or placeholder links. Its GitHub URL has not yet been supplied.
 
-App screenshots use source-specific aspect ratios inside shared device frames. On mobile,
-AnkiDuo's previews form a native, keyboard-accessible horizontal gallery. Hero artwork,
+App screenshots use source-specific aspect ratios inside shared device frames. Slop's
+gameplay film and complete feed phone share an overlapping, unboxed composition.
+AnkiDuo's 9:16 Tesseract film demonstrates a real Android Home launcher, app block,
+card review, and successful unlock. The film is displayed on its own plane rather
+than squeezed into a 3:7 phone frame. One complementary deck-library screenshot
+retains its full 3:7 ratio. On mobile, the complete film comes first and the library
+phone follows beneath it; there is no hidden carousel or overlapping video UI. Hero artwork,
 type entrances, and scroll-linked product motion respect reduced-motion preferences and
 stop updating offscreen. Marilyn's original dotted color variants form a single
 digital portrait with sparse displaced bands and restrained color registration.
