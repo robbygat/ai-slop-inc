@@ -30,3 +30,14 @@ Device screens preserve their original aspect ratios: 23:50 for Slop and 3:7 for
 | `assets/slop-art-portraits.png` | Existing 1536 × 1024 dotted portrait sheet, reused for the hero's single Marilyn Monroe composition. `artwork.js` adds restrained color registration and horizontal signal distortions from the original pixels; a static CSS rendition remains the fallback. |
 
 OpenAI and Open Network Lab marks identify the organizations associated with the stated award recognition; they are not presented as an endorsement of AI Slop Inc. or its products.
+
+## Product wording
+
+The October 24 copy pass describes source-backed behavior, not newly measured
+traction or performance. Slop's mobile source implements AI-prompt game creation,
+a vertical playable feed, reviewed publishing, and native sharing. AnkiDuo's
+AnkiDroid-based Android source implements an optional Home launcher and opt-in
+app blocking with a review-card unlock. “Operating-system level” refers to this
+home-screen and app-access experience, not a modified OS or kernel. The company's
+ad-free, open-source direction is stated as a goal; no public repository or
+blanket claim about every product's current licensing is implied.

@@ -185,6 +185,11 @@ em {
   line-height: 1.55;
   letter-spacing: -0.02em;
 }
+.hero__intro {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+}
 .hero-art {
   position: relative;
   min-width: 0;
@@ -227,7 +232,8 @@ em {
   padding: 5rem var(--pad);
 }
 .product__heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
   align-items: flex-end;
   justify-content: space-between;
   gap: 3rem;
@@ -257,17 +263,23 @@ em {
   transform: translate(4px, -4px);
 }
 .product__intro {
-  display: flex;
-  gap: 3rem;
-  align-items: flex-end;
+  max-width: 24rem;
+  justify-self: end;
+}
+.product__intro h3 {
+  font-size: clamp(1.8rem, 2.6vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
 }
 .product__intro p {
-  max-width: 14rem;
-  font-size: clamp(1.3rem, 1.8vw, 1.8rem);
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #c3c3c3;
 }
 .product__intro .text-link {
+  margin-top: 1.5rem;
   white-space: nowrap;
 }
 .slop-stage {
@@ -385,6 +397,12 @@ em {
   line-height: 1.5;
   letter-spacing: -0.02em;
 }
+.approach__invitation {
+  margin-top: 1.5rem;
+  font-size: 1.4em;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
 .recognition {
   display: grid;
   grid-template-columns: 1fr 1.15fr;
@@ -393,7 +411,7 @@ em {
   padding: 5.5rem var(--pad);
 }
 .recognition h2 {
-  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-size: clamp(2rem, 3.3vw, 3.6rem);
   font-weight: 500;
   letter-spacing: -0.045em;
   margin-bottom: 1rem;
@@ -685,19 +703,17 @@ em {
     font-size: clamp(3.7rem, 14vw, 6rem);
   }
   .product__intro {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    max-width: 28rem;
     margin-top: 1.5rem;
   }
   .product__intro p {
-    font-size: 1.15rem;
+    max-width: 22rem;
+    font-size: 1.07rem;
   }
   .product__intro .text-link {
     font-size: 0.9rem;
     gap: 0.75rem;
-    margin-top: 0;
+    margin-top: 1.2rem;
   }
   .slop-stage {
     min-height: 0;
@@ -765,7 +781,7 @@ em {
     padding-block: 3.5rem;
   }
   .recognition h2 {
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 7.7vw, 3rem);
   }
   .recognition__copy p {
     font-size: 1rem;

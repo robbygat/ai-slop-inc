@@ -3,6 +3,13 @@
 The official website for AI Slop Inc., showcasing [Slop.game](https://slop.game) and AnkiDuo.
 Static HTML, CSS, and JavaScript; no build step or package dependencies.
 
+The editorial hierarchy explains the lab's two-sided thesis, then shows the products:
+Slop.game gives AI-made games a playable feed; AnkiDuo puts language learning into
+the phone's home-screen and app-access experience. The open-source approach follows
+the product evidence. Recognition is explicitly an Honorable Mention with API
+credits, not funding or an endorsement. No adoption metrics or public AnkiDuo
+repository/download are implied.
+
 Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
 The font is served locally. The muted gameplay film loads when visible and respects reduced-motion
 and data-saving preferences. AnkiDuo's section focuses on the product, without release-status
