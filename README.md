@@ -1,14 +1,19 @@
 # AI Slop Inc.
 
-The official website for AI Slop Inc., showcasing [Slop.game](https://slop.game) and AnkiDuo.
+The official website for AI Slop Inc., showcasing Dopamask, AnkiDuo, and [Slop.game](https://slop.game).
 Static HTML, CSS, and JavaScript; no build step or package dependencies.
 
-The editorial hierarchy explains the lab's two-sided thesis, then shows the products:
-Slop.game gives AI-made games a playable feed; AnkiDuo puts language learning into
-the phone's home-screen and app-access experience. The open-source approach follows
-the product evidence. Recognition is explicitly an Honorable Mention with API
+The editorial hierarchy keeps the approved "Slop has its place" hero, followed by
+the company's new-app model: $1 once, no subscriptions or memberships. This is a
+direction for new products, not a claim about current Slop.game store pricing.
+Dopamask leads with focused social browsing, then AnkiDuo demonstrates learning
+through the phone's home screen and app access. Slop.game remains the deliberate
+playground for AI-made content. The open-source approach follows the product
+evidence. Recognition is explicitly an Honorable Mention with API
 credits, not funding or an endorsement. No adoption metrics or public AnkiDuo
-repository/download are implied.
+repository/download are implied. Dopamask has no verified public store listing;
+its section contains no invented download link. Its selective web filters work
+inside Dopamask, not inside other iOS apps, and are not an AI-post detector.
 
 Production images and source provenance are documented in [ASSET-SOURCES.md](ASSET-SOURCES.md).
 The font is served locally. Both muted product films buffer once within 400px of the
@@ -17,8 +22,11 @@ less than 2% remains visible. They pause in a hidden tab or when reduced-motion/
 preferences apply; those preferences also prevent new warm loads. AnkiDuo's section focuses on the product, without release-status
 labels or placeholder links. Its GitHub URL has not yet been supplied.
 
-Each product has one media presentation: a complete film, without a second
-floating phone screenshot or decorative device frame. On desktop the title and
+Each product has one media presentation: Dopamask's real October 28 home-screen
+capture, or a complete product film, without a second floating phone screenshot
+or decorative device frame. The original Dopamask screenshot is encoded as WebP
+at its full 1206 × 2622 resolution, without cropping or reconstructed UI.
+On desktop the title and
 description sit beside the film; on mobile they stack in reading order with
 aligned edges and shared spacing. The AnkiDuo film's white canvas blends into
 its section, without a card border or shadow.

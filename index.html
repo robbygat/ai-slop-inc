@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="AI Slop Inc. is a software lab building on open source. We take slop out of useful tools and give AI's weirdest ideas somewhere to play. Meet Slop.game and AnkiDuo."
+      content="We turn AI abundance into something useful. Our model for new apps: $1 once, no subscriptions. Meet Dopamask, AnkiDuo, and Slop.game."
     />
     <meta name="theme-color" content="#ffffff" />
     <link rel="canonical" href="https://aislopinc.com/" />
     <meta property="og:title" content="AI Slop Inc. — Slop has its place." />
     <meta
       property="og:description"
-      content="A software lab building on open source. A playable feed of AI-made games. A learning-first phone. Meet Slop.game and AnkiDuo."
+      content="Less clutter. More useful software. New apps for $1 once, without subscriptions. Dopamask, AnkiDuo, and Slop.game by AI Slop Inc."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aislopinc.com/" />
     <meta
       property="og:image"
-      content="https://aislopinc.com/assets/site-share.png"
+      content="https://aislopinc.com/assets/site-share.png?v=20261031"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -26,11 +26,11 @@
     <meta name="twitter:title" content="AI Slop Inc. — Slop has its place." />
     <meta
       name="twitter:description"
-      content="A software lab building on open source. A playable feed of AI-made games. A learning-first phone. Meet Slop.game and AnkiDuo."
+      content="Less clutter. More useful software. New apps for $1 once, without subscriptions. Dopamask, AnkiDuo, and Slop.game by AI Slop Inc."
     />
     <meta
       name="twitter:image"
-      content="https://aislopinc.com/assets/site-share.png"
+      content="https://aislopinc.com/assets/site-share.png?v=20261031"
     />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link
@@ -40,7 +40,7 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261024-16" />
+    <link rel="stylesheet" href="./styles.css?v=20261031-1" />
     <script src="./script.js?v=20261024-15" defer></script>
     <script src="./artwork.js?v=20261024-15" defer></script>
     <title>AI Slop Inc. — Slop has its place.</title>
@@ -57,7 +57,7 @@
         aria-label="Primary navigation"
         data-nav
       >
-        <a href="#products">Work</a>
+        <a href="#products">Apps</a>
         <a href="mailto:contact@slop.game">Contact</a>
       </nav>
     </header>
@@ -94,51 +94,59 @@
           </div>
         </div>
       </section>
+      <section
+        class="one-dollar"
+        id="one-dollar"
+        aria-labelledby="one-dollar-title"
+      >
+        <h2 id="one-dollar-title">
+          <span class="one-dollar__amount">$1</span
+          ><span>Once.<br />Not monthly.</span>
+        </h2>
+        <div class="one-dollar__copy">
+          <p>
+            AI makes software cheaper to build. It should be cheaper to buy,
+            too.
+          </p>
+          <p>
+            Our model for new apps: a dollar, paid once. No subscriptions. No
+            memberships.
+          </p>
+        </div>
+      </section>
+      <nav class="product-index" aria-label="Explore our apps">
+        <a href="#dopamask">Dopamask <span aria-hidden="true">↘</span></a>
+        <a href="#ankiduo">AnkiDuo <span aria-hidden="true">↘</span></a>
+        <a href="#slop">Slop.game <span aria-hidden="true">↘</span></a>
+      </nav>
       <section class="products" id="products" aria-label="Our products">
-        <article class="product product--slop" aria-labelledby="slop-title">
+        <article
+          class="product product--dopamask"
+          id="dopamask"
+          aria-labelledby="dopamask-title"
+        >
           <div class="product__content">
             <header class="product__heading">
-              <h2 id="slop-title">
-                <a href="https://slop.game" target="_blank" rel="noreferrer"
-                  >Slop<span>.game</span
-                  ><span class="product-arrow" aria-hidden="true">↗</span></a
-                >
-              </h2>
+              <h2 id="dopamask-title">Dopamask</h2>
             </header>
             <div class="product__intro">
-              <h3>A feed you can play.</h3>
+              <h3>Keep the useful.<br />Lose the endless.</h3>
               <p>
-                Swipe through AI-made games. Turn an idea into a game of your
-                own, then share it with the feed.
+                Messages, search, and long-form videos—without the short-form
+                feed. Dopamask hides Reels and Shorts inside its own focused
+                browser.
               </p>
-              <a
-                class="text-link"
-                href="https://apps.apple.com/us/app/slop-game/id6783292057"
-                target="_blank"
-                rel="noreferrer"
-                >Get the iOS app <span aria-hidden="true">↗</span></a
-              >
             </div>
           </div>
-          <div class="product__media slop-stage">
-            <div class="slop-film">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
-                aria-label="Slop.game gameplay film"
-                data-film
-              >
-                <source
-                  src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
+          <div class="product__media dopamask-stage">
+            <img
+              src="./assets/dopamask/home.webp"
+              width="1206"
+              height="2622"
+              alt="Dopamask’s real home screen: web filters on, shortcuts to messages, search and following, and a Start a break control."
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </article>
         <article
@@ -178,17 +186,69 @@
             </video>
           </div>
         </article>
+        <article
+          class="product product--slop"
+          id="slop"
+          aria-labelledby="slop-title"
+        >
+          <div class="product__content">
+            <header class="product__heading">
+              <h2 id="slop-title">
+                <a href="https://slop.game" target="_blank" rel="noreferrer"
+                  >Slop<span>.game</span
+                  ><span class="product-arrow" aria-hidden="true">↗</span></a
+                >
+              </h2>
+            </header>
+            <div class="product__intro">
+              <h3>A feed you can play.</h3>
+              <p>
+                A home for AI-made games. Swipe to play, turn an idea into a
+                game, and share it with the feed.
+              </p>
+              <a
+                class="text-link"
+                href="https://apps.apple.com/us/app/slop-game/id6783292057"
+                target="_blank"
+                rel="noreferrer"
+                >Get the iOS app <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+          <div class="product__media slop-stage">
+            <div class="slop-film">
+              <video
+                width="1080"
+                height="1920"
+                muted
+                loop
+                playsinline
+                preload="none"
+                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
+                aria-label="Slop.game gameplay film"
+                data-film
+              >
+                <source
+                  src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </div>
+        </article>
       </section>
       <section class="approach" id="approach" aria-labelledby="approach-title">
         <h2 id="approach-title">
-          Borrow the good.<br /><em>Fix what’s not.</em><br />Ship the future.
+          More useful.<br /><em>Less everything else.</em>
         </h2>
         <div class="approach__copy">
           <p>
-            We build on open source so good ideas don’t start from zero. Our
-            goal: tools without ads, with code you can make your own.
+            We use AI to remove the slop from software: the clutter, the
+            friction, the features that serve the business instead of you.
           </p>
-          <p class="approach__invitation">The next version can be yours.</p>
+          <p class="approach__invitation">
+            Build on open source. Make it simpler. Pass the savings on.
+          </p>
         </div>
       </section>
       <section

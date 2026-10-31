@@ -2,6 +2,24 @@
 
 Production selection for the October 24, 2026 redesign. Paths below are repository-relative. This inventory covers the assets used by `index.html` and `styles.css`, plus their retained source and license files.
 
+## October 31 brand update
+
+`assets/dopamask/home.webp` is the current real app capture from
+`/Users/rob/Documents/ChatGPT/japanese/touch_grass/screenshots/40-final-home.png`
+(October 28, 23:17). Encoded at quality 92 with cwebp, retaining all 1206 × 2622
+pixels and the complete screen. The original remains in the app project. No AI
+edits, cropping, device frame, or fabricated app content were added.
+
+Dopamask's README, `docs/BRAND.md`, and browser policy source establish its
+focused-browser positioning and intended $1 one-time model. Reels/Shorts filtering
+is described as operating inside Dopamask; it is not presented as an AI-content
+detector or a way to alter other native iOS apps. The source explicitly says no
+public store release has occurred, so the website adds no checkout/download link.
+The prominent $1 statement is scoped to the company's new-app model, not current
+store pricing for every existing product. Existing Slop and AnkiDuo films remain
+unchanged. The company website keeps its own Gabarito/red/white identity while
+showing Dopamask's real engraved artwork and current in-app typography.
+
 ## New and refreshed assets
 
 | Website file                                       | Source and use                                                                                                                                                                                                                                                                                                                                                                    |

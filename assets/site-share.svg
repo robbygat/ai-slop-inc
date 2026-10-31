@@ -19,9 +19,9 @@
       <text x="55" y="265"><tspan fill="#dc2d22">Slop</tspan> has</text>
       <text x="55" y="375">its place<tspan fill="#dc2d22">.</tspan></text>
     </g>
-    <text x="55" y="450" font-size="23">A software lab building on open source.</text>
-    <text x="55" y="482" font-size="23">Useful tools. Weird ideas. A place for both.</text>
-    <text x="55" y="565" font-size="21">Slop.game + AnkiDuo</text>
+    <text x="55" y="450" font-size="23">AI abundance. Useful software.</text>
+    <text x="55" y="482" font-size="23">New apps. $1 once. No subscriptions.</text>
+    <text x="55" y="565" font-size="21">Dopamask · AnkiDuo · Slop.game</text>
   </g>
   <use xlink:href="#portrait" x="720" y="150" width="445" height="445" mask="url(#portrait-bands)"/>
   <g clip-path="url(#signal-a)">
