@@ -125,40 +125,6 @@ if (films.length) {
   syncAllFilmPlayback();
 }
 
-document.querySelectorAll("[data-gallery]").forEach((gallery) => {
-  const controls = gallery.querySelector("[data-gallery-controls]");
-  const tabs = [...controls.querySelectorAll('[role="tab"]')];
-  const panels = tabs.map((tab) =>
-    document.getElementById(tab.getAttribute("aria-controls")),
-  );
-  function selectView(index, moveFocus = false) {
-    tabs.forEach((tab, tabIndex) => {
-      const selected = tabIndex === index;
-      tab.setAttribute("aria-selected", String(selected));
-      tab.tabIndex = selected ? 0 : -1;
-      panels[tabIndex].hidden = !selected;
-    });
-    // Pause a hidden film immediately. Visibility observers start it when shown.
-    gallery.querySelectorAll("[data-film]").forEach(syncFilmPlayback);
-    if (moveFocus) tabs[index].focus();
-  }
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => selectView(index));
-    tab.addEventListener("keydown", (event) => {
-      let nextIndex;
-      if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
-      if (event.key === "ArrowLeft")
-        nextIndex = (index + tabs.length - 1) % tabs.length;
-      if (event.key === "Home") nextIndex = 0;
-      if (event.key === "End") nextIndex = tabs.length - 1;
-      if (nextIndex === undefined) return;
-      event.preventDefault();
-      selectView(nextIndex, true);
-    });
-  });
-  controls.hidden = false;
-});
-
 // Motion follows the visitor's scroll rather than running an idle animation loop.
 const scenes = [...document.querySelectorAll("[data-motion-scene]")];
 const activeScenes = new Set();

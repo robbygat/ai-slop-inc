@@ -23,17 +23,13 @@ less than 2% remains visible. They pause in a hidden tab or when reduced-motion/
 preferences apply; those preferences also prevent new warm loads. AnkiDuo's section focuses on the product, without release-status
 labels or placeholder links. Its GitHub URL has not yet been supplied.
 
-Each product has one switchable media presentation, without a second floating
-phone screenshot or decorative device frame. Dopamask offers Home and Focused
-Browser and The film; AnkiDuo offers Study, Launcher, and Unlock; Slop.game offers
-In the app and Gameplay. All stills are real app captures, not reconstructed UI.
-Dopamask's October 28 screenshots retain their full 1206 × 2622 resolution.
-Tabs support arrow keys, Home/End, linked panels, and visible keyboard focus.
-Each gallery preserves a stable size and shows the complete original image or
-film without cropping. Switching away from a film pauses it immediately; hidden
-films do not buffer. With JavaScript disabled, each product shows its first still.
-Media width is bounded by the viewport height on mobile, so long phone captures
-do not become arbitrarily tall. Desktop alternates the AnkiDuo composition while
+Each product shows its video directly: Dopamask's typing film, AnkiDuo's real
+app-blocking demonstration, and Slop.game's gameplay. Visitors scroll to watch;
+there are no media tabs, labels, selectors, or decorative phone frames.
+The product overview retains three real app screenshot previews. Each video
+stage matches its native 9:16 ratio and preserves the entire composition.
+With JavaScript disabled or reduced motion enabled, the supplied posters remain
+visible. Media width is bounded by viewport height on mobile. Desktop alternates the AnkiDuo composition while
 mobile retains content-first reading order. The portrait hero is shorter and its
 original animation and transparency are preserved.
 On desktop the title and
@@ -49,8 +45,8 @@ protective mask, and Dopamine-to-Dopamask ending. Responsive encodes preserve it
 native 24fps and 18.083-second timing; the mobile source is 720 × 1280 and desktop
 is 1080 × 1920. The original Tesseract project and master remain in the app folder.
 All films retain their 9:16 delivery ratio with no cropping or scroll-linked
-transforms. The feed, deck-library, and Android launcher screenshots are available
-alongside the films. Hero artwork and
+transforms. The direct screenshot assets are retained locally; the overview shows
+the Dopamask home screen, AnkiDuo launcher, and Slop feed. Hero artwork and
 type entrances respect reduced-motion preferences and
 stop updating offscreen. Marilyn's original dotted color variants form a single
 digital portrait with sparse displaced bands and restrained color registration.

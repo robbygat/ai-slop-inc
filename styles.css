@@ -320,8 +320,9 @@ em {
   justify-self: end;
 }
 .product__media {
+  --media-width: 0.5625;
   width: 100%;
-  max-width: 21rem;
+  max-width: min(25rem, calc(70svh * var(--media-width)));
   min-width: 0;
   justify-self: center;
 }
@@ -339,80 +340,7 @@ em {
 .product--dopamask .product__intro p {
   color: #c9d2cb;
 }
-.dopamask-stage {
-  max-width: 22rem;
-}
-.product-gallery {
-  --gallery-ratio: 1206 / 2622;
-  --gallery-width: 0.46;
-  max-width: min(21rem, calc(70svh * var(--gallery-width)));
-}
-.anki-stage {
-  --gallery-ratio: 3 / 7;
-  --gallery-width: 0.428571;
-}
-.slop-stage {
-  --gallery-ratio: 23 / 50;
-}
-.gallery__tabs {
-  display: flex;
-  justify-content: space-between;
-  gap: 0.8rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid currentColor;
-}
-.gallery__tabs[hidden],
-.gallery__panel[hidden] {
-  display: none;
-}
-.gallery__tabs button {
-  position: relative;
-  min-height: 2.75rem;
-  padding: 0.5rem 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  font-size: 0.95rem;
-  letter-spacing: -0.025em;
-  cursor: pointer;
-  opacity: 0.65;
-}
-.gallery__tabs button[aria-selected="true"] {
-  opacity: 1;
-}
-.gallery__tabs button[aria-selected="true"]::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  inset-inline: 0;
-  height: 3px;
-  background: currentColor;
-}
-.gallery__tabs button:hover {
-  opacity: 1;
-}
-.gallery__tabs button:focus-visible,
-.gallery__panel:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-}
-.gallery__viewport {
-  position: relative;
-  aspect-ratio: var(--gallery-ratio);
-}
-.gallery__panel {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-}
-.gallery__panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.gallery__panel > video {
+.product__media video {
   width: 100%;
   height: auto;
   aspect-ratio: 9 / 16;
@@ -466,18 +394,6 @@ em {
   margin-top: 1.5rem;
   white-space: nowrap;
 }
-.slop-film {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 9/16;
-  overflow: hidden;
-  background: #181818;
-}
-.slop-film video {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
 .product--anki {
   background: var(--paper);
 }
@@ -514,12 +430,6 @@ em {
   font-size: 1.1rem;
   line-height: 1.5;
   color: #534b61;
-}
-.anki-stage video {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 9 / 16;
-  object-fit: contain;
 }
 .approach {
   display: grid;
@@ -808,7 +718,7 @@ em {
     justify-self: center;
   }
   .product__media {
-    max-width: min(20rem, calc(68svh * var(--gallery-width)));
+    max-width: min(20rem, calc(68svh * var(--media-width)));
     justify-self: center;
   }
   .product__heading,
