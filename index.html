@@ -40,8 +40,8 @@
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261031-1" />
-    <script src="./script.js?v=20261024-15" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=20261101-1" />
+    <script src="./script.js?v=20261101-1" defer></script>
     <script src="./artwork.js?v=20261024-15" defer></script>
     <title>AI Slop Inc. — Slop has its place.</title>
   </head>
@@ -57,7 +57,7 @@
         aria-label="Primary navigation"
         data-nav
       >
-        <a href="#products">Apps</a>
+        <a href="#apps">Apps</a>
         <a href="mailto:contact@slop.game">Contact</a>
       </nav>
     </header>
@@ -94,30 +94,48 @@
           </div>
         </div>
       </section>
-      <section
-        class="one-dollar"
-        id="one-dollar"
-        aria-labelledby="one-dollar-title"
-      >
-        <h2 id="one-dollar-title">
-          <span class="one-dollar__amount">$1</span
-          ><span>Once.<br />Not monthly.</span>
-        </h2>
-        <div class="one-dollar__copy">
-          <p>
-            AI makes software cheaper to build. It should be cheaper to buy,
-            too.
-          </p>
-          <p>
-            Our model for new apps: a dollar, paid once. No subscriptions. No
-            memberships.
-          </p>
-        </div>
-      </section>
-      <nav class="product-index" aria-label="Explore our apps">
-        <a href="#dopamask">Dopamask <span aria-hidden="true">↘</span></a>
-        <a href="#ankiduo">AnkiDuo <span aria-hidden="true">↘</span></a>
-        <a href="#slop">Slop.game <span aria-hidden="true">↘</span></a>
+      <nav class="product-index" id="apps" aria-label="Explore our apps">
+        <a href="#dopamask">
+          <img
+            src="./assets/dopamask/home.webp"
+            width="1206"
+            height="2622"
+            alt=""
+            decoding="async"
+          />
+          <span class="product-index__copy"
+            ><strong>Dopamask</strong><span>Keep your attention.</span></span
+          >
+          <span class="product-index__arrow" aria-hidden="true">↘</span>
+        </a>
+        <a href="#ankiduo">
+          <img
+            src="./assets/anki-duo-current/launcher.webp"
+            width="720"
+            height="1680"
+            alt=""
+            decoding="async"
+          />
+          <span class="product-index__copy"
+            ><strong>AnkiDuo</strong
+            ><span>Make your phone a teacher.</span></span
+          >
+          <span class="product-index__arrow" aria-hidden="true">↘</span>
+        </a>
+        <a href="#slop">
+          <img
+            src="./assets/slop-current/newest-lagoon.webp"
+            width="828"
+            height="1800"
+            alt=""
+            decoding="async"
+          />
+          <span class="product-index__copy"
+            ><strong>Slop.game</strong
+            ><span>Play what people imagine.</span></span
+          >
+          <span class="product-index__arrow" aria-hidden="true">↘</span>
+        </a>
       </nav>
       <section class="products" id="products" aria-label="Our products">
         <article
@@ -138,15 +156,113 @@
               </p>
             </div>
           </div>
-          <div class="product__media dopamask-stage">
-            <img
-              src="./assets/dopamask/home.webp"
-              width="1206"
-              height="2622"
-              alt="Dopamask’s real home screen: web filters on, shortcuts to messages, search and following, and a Start a break control."
-              loading="lazy"
-              decoding="async"
-            />
+          <div
+            class="product__media product-gallery dopamask-stage"
+            data-gallery
+          >
+            <div
+              class="gallery__tabs"
+              role="tablist"
+              aria-label="Dopamask views"
+              data-gallery-controls
+              hidden
+            >
+              <button
+                type="button"
+                role="tab"
+                id="dopamask-home-tab"
+                aria-controls="dopamask-home"
+                aria-selected="true"
+                tabindex="0"
+              >
+                Home
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="dopamask-browser-tab"
+                aria-controls="dopamask-browser"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Browser
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="dopamask-film-tab"
+                aria-controls="dopamask-film"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                The film
+              </button>
+            </div>
+            <div class="gallery__viewport">
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="dopamask-home"
+                aria-labelledby="dopamask-home-tab"
+                tabindex="0"
+              >
+                <img
+                  src="./assets/dopamask/home.webp"
+                  width="1206"
+                  height="2622"
+                  alt="Dopamask’s real home screen: web filters on, shortcuts to messages, search and following, and a Start a break control."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="dopamask-browser"
+                aria-labelledby="dopamask-browser-tab"
+                tabindex="0"
+                hidden
+              >
+                <img
+                  src="./assets/dopamask/browser.webp"
+                  width="1206"
+                  height="2622"
+                  alt="YouTube search inside Dopamask, showing nature documentaries and a direct Subscriptions shortcut."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="dopamask-film"
+                aria-labelledby="dopamask-film-tab"
+                tabindex="0"
+                hidden
+              >
+                <video
+                  width="1080"
+                  height="1920"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="./assets/dopamask/dopamask-film-poster.webp"
+                  aria-label="Dopamask film: a phone in engraved landscapes, the protective mask, and a Dopamine to Dopamask typing animation"
+                  data-film
+                >
+                  <source
+                    src="./assets/dopamask/dopamask-film-mobile.mp4"
+                    media="(max-width: 760px)"
+                    type="video/mp4"
+                  />
+                  <source
+                    src="./assets/dopamask/dopamask-film-web.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
           </div>
         </article>
         <article
@@ -167,23 +283,105 @@
               </p>
             </div>
           </div>
-          <div class="product__media anki-stage">
-            <video
-              width="1080"
-              height="1920"
-              muted
-              loop
-              playsinline
-              preload="none"
-              poster="./assets/anki-duo-current/ankiduo-film-poster.webp?v=20261024-15"
-              aria-label="AnkiDuo on Android: open a blocked app, review a card, and return to the unlocked app"
-              data-film
+          <div class="product__media product-gallery anki-stage" data-gallery>
+            <div
+              class="gallery__tabs"
+              role="tablist"
+              aria-label="AnkiDuo views"
+              data-gallery-controls
+              hidden
             >
-              <source
-                src="./assets/anki-duo-current/ankiduo-film-web.mp4?v=20261024-15"
-                type="video/mp4"
-              />
-            </video>
+              <button
+                type="button"
+                role="tab"
+                id="anki-home-tab"
+                aria-controls="anki-home"
+                aria-selected="true"
+                tabindex="0"
+              >
+                Study
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="anki-launcher-tab"
+                aria-controls="anki-launcher"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Launcher
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="anki-demo-tab"
+                aria-controls="anki-demo"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Unlock
+              </button>
+            </div>
+            <div class="gallery__viewport">
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="anki-home"
+                aria-labelledby="anki-home-tab"
+                tabindex="0"
+              >
+                <img
+                  src="./assets/anki-duo-current/home-clean.webp"
+                  width="720"
+                  height="1680"
+                  alt="AnkiDuo’s study screen with Kado, daily review progress, and a bookshelf of language decks."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="anki-launcher"
+                aria-labelledby="anki-launcher-tab"
+                tabindex="0"
+                hidden
+              >
+                <img
+                  src="./assets/anki-duo-current/launcher.webp"
+                  width="720"
+                  height="1680"
+                  alt="AnkiDuo replacing the Android home screen: study progress and a Study button above everyday app shortcuts."
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="anki-demo"
+                aria-labelledby="anki-demo-tab"
+                tabindex="0"
+                hidden
+              >
+                <video
+                  width="1080"
+                  height="1920"
+                  muted
+                  loop
+                  playsinline
+                  preload="none"
+                  poster="./assets/anki-duo-current/ankiduo-film-poster.webp?v=20261024-15"
+                  aria-label="AnkiDuo on Android: open a blocked app, review a card, and return to the unlocked app"
+                  data-film
+                >
+                  <source
+                    src="./assets/anki-duo-current/ankiduo-film-web.mp4?v=20261024-15"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
           </div>
         </article>
         <article
@@ -215,39 +413,115 @@
               >
             </div>
           </div>
-          <div class="product__media slop-stage">
-            <div class="slop-film">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
-                aria-label="Slop.game gameplay film"
-                data-film
+          <div class="product__media product-gallery slop-stage" data-gallery>
+            <div
+              class="gallery__tabs"
+              role="tablist"
+              aria-label="Slop.game views"
+              data-gallery-controls
+              hidden
+            >
+              <button
+                type="button"
+                role="tab"
+                id="slop-app-tab"
+                aria-controls="slop-app"
+                aria-selected="true"
+                tabindex="0"
               >
-                <source
-                  src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
-                  type="video/mp4"
+                In the app
+              </button>
+              <button
+                type="button"
+                role="tab"
+                id="slop-demo-tab"
+                aria-controls="slop-demo"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                Gameplay
+              </button>
+            </div>
+            <div class="gallery__viewport">
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="slop-app"
+                aria-labelledby="slop-app-tab"
+                tabindex="0"
+              >
+                <img
+                  src="./assets/slop-current/newest-lagoon.webp"
+                  width="828"
+                  height="1800"
+                  alt="Slop.game’s Newest feed with the Lagoon wingsuit game ready to play, sharing controls, and app navigation."
+                  loading="lazy"
+                  decoding="async"
                 />
-              </video>
+              </div>
+              <div
+                class="gallery__panel"
+                role="tabpanel"
+                id="slop-demo"
+                aria-labelledby="slop-demo-tab"
+                tabindex="0"
+                hidden
+              >
+                <div class="slop-film">
+                  <video
+                    width="1080"
+                    height="1920"
+                    muted
+                    loop
+                    playsinline
+                    preload="none"
+                    poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
+                    aria-label="Slop.game gameplay film"
+                    data-film
+                  >
+                    <source
+                      src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
+                      type="video/mp4"
+                    />
+                  </video>
+                </div>
+              </div>
             </div>
           </div>
         </article>
       </section>
+      <section
+        class="one-dollar"
+        id="one-dollar"
+        aria-labelledby="one-dollar-title"
+      >
+        <h2 id="one-dollar-title">
+          <span class="one-dollar__amount">$1</span
+          ><span>Once.<br />Not monthly.</span>
+        </h2>
+        <div class="one-dollar__copy">
+          <p>
+            AI makes software cheaper to build. It should be cheaper to buy,
+            too.
+          </p>
+          <p>
+            Our model for new apps: a dollar, paid once. No subscriptions. No
+            memberships.
+          </p>
+        </div>
+      </section>
       <section class="approach" id="approach" aria-labelledby="approach-title">
         <h2 id="approach-title">
-          More useful.<br /><em>Less everything else.</em>
+          Remove the noise.<br /><em>Make room for the good.</em>
         </h2>
         <div class="approach__copy">
           <p>
-            We use AI to remove the slop from software: the clutter, the
-            friction, the features that serve the business instead of you.
+            We're a software lab. We build on open source to make useful tools
+            simpler—and create places where AI-made games and experiments
+            belong.
           </p>
           <p class="approach__invitation">
-            Build on open source. Make it simpler. Pass the savings on.
+            Less to pay. More to make your own.
           </p>
         </div>
       </section>

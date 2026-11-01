@@ -10,6 +10,32 @@ Production selection for the October 24, 2026 redesign. Paths below are reposito
 pixels and the complete screen. The original remains in the app project. No AI
 edits, cropping, device frame, or fabricated app content were added.
 
+`assets/dopamask/browser.webp` is the real October 28 18:18 capture
+`/Users/rob/Documents/ChatGPT/japanese/touch_grass/screenshots/20-youtube-night-search.png`.
+It shows a nature-documentary search inside Dopamask's focused YouTube browser.
+Encoded with cwebp at quality 92, preserving the complete 1206 × 2622 screen.
+The gallery switches between these two real views; no personal messages or
+private account data are shown.
+
+## November 1 showcase update
+
+`assets/dopamask/dopamask-film-web.mp4` and `dopamask-film-mobile.mp4` are web
+encodes of the exact source requested by the owner:
+`/Users/rob/Documents/ChatGPT/japanese/touch_grass/MarketingFilm/TypingFilm/Dopamask-Typing.mp4`.
+The completed October 29 source SHA-256 is
+`a1a3cd0e583c3a77ca8cc21c8d2c84812e4fad86a7c559ed9bcddc030c4dfff4`.
+Its editable project is `Dopamask-Typing.tsrct` in that same folder. The encodes
+retain all 434 frames at 24fps, the original 18.083-second edit and audio, and
+the full portrait composition. Desktop delivery is 1080 × 1920; mobile delivery
+is 720 × 1280. The website plays muted. The poster is the source frame at 2s.
+The film is stylized marketing artwork containing the real app capture; the
+Home and Browser tabs show direct screenshots separately. Source footage and
+the editable project were not changed. No new film was generated for this pass.
+
+The visual product index reuses the real home, launcher, and Slop feed images.
+JevBot and the 3DS experiment are not added without company-portfolio confirmation;
+alternate names/platform ports are not represented as separate products.
+
 Dopamask's README, `docs/BRAND.md`, and browser policy source establish its
 focused-browser positioning and intended $1 one-time model. Reels/Shorts filtering
 is described as operating inside Dopamask; it is not presented as an AI-content
@@ -46,9 +72,21 @@ uses the app's actual Android permissions and review scheduler only inside a
 temporary read-only emulator; that session was closed after recording. Its final
 Home screen shows updated review counts, so the loop is not pixel-identical.
 
-The feed (`newest-lagoon.webp`), library (`home-clean.webp`), and study-path stills are retained source assets, not displayed in the current product sections. Each product now has just one film, displayed at its own 9:16 delivery ratio with `object-fit: contain`; neither is nested inside a decorative phone frame. The Workshop capture is no longer displayed because its source had a status-bar overlap. No AI edits were made to app screenshots.
+The feed (`newest-lagoon.webp`) and library (`home-clean.webp`) are the default
+Slop.game and AnkiDuo gallery views. Their original 828 × 1800 and 720 × 1680
+proportions are preserved. Both galleries offer their unchanged film as another
+view, displayed at its own 9:16 delivery ratio with `object-fit: contain`.
+Only one panel is visible at a time. No decorative phone frame is added. The
+study-path still remains unused; the Workshop capture is not displayed because
+its source had a status-bar overlap. No AI edits were made to app screenshots.
 
-`assets/anki-duo-current/launcher.webp` is the retained October 24 13:14 Android launcher capture `slopui-shots/final-cover-night.png`, resized from 1080 × 2520 to 720 × 1680. The visible showcase now uses the real interaction film instead of that still. App-blocking wording was originally cross-checked against the same-day `cd13-FocusSettingsActivity.png` and is now demonstrated by the actual Home → block → review → unlock flow. The temporary emulator used the app's Home role and accessibility permission with the product owner's approval; the demonstration is Android, not a Samsung-specific capture.
+`assets/anki-duo-current/launcher.webp` is the October 24 13:14 Android launcher
+capture `slopui-shots/final-cover-night.png`, resized from 1080 × 2520 to
+720 × 1680. It appears under Home screen in the AnkiDuo gallery. App-blocking
+wording was cross-checked against the same-day `cd13-FocusSettingsActivity.png`
+and is demonstrated by the actual Home → block → review → unlock film. The
+temporary emulator used the app's Home role and accessibility permission with
+the product owner's approval; the demonstration is Android, not Samsung-specific.
 
 ## Existing artwork retained
 

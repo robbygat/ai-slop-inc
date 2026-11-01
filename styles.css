@@ -144,7 +144,7 @@ em {
   align-items: center;
   max-width: 1680px;
   margin-inline: auto;
-  padding-bottom: 2.5rem;
+  padding-bottom: 1rem;
 }
 .hero__copy {
   position: relative;
@@ -152,7 +152,7 @@ em {
   grid-column: 1 / 8;
   grid-row: 1;
   padding: 3.5rem 0 3.5rem var(--pad);
-  margin-top: 4rem;
+  margin-top: 1rem;
 }
 .hero h1 {
   position: relative;
@@ -189,7 +189,7 @@ em {
   position: relative;
   min-width: 0;
   width: 100%;
-  max-width: 46rem;
+  max-width: 37rem;
   grid-column: 6 / -1;
   grid-row: 1;
   justify-self: center;
@@ -255,19 +255,46 @@ em {
 .product-index {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  padding: 1.6rem var(--pad);
+  padding: 2rem var(--pad);
   gap: 2rem;
+  border-top: 1px solid var(--line);
 }
 .product-index a {
-  display: flex;
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr) auto;
   min-height: 2.75rem;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.1rem;
   padding-block: 0.5rem;
   font-size: clamp(1rem, 1.5vw, 1.4rem);
   font-weight: 500;
   letter-spacing: -0.035em;
+}
+.product-index img {
+  width: 4rem;
+  height: 8.75rem;
+  object-fit: contain;
+}
+.product-index__copy {
+  display: grid;
+  gap: 0.5rem;
+}
+.product-index__copy strong {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 600;
+}
+.product-index__copy > span {
+  font-size: 1rem;
+  line-height: 1.3;
+  color: #626262;
+}
+.product-index__arrow {
+  align-self: start;
+  transition: transform 200ms;
+}
+.product-index a:hover .product-index__arrow {
+  transform: translate(3px, 3px);
 }
 .product-index a:hover {
   color: var(--red);
@@ -283,8 +310,8 @@ em {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
   align-items: center;
-  gap: 8vw;
-  padding: clamp(3.5rem, 6vw, 6rem) var(--pad);
+  gap: 5vw;
+  padding: clamp(3rem, 5vw, 5rem) max(var(--pad), calc((100vw - 1280px) / 2));
 }
 .product__content {
   width: 100%;
@@ -294,7 +321,7 @@ em {
 }
 .product__media {
   width: 100%;
-  max-width: 24rem;
+  max-width: 21rem;
   min-width: 0;
   justify-self: center;
 }
@@ -315,18 +342,89 @@ em {
 .dopamask-stage {
   max-width: 22rem;
 }
-.dopamask-stage img {
+.product-gallery {
+  --gallery-ratio: 1206 / 2622;
+  --gallery-width: 0.46;
+  max-width: min(21rem, calc(70svh * var(--gallery-width)));
+}
+.anki-stage {
+  --gallery-ratio: 3 / 7;
+  --gallery-width: 0.428571;
+}
+.slop-stage {
+  --gallery-ratio: 23 / 50;
+}
+.gallery__tabs {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid currentColor;
+}
+.gallery__tabs[hidden],
+.gallery__panel[hidden] {
+  display: none;
+}
+.gallery__tabs button {
+  position: relative;
+  min-height: 2.75rem;
+  padding: 0.5rem 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  letter-spacing: -0.025em;
+  cursor: pointer;
+  opacity: 0.65;
+}
+.gallery__tabs button[aria-selected="true"] {
+  opacity: 1;
+}
+.gallery__tabs button[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  inset-inline: 0;
+  height: 3px;
+  background: currentColor;
+}
+.gallery__tabs button:hover {
+  opacity: 1;
+}
+.gallery__tabs button:focus-visible,
+.gallery__panel:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+.gallery__viewport {
+  position: relative;
+  aspect-ratio: var(--gallery-ratio);
+}
+.gallery__panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.gallery__panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.gallery__panel > video {
   width: 100%;
   height: auto;
+  aspect-ratio: 9 / 16;
   object-fit: contain;
 }
 .product__heading,
 .anki-heading {
-  margin-bottom: clamp(2rem, 4vw, 4rem);
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.5rem);
 }
 .product__heading h2,
 .anki-heading h2 {
-  font-size: clamp(3.5rem, 7.5vw, 7.5rem);
+  font-size: clamp(3.5rem, 6.5vw, 6.5rem);
   font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.95;
@@ -383,6 +481,20 @@ em {
 .product--anki {
   background: var(--paper);
 }
+@media (min-width: 761px) {
+  .product--anki {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  }
+  .product--anki .product__content {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: start;
+  }
+  .product--anki .product__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
 .anki-copy {
   color: #29213f;
   max-width: 35rem;
@@ -415,8 +527,8 @@ em {
   align-items: center;
   gap: 5vw;
   padding: 6rem var(--pad);
-  background: var(--red);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
 }
 .approach h2 {
   font-size: clamp(2.8rem, 4.9vw, 5.8rem);
@@ -425,7 +537,7 @@ em {
   letter-spacing: -0.06em;
 }
 .approach h2 em {
-  color: inherit;
+  color: var(--red);
 }
 .approach__copy {
   max-width: 31rem;
@@ -446,6 +558,7 @@ em {
   align-items: center;
   gap: 4rem;
   padding: 5.5rem var(--pad);
+  border-top: 1px solid var(--line);
 }
 .recognition h2 {
   font-size: clamp(2rem, 3.3vw, 3.6rem);
@@ -629,7 +742,7 @@ em {
   }
   .hero-art {
     width: 100%;
-    max-width: 32rem;
+    max-width: 21rem;
     grid-column: 1;
     grid-row: auto;
     margin-block: 0;
@@ -660,26 +773,43 @@ em {
   }
   .product-index {
     gap: 0.8rem;
-    padding-block: 1rem;
+    padding-block: 1.5rem;
   }
   .product-index a + a {
     padding-left: 0.8rem;
   }
   .product-index a {
-    font-size: 0.95rem;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: 0.8rem;
+    font-size: 1rem;
+  }
+  .product-index img {
+    width: 100%;
+    height: 7.5rem;
+    object-position: left center;
+  }
+  .product-index__copy strong {
+    font-size: clamp(0.95rem, 3.8vw, 1.2rem);
+  }
+  .product-index__copy > span {
+    font-size: 0.9rem;
+  }
+  .product-index__arrow {
+    display: none;
   }
   .product {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
     padding-block: 3rem;
   }
-  .product__content,
-  .product__media {
+  .product__content {
     max-width: 26rem;
     justify-self: center;
   }
-  .dopamask-stage {
-    max-width: 22rem;
+  .product__media {
+    max-width: min(20rem, calc(68svh * var(--gallery-width)));
+    justify-self: center;
   }
   .product__heading,
   .anki-heading {
