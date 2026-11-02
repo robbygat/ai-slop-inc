@@ -1,113 +1,60 @@
 # Website asset sources
 
-Production selection for the October 24, 2026 redesign. Paths below are repository-relative. This inventory covers the assets used by `index.html` and `styles.css`, plus their retained source and license files.
+Production assets for the November 2, 2026 company-site update. The previous pricing section and pricing metadata/social preview are removed.
 
-## October 31 brand update
+## Hero artwork
 
-`assets/dopamask/home.webp` is the current real app capture from
-`/Users/rob/Documents/ChatGPT/japanese/touch_grass/screenshots/40-final-home.png`
-(October 28, 23:17). Encoded at quality 92 with cwebp, retaining all 1206 × 2622
-pixels and the complete screen. The original remains in the app project. No AI
-edits, cropping, device frame, or fabricated app content were added.
+`assets/hero-slop-portrait.png` is the existing 1272 × 1431 transparent portrait of
+Andy Warhol constructed from repeated “slop” words. It was already tracked in
+this repository, introduced in commit `8d7a432` on September 7, 2026. No external
+source/license provenance was established by this local repository review.
 
-`assets/dopamask/browser.webp` is the real October 28 18:18 capture
-`/Users/rob/Documents/ChatGPT/japanese/touch_grass/screenshots/20-youtube-night-search.png`.
-It shows a nature-documentary search inside Dopamask's focused YouTube browser.
-Encoded with cwebp at quality 92, preserving the complete 1206 × 2622 screen.
-Both captures remain available as source assets. The Dopamask section leads
-directly with its video; the compact product index now uses name links only.
+`hero-art.js` reuses that source alpha for a transparent black/red ink animation.
+The crisp portrait holds 4.8 seconds, then a 1.2 second transition disperses and
+reforms up to 1,200 sampled particles. Reduced-motion/data-saving modes use the
+static portrait. Offscreen and hidden states stop animation work. No new bitmap
+artwork, generated app screen, or animation footage was created.
 
-## November 1 showcase update
+The older Marilyn sheet, Warhol color sheet, photographic cutout and previous
+animation scripts remain source assets; the page does not load them.
 
-`assets/dopamask/dopamask-film-web.mp4` and `dopamask-film-mobile.mp4` are web
-encodes of the exact source requested by the owner:
-`/Users/rob/Documents/ChatGPT/japanese/touch_grass/MarketingFilm/TypingFilm/Dopamask-Typing.mp4`.
-The completed October 29 source SHA-256 is
+## Product videos
+
+Every product uses an equal native 9:16 stage in the shared horizontal rail. No
+video is cropped, retimed, reconstructed, or nested in a decorative phone frame.
+Original source files and editable projects remain in their existing folders.
+
+| Website asset | Source and delivery |
+| --- | --- |
+| `assets/slop-current/slop-film-web.mp4` |1080×1920,60fps web export of the October 22 Minimal Film master. Native Tesseract source `review/Slop-Film-Retry-20261024/Slop-Film-Retry.tsrct` uses source 0.15–14.8s at 1×. Shows Lagoon, Whiteout, Proximity and Skyline gameplay. |
+| `assets/slop-current/slop-film-poster.webp` | Poster from the same source. |
+| `assets/anki-duo-current/ankiduo-film-web.mp4` |1080×1920,60fps delivery of the October 24 real Android capture. The continuous 7.3 second take shows Home → blocked Chrome → card flip → Know → unlock → Chrome → Home at 1×. Editable project: `review/AnkiDuo-Film-Retry-20261024/AnkiDuo-Film-Retry.tsrct`. |
+| `assets/anki-duo-current/ankiduo-film-poster.webp` | Poster from the same source. |
+| `assets/dopamask/dopamask-film-web.mp4` |1080×1920, native 24 fps,434frames,18.083seconds. Web encode of the owner's October 29 `/Users/rob/Documents/ChatGPT/japanese/touch_grass/MarketingFilm/TypingFilm/Dopamask-Typing.mp4`. |
+| `assets/dopamask/dopamask-film-mobile.mp4` |720×1280 mobile encode of the same unchanged edit and audio, retaining 24fps and 434 frames. |
+| `assets/dopamask/dopamask-film-poster.webp` | Source frame at 2 seconds. |
+
+The Dopamask source SHA-256 is
 `a1a3cd0e583c3a77ca8cc21c8d2c84812e4fad86a7c559ed9bcddc030c4dfff4`.
-Its editable project is `Dopamask-Typing.tsrct` in that same folder. The encodes
-retain all 434 frames at 24fps, the original 18.083-second edit and audio, and
-the full portrait composition. Desktop delivery is 1080 × 1920; mobile delivery
-is 720 × 1280. The website plays muted. The poster is the source frame at 2s.
-All three product videos are visible by default and begin playing when they
-enter the viewport. They use their native 9:16 stage without gallery controls.
-The film is stylized marketing artwork containing the real app capture; the
-real screenshots remain retained as source assets. Source footage and
-the editable project were not changed. No new film was generated for this pass.
+Its editable project is `Dopamask-Typing.tsrct` in the same app folder. This is
+stylized marketing artwork containing the real app capture; it is not represented
+as an unedited physical-camera recording. The website plays all videos muted.
 
-The November 2 composition removes the tiny product-index screenshots and
-duplicate product slogans, while retaining all three original product videos.
-Dopamask is a full-width spread; AnkiDuo and Slop.game sit beside each other on
-desktop and stack on mobile. The hero uses only the original portrait pixels
-and native typography; no generated imagery or reconstructed app UI is added.
-JevBot and the 3DS experiment are not added without company-portfolio confirmation;
-alternate names/platform ports are not represented as separate products.
+AnkiDuo's temporary Android emulator used the Home role and accessibility service
+with the owner's approval. Its source demonstration is Android, not specifically
+Samsung. Dopamask's filtering works inside its own browser; it does not alter
+other native apps or detect every AI-created post. No new public download links
+are invented for these products.
 
-Dopamask's README, `docs/BRAND.md`, and browser policy source establish its
-focused-browser positioning and intended $1 one-time model. Reels/Shorts filtering
-is described as operating inside Dopamask; it is not presented as an AI-content
-detector or a way to alter other native iOS apps. The source explicitly says no
-public store release has occurred, so the website adds no checkout/download link.
-The prominent $1 statement is scoped to the company's new-app model, not current
-store pricing for every existing product. Existing Slop and AnkiDuo films remain
-unchanged. The company website keeps its own Gabarito/red/white identity while
-showing Dopamask's real engraved artwork and current in-app typography.
+## Identity and recognition
 
-## New and refreshed assets
+| Website asset | Source |
+| --- | --- |
+| `assets/brand/open-network-lab.png` | Transparent 2307 × 478 export of the official Open Network Lab SVG from the existing award announcement source kit. Original retained as `assets/brand/open-network-lab.svg`. Source: https://onlab.jp/wp-content/themes/onlab_2018/images/logo_onlab.svg |
+| `assets/brand/openai-wordmark.png` | Transparent 1604 × 718 wordmark from the official OpenAI brand kit. Source: https://cdn.openai.com/brand/OpenAI-Logos-2025.zip |
+| `assets/fonts/Gabarito-Variable.ttf` | Gabarito variable font, copyright 2023 The Gabarito Project Authors, SIL Open Font License 1.1. License retained as `assets/fonts/Gabarito-OFL.txt`. Source: https://github.com/naipefoundry/gabarito |
+| `assets/site-share.svg`, `assets/site-share.png` | Updated editable social preview with the new headline, existing Warhol word portrait, and equal product names. No pricing text. |
+| `favicon.svg` | Existing red/white AI letterform icon. The company name is rendered as normal words: AI Slop Inc. |
 
-| Website file                                       | Source and use                                                                                                                                                                                                                                                                                                                                                                    |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assets/slop-current/slop-film-web.mp4`            | 1080 × 1920, 60fps web export of the October 22 Minimal Film master. The native Tesseract edit `review/Slop-Film-Retry-20261024/Slop-Film-Retry.tsrct` uses source 0.15–14.8s at 1×, removing the static ending and preserving the original motion frames. Shows Lagoon, Whiteout, Proximity, and Skyline gameplay. |
-| `assets/slop-current/slop-film-poster.webp`        | Still from the same October 22 Minimal Film, used before video playback.                                                                                                                                                                                                                                                                                                          |
-| `assets/slop-current/newest-lagoon.webp`           | October 24 capture of installed Slop.game build 2082, showing the current Newest feed. Exported from `newest-lagoon.png` at 828 × 1800.                                                                                                                                                                                                                                           |
-| `assets/anki-duo-current/home-clean.webp`          | October 24 app capture `final-cover-day-1.png`, showing the Anki Duo home screen, Kado, and deck bookshelf. Resized from the clean 1080 × 2520 original to 720 × 1680 without cropping. Replaces the earlier capture with stray pixels below its gesture bar.                                                                                                                     |
-| `assets/anki-duo-current/ankiduo-film-web.mp4`     | 1080 × 1920, 60fps delivery of a new October 24 real Android capture. The continuous approximately 7.3-second take shows Home → Chrome blocked → card flip → swipe Know → successful unlock → Chrome → Home at 1×. Captured at 720 × 1680 in a temporary read-only emulator, with native Gabarito captions added in Tesseract. Source animation cadence was checked separately from export FPS; no frame interpolation or reconstructed UI was used. |
-| `assets/anki-duo-current/ankiduo-film-poster.webp` | Poster for the same AnkiDuo product film. The film uses the site's Gabarito typography and preserves the complete captured phone UI inside its 9:16 composition. No AI-generated interface or altered app screen is used.                                                                                                                                                         |
-| `assets/anki-duo-current/study-path.webp`          | October 24 app capture `r7-today.png`, showing the Anki Duo daily study path in dark mode. Exported at 720 × 1680.                                                                                                                                                                                                                                                                |
-| `assets/brand/open-network-lab.png`                | Faithful transparent 2307 × 478 export of the [official Open Network Lab SVG](https://onlab.jp/wp-content/themes/onlab_2018/images/logo_onlab.svg), selected from the existing award announcement source kit. Preserves the branching symbol; ImageMagick's incompatible clipping render was discarded. The downloaded vector is retained as `assets/brand/open-network-lab.svg`. |
-| `assets/brand/openai-wordmark.png`                 | Transparent 1604 × 718 wordmark from the [official OpenAI brand kit](https://cdn.openai.com/brand/OpenAI-Logos-2025.zip), with the original proportions and clear space.                                                                                                                                                                                                          |
-| `assets/site-share.png`                            | Social preview rendered from the editable `assets/site-share.svg`, using this website's typography, palette, and retained portrait artwork.                                                                                                                                                                                                                                       |
-| `assets/fonts/Gabarito-Variable.ttf`               | Locally served Gabarito variable font. Copyright 2023 The Gabarito Project Authors; licensed under the SIL Open Font License 1.1. Full license retained in `assets/fonts/Gabarito-OFL.txt`. [Font project](https://github.com/naipefoundry/gabarito).                                                                                                                             |
-| `favicon.svg`                                      | Original AI letterform icon created for this redesign, using the website's white and red palette.                                                                                                                                                                                                                                                                                 |
-
-The AnkiDuo images are real app captures, not illustrative store artwork or theme boards. Development is complete per the product owner's October 24 update. A GitHub URL has not yet been provided; the website does not present the captures as evidence of a public download.
-
-The replacement AnkiDuo film's editable source is
-`review/AnkiDuo-Film-Retry-20261024/AnkiDuo-Film-Retry.tsrct`.
-The original recording and earlier edits are retained locally. The new capture
-uses the app's actual Android permissions and review scheduler only inside a
-temporary read-only emulator; that session was closed after recording. Its final
-Home screen shows updated review counts, so the loop is not pixel-identical.
-
-The feed (`newest-lagoon.webp`) and library (`home-clean.webp`) remain source
-assets. Their original dimensions are retained.
-The product sections show their videos directly at 9:16 with `object-fit: contain`.
-No decorative phone frame is added. The study-path still remains unused;
-the Workshop capture is not displayed because
-its source had a status-bar overlap. No AI edits were made to app screenshots.
-
-`assets/anki-duo-current/launcher.webp` is the October 24 13:14 Android launcher
-capture `slopui-shots/final-cover-night.png`, resized from 1080 × 2520 to
-720 × 1680. It remains a source asset. App-blocking
-wording was cross-checked against the same-day `cd13-FocusSettingsActivity.png`
-and is demonstrated by the actual Home → block → review → unlock film. The
-temporary emulator used the app's Home role and accessibility permission with
-the product owner's approval; the demonstration is Android, not Samsung-specific.
-
-## Existing artwork retained
-
-| Website file                    | Use                                                                                                                                                                                                                                                           |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `assets/slop-art-portraits.png` | Existing 1536 × 1024 dotted portrait sheet, reused for the hero's single Marilyn Monroe composition. `artwork.js` adds restrained color registration and horizontal signal distortions from the original pixels; a static CSS rendition remains the fallback. |
-
-OpenAI and Open Network Lab marks identify the organizations associated with the stated award recognition; they are not presented as an endorsement of AI Slop Inc. or its products.
-
-## Product wording
-
-The October 24 copy pass describes source-backed behavior, not newly measured
-traction or performance. Slop's mobile source implements AI-prompt game creation,
-a vertical playable feed, reviewed publishing, and native sharing. AnkiDuo's
-AnkiDroid-based Android source implements an optional Home launcher and opt-in
-app blocking with a review-card unlock. “Operating-system level” refers to this
-home-screen and app-access experience, not a modified OS or kernel. The company's
-ad-free, open-source direction is stated as a goal; no public repository or
-blanket claim about every product's current licensing is implied.
+The organization marks identify the stated Honorable Mention with $2,500 in OpenAI
+API credits. They are not presented as endorsements or cash funding.

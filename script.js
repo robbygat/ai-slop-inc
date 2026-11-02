@@ -2,56 +2,7 @@ document.querySelectorAll("[data-year]").forEach((node) => {
   node.textContent = String(new Date().getFullYear());
 });
 
-const portrait = document.querySelector("[data-art-portrait]");
 const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
-const prints = ["50% 0%", "100% 100%", "0% 0%", "50% 100%"];
-let printIndex = 0;
-let portraitVisible = !("IntersectionObserver" in window);
-let printTimer = 0;
-
-function nextPrint() {
-  if (!portrait) return;
-  printIndex = (printIndex + 1) % prints.length;
-  portrait.style.backgroundPosition = prints[printIndex];
-}
-
-function canCyclePrint() {
-  return (
-    portrait &&
-    portraitVisible &&
-    !document.hidden &&
-    !motionPreference.matches &&
-    !navigator.connection?.saveData
-  );
-}
-
-function syncPrintCycle() {
-  window.clearTimeout(printTimer);
-  printTimer = 0;
-  if (!canCyclePrint()) return;
-  printTimer = window.setTimeout(() => {
-    printTimer = 0;
-    if (canCyclePrint()) nextPrint();
-    syncPrintCycle();
-  }, 6000);
-}
-
-if (portrait) {
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(
-      ([entry]) => {
-        portraitVisible =
-          entry.isIntersecting && entry.intersectionRatio >= 0.15;
-        syncPrintCycle();
-      },
-      { threshold: 0.15 },
-    ).observe(portrait);
-  }
-  motionPreference.addEventListener("change", syncPrintCycle);
-  document.addEventListener("visibilitychange", syncPrintCycle);
-  navigator.connection?.addEventListener?.("change", syncPrintCycle);
-  syncPrintCycle();
-}
 
 const films = [...document.querySelectorAll("[data-film]")];
 const filmVisibility = new Map(films.map((film) => [film, false]));
@@ -125,6 +76,153 @@ if (films.length) {
   syncAllFilmPlayback();
 }
 
+const productRail = document.querySelector("[data-product-rail]");
+if (productRail) {
+  const cards = [...productRail.querySelectorAll(".product")];
+  const compactRail = window.matchMedia("(max-width: 760px)");
+  let railVisible = !("IntersectionObserver" in window);
+  let interacted = false;
+  let hovered = false;
+  let direction = 1;
+  let advanceTimer = 0;
+  let settleTimer = 0;
+
+  function positions() {
+    const padding = parseFloat(getComputedStyle(productRail).paddingLeft) || 0;
+    const maximum = productRail.scrollWidth - productRail.clientWidth;
+    return cards.map((card) =>
+      Math.max(0, Math.min(maximum, card.offsetLeft - padding)),
+    );
+  }
+  function currentCard() {
+    const offsets = positions();
+    return offsets.reduce(
+      (best, value, index) =>
+        Math.abs(value - productRail.scrollLeft) <
+        Math.abs(offsets[best] - productRail.scrollLeft)
+          ? index
+          : best,
+      0,
+    );
+  }
+  function stopAdvance() {
+    window.clearTimeout(advanceTimer);
+    advanceTimer = 0;
+  }
+  function moveTo(index) {
+    productRail.scrollTo({
+      left: positions()[index],
+      behavior: motionPreference.matches ? "auto" : "smooth",
+    });
+  }
+  function scheduleAdvance() {
+    stopAdvance();
+    if (
+      interacted ||
+      hovered ||
+      !railVisible ||
+      !compactRail.matches ||
+      !canUseFilmMotion() ||
+      productRail.scrollWidth <= productRail.clientWidth + 2
+    )
+      return;
+    const index = currentCard();
+    const video = cards[index].querySelector("video");
+    if (!video || video.paused || video.readyState < 2) return;
+    const remaining =
+      video && Number.isFinite(video.duration)
+        ? (video.duration - video.currentTime) * 1000 + 400
+        : 16000;
+    advanceTimer = window.setTimeout(
+      () => {
+        advanceTimer = 0;
+        if (index + direction >= cards.length || index + direction < 0)
+          direction *= -1;
+        moveTo(index + direction);
+      },
+      Math.max(8000, Math.min(24000, remaining)),
+    );
+  }
+  function manualInteraction() {
+    interacted = true;
+    stopAdvance();
+  }
+  productRail.addEventListener("pointerdown", manualInteraction, {
+    passive: true,
+  });
+  productRail.addEventListener("focusin", manualInteraction);
+  productRail.addEventListener(
+    "wheel",
+    (event) => {
+      if (Math.abs(event.deltaX) > 0) manualInteraction();
+    },
+    { passive: true },
+  );
+  productRail.addEventListener("pointerenter", () => {
+    hovered = true;
+    stopAdvance();
+  });
+  productRail.addEventListener("pointerleave", () => {
+    hovered = false;
+    scheduleAdvance();
+  });
+  productRail.addEventListener("keydown", (event) => {
+    if (event.target !== productRail) return;
+    const index = currentCard();
+    const target = {
+      ArrowRight: Math.min(cards.length - 1, index + 1),
+      ArrowLeft: Math.max(0, index - 1),
+      Home: 0,
+      End: cards.length - 1,
+    }[event.key];
+    if (target === undefined) return;
+    event.preventDefault();
+    manualInteraction();
+    moveTo(target);
+  });
+  productRail.addEventListener(
+    "scroll",
+    () => {
+      stopAdvance();
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(scheduleAdvance, 220);
+    },
+    { passive: true },
+  );
+  cards.forEach((card, index) => {
+    const video = card.querySelector("video");
+    ["pause", "waiting"].forEach((event) =>
+      video?.addEventListener(event, () => {
+        if (index === currentCard()) stopAdvance();
+      }),
+    );
+    ["loadedmetadata", "playing"].forEach((event) =>
+      video?.addEventListener(event, () => {
+        if (
+          index === currentCard() &&
+          (event === "loadedmetadata" || !advanceTimer)
+        )
+          scheduleAdvance();
+      }),
+    );
+  });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        railVisible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+        scheduleAdvance();
+      },
+      { threshold: [0, 0.25] },
+    ).observe(productRail);
+  }
+  compactRail.addEventListener("change", scheduleAdvance);
+  motionPreference.addEventListener("change", scheduleAdvance);
+  document.addEventListener("visibilitychange", scheduleAdvance);
+  navigator.connection?.addEventListener?.("change", scheduleAdvance);
+  window.addEventListener("resize", scheduleAdvance);
+  scheduleAdvance();
+}
+
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -138,7 +236,7 @@ if ("IntersectionObserver" in window) {
     { threshold: 0, rootMargin: "0px 0px 60px 0px" },
   );
   const revealNodes = document.querySelectorAll(
-    ".product__content, .recognition__copy, .recognition__logos",
+    ".recognition__copy, .recognition__logos",
   );
   revealNodes.forEach((node) => {
     if (!motionPreference.matches) node.classList.add("is-reveal-pending");
