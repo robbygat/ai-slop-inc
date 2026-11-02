@@ -3,8 +3,9 @@
 The official website for AI Slop Inc., showcasing Dopamask, AnkiDuo, and [Slop.game](https://slop.game).
 Static HTML, CSS, and JavaScript; no build step or package dependencies.
 
-The editorial hierarchy keeps the approved "Slop has its place" hero, followed by
-a visual index of all three apps and their product showcases. The company's
+The editorial hierarchy keeps the approved "Slop has its place" hero, with
+oversized red type, an italic second line, and an overlapping transparent portrait.
+A compact product-name index leads directly into the showcases. The company's
 new-app model follows the product evidence: $1 once, no subscriptions or memberships. This is a
 direction for new products, not a claim about current Slop.game store pricing.
 Dopamask leads with focused social browsing, then AnkiDuo demonstrates learning
@@ -26,15 +27,16 @@ labels or placeholder links. Its GitHub URL has not yet been supplied.
 Each product shows its video directly: Dopamask's typing film, AnkiDuo's real
 app-blocking demonstration, and Slop.game's gameplay. Visitors scroll to watch;
 there are no media tabs, labels, selectors, or decorative phone frames.
-The product overview retains three real app screenshot previews. Each video
-stage matches its native 9:16 ratio and preserves the entire composition.
+The tiny overview screenshots and duplicate product slogans have been removed.
+Each product has one short functional description. Each video stage matches its
+native 9:16 ratio and preserves the entire composition.
 With JavaScript disabled or reduced motion enabled, the supplied posters remain
-visible. Media width is bounded by viewport height on mobile. Desktop alternates the AnkiDuo composition while
-mobile retains content-first reading order. The portrait hero is shorter and its
-original animation and transparency are preserved.
-On desktop the title and
-description sit beside the film; on mobile they stack in reading order with
-aligned edges and shared spacing. The AnkiDuo film's white canvas blends into
+visible. Media width is bounded by viewport height. Dopamask opens as a full-width
+spread; AnkiDuo and Slop.game share a two-column desktop row on white and red.
+Mobile stacks all three in reading order. The separate manifesto section is
+removed; the open-source direction is included with the new-app pricing model.
+The original portrait animation and transparency are preserved.
+The AnkiDuo film's white canvas blends into
 its section, without a card border or shadow.
 AnkiDuo's 9:16 Tesseract film demonstrates a real Android Home launcher, app block,
 card review, and successful unlock in one continuous 7.3-second take. Both films
@@ -45,8 +47,7 @@ protective mask, and Dopamine-to-Dopamask ending. Responsive encodes preserve it
 native 24fps and 18.083-second timing; the mobile source is 720 × 1280 and desktop
 is 1080 × 1920. The original Tesseract project and master remain in the app folder.
 All films retain their 9:16 delivery ratio with no cropping or scroll-linked
-transforms. The direct screenshot assets are retained locally; the overview shows
-the Dopamask home screen, AnkiDuo launcher, and Slop feed. Hero artwork and
+transforms. Direct screenshot assets are retained locally. Hero artwork and
 type entrances respect reduced-motion preferences and
 stop updating offscreen. Marilyn's original dotted color variants form a single
 digital portrait with sparse displaced bands and restrained color registration.

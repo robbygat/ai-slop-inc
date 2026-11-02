@@ -14,8 +14,8 @@ edits, cropping, device frame, or fabricated app content were added.
 `/Users/rob/Documents/ChatGPT/japanese/touch_grass/screenshots/20-youtube-night-search.png`.
 It shows a nature-documentary search inside Dopamask's focused YouTube browser.
 Encoded with cwebp at quality 92, preserving the complete 1206 × 2622 screen.
-The browser capture remains available as a source asset. The overview uses the
-home screenshot; the main Dopamask section now leads directly with its video.
+Both captures remain available as source assets. The Dopamask section leads
+directly with its video; the compact product index now uses name links only.
 
 ## November 1 showcase update
 
@@ -31,10 +31,14 @@ is 720 × 1280. The website plays muted. The poster is the source frame at 2s.
 All three product videos are visible by default and begin playing when they
 enter the viewport. They use their native 9:16 stage without gallery controls.
 The film is stylized marketing artwork containing the real app capture; the
-real screenshot previews remain in the product overview. Source footage and
+real screenshots remain retained as source assets. Source footage and
 the editable project were not changed. No new film was generated for this pass.
 
-The visual product index reuses the real home, launcher, and Slop feed images.
+The November 2 composition removes the tiny product-index screenshots and
+duplicate product slogans, while retaining all three original product videos.
+Dopamask is a full-width spread; AnkiDuo and Slop.game sit beside each other on
+desktop and stack on mobile. The hero uses only the original portrait pixels
+and native typography; no generated imagery or reconstructed app UI is added.
 JevBot and the 3DS experiment are not added without company-portfolio confirmation;
 alternate names/platform ports are not represented as separate products.
 
@@ -74,8 +78,8 @@ uses the app's actual Android permissions and review scheduler only inside a
 temporary read-only emulator; that session was closed after recording. Its final
 Home screen shows updated review counts, so the loop is not pixel-identical.
 
-The feed (`newest-lagoon.webp`) appears in the product overview. The library
-(`home-clean.webp`) remains a source asset. Their original dimensions are retained.
+The feed (`newest-lagoon.webp`) and library (`home-clean.webp`) remain source
+assets. Their original dimensions are retained.
 The product sections show their videos directly at 9:16 with `object-fit: contain`.
 No decorative phone frame is added. The study-path still remains unused;
 the Workshop capture is not displayed because
@@ -83,7 +87,7 @@ its source had a status-bar overlap. No AI edits were made to app screenshots.
 
 `assets/anki-duo-current/launcher.webp` is the October 24 13:14 Android launcher
 capture `slopui-shots/final-cover-night.png`, resized from 1080 × 2520 to
-720 × 1680. It appears in the product overview. App-blocking
+720 × 1680. It remains a source asset. App-blocking
 wording was cross-checked against the same-day `cd13-FocusSettingsActivity.png`
 and is demonstrated by the actual Home → block → review → unlock film. The
 temporary emulator used the app's Home role and accessibility permission with
