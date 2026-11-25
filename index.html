@@ -2,295 +2,505 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta
       name="description"
-      content="An independent lab building playful, useful software with AI and open source. Explore Slop.game, AnkiDuo, and Dopamask."
+      content="AI Slop Inc. — Applied AI gaming lab building Nameless City, Starlantis, Paranoi, and Slop.game."
     />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#001e4c" />
     <link rel="canonical" href="https://aislopinc.com/" />
     <meta
       property="og:title"
-      content="AI Slop Inc. — Software as an art form."
+      content="AI Slop Inc. — Original games, built at AI speed."
     />
     <meta
       property="og:description"
-      content="An independent lab building playful, useful software with AI and open source. Explore Slop.game, AnkiDuo, and Dopamask."
+      content="An applied AI gaming lab building Nameless City, Starlantis, Paranoi, and Slop.game."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aislopinc.com/" />
     <meta
       property="og:image"
-      content="https://aislopinc.com/assets/site-share.png?v=20261102"
+      content="https://aislopinc.com/assets/site-share.png?v=20261126-5"
     />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="AI Slop Inc. — Software as an art form."
+      content="AI Slop Inc. — Original games, built at AI speed."
     />
     <meta
       name="twitter:description"
-      content="An independent lab building playful, useful software with AI and open source. Explore Slop.game, AnkiDuo, and Dopamask."
+      content="An applied AI gaming lab building Nameless City, Starlantis, Paranoi, and Slop.game."
     />
     <meta
       name="twitter:image"
-      content="https://aislopinc.com/assets/site-share.png?v=20261102"
+      content="https://aislopinc.com/assets/site-share.png?v=20261126-5"
     />
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./favicon.svg?v=20261126-5" type="image/svg+xml" />
+    <link
+      rel="apple-touch-icon"
+      href="./assets/brand/apple-touch-icon.png?v=20261126-5"
+    />
     <link
       rel="preload"
-      href="./assets/fonts/Gabarito-Variable.ttf"
+      href="./assets/fonts/Outfit-Variable.ttf"
       as="font"
       type="font/ttf"
       crossorigin
     />
-    <link rel="stylesheet" href="./styles.css?v=20261102-2" />
-    <script src="./script.js?v=20261102-2" defer></script>
-    <script src="./hero-art.js?v=20261102-1" defer></script>
-    <title>AI Slop Inc. — Software as an art form.</title>
+    <link rel="stylesheet" href="./styles.css?v=20261126-5" />
+    <script src="./shader.js?v=20261126-5" defer></script>
+    <script src="./script.js?v=20261126-5" defer></script>
+    <title>AI Slop Inc.</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="AI Slop Inc. home"
-        >AI Slop Inc.</a
-      >
-      <nav
-        class="site-nav"
-        id="primary-nav"
-        aria-label="Primary navigation"
-        data-nav
-      >
-        <a href="#apps">Apps</a>
-        <a href="mailto:contact@slop.game">Contact</a>
-      </nav>
-    </header>
+
+    <section class="hero holo-stage" id="top" aria-labelledby="hero-title">
+      <canvas
+        class="holo-stage__canvas"
+        data-holo-canvas="hero"
+        aria-hidden="true"
+      ></canvas>
+
+      <header class="site-header">
+        <div class="container site-header__inner">
+          <a class="brand" href="#top" aria-label="AI Slop Inc. home">
+            <svg class="brand__mark" viewBox="0 0 1254 1254" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M 865.922 204.531 C 849.766 207.049, 706.298 243.352, 618.500 267.138 C 541.604 287.970, 437.143 317.770, 408 327.189 C 366.400 340.633, 329.248 373.594, 310.151 414 C 302.436 430.323, 300.472 437.536, 291.495 482.500 C 276.219 559.016, 276.675 556.273, 277.311 567.672 C 278.936 596.783, 296.952 623.071, 324.500 636.527 C 332.459 640.415, 359.802 649.931, 469.500 686.992 C 485.450 692.380, 515.093 702.461, 535.373 709.395 C 580.591 724.853, 583.385 725.159, 591.809 715.564 C 597.416 709.178, 598.021 700.427, 593.361 693.124 C 591.605 690.373, 551.264 656.674, 476.499 595.500 C 458.349 580.651, 440.440 565.387, 436.700 561.580 C 424.540 549.204, 414.174 531.326, 409.807 515.198 C 406.863 504.324, 406.890 483.775, 409.862 472.671 C 418.987 438.590, 446.414 410.743, 481.829 399.603 C 494.257 395.693, 505.793 394, 520 394 C 539.887 394, 540.953 394.227, 621.500 415.611 C 647.350 422.474, 688.075 433.281, 712 439.627 C 735.925 445.974, 800.920 463.279, 856.433 478.083 C 950.227 503.096, 957.957 505, 965.715 505 C 989.252 505, 1010.039 487.242, 1011.723 465.696 C 1012.872 450.996, 1005.719 311.264, 1002.966 294.629 C 995.368 248.714, 972.367 220.937, 931.665 208.522 C 914.164 203.184, 885.662 201.454, 865.922 204.531 M 583.500 498.933 C 579.033 500.010, 576.141 502.094, 573.693 506 C 571.529 509.453, 571.498 510.077, 571.372 552.500 C 571.302 576.150, 571.639 597.120, 572.120 599.099 C 573.944 606.594, 576.656 609.008, 594.024 618.595 C 622.913 634.542, 713.218 684.102, 721 688.280 C 737.446 697.111, 750.158 708.632, 757.842 721.673 C 783.015 764.395, 757.370 817.359, 705.301 830.180 C 694.018 832.959, 673.540 833.134, 661.500 830.554 C 657.100 829.612, 576.912 809.737, 483.305 786.388 C 389.698 763.039, 310.273 743.679, 306.805 743.367 C 284.994 741.400, 263.434 757.224, 261.426 776.673 C 261.152 779.328, 259.575 794.775, 257.923 811 C 256.270 827.225, 253.753 851.525, 252.328 865 C 249.005 896.428, 248.649 921.861, 251.370 933.500 C 257.622 960.241, 269.383 981.330, 288.260 999.645 C 318.485 1028.971, 360.807 1043.599, 405.025 1040.003 C 420.679 1038.729, 423.779 1038.170, 455 1030.986 C 469.025 1027.759, 515.150 1017.195, 557.500 1007.510 C 629.875 990.958, 748.456 963.720, 808 949.968 C 822.575 946.602, 840.125 942.563, 847 940.992 C 906.513 927.392, 914.617 924.519, 933.964 910.167 C 953.717 895.514, 967.048 876.669, 973.563 854.187 C 976.555 843.860, 988 749.598, 988 735.277 C 988 692.323, 962.327 653.484, 918.774 630.549 C 910.824 626.362, 904.345 623.717, 859 606.145 C 847.725 601.776, 832.200 595.719, 824.500 592.685 C 816.800 589.652, 788.450 578.533, 761.500 567.976 C 695.341 542.062, 650.789 524.040, 619.549 510.554 C 592.820 499.015, 588.687 497.683, 583.500 498.933"
+              />
+            </svg>
+            <span>AI Slop Inc.</span>
+          </a>
+
+          <nav class="site-nav" aria-label="Primary navigation">
+            <a href="#about">About</a>
+            <a href="#slate">Games</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+
+      <div class="hero__body">
+        <div class="container hero__stack">
+          <div class="hero__head">
+            <h1 id="hero-title">Original games, built at AI speed.</h1>
+          </div>
+
+          <div
+            class="hero-deck"
+            data-hero-deck
+            aria-label="Rotating showcase of live gameplay reels"
+          >
+            <div
+              class="deck-card deck-card--wide"
+              data-deck-card="0"
+              data-slot="0"
+              role="button"
+              tabindex="0"
+              aria-label="Bring reel 1 to center"
+            >
+              <video
+                muted
+                loop
+                playsinline
+                autoplay
+                disablepictureinpicture
+                controlslist="nodownload nofullscreen noremoteplayback"
+                preload="auto"
+                poster="./assets/nameless-city/nameless-city-poster.jpg?v=20261126-5"
+              >
+                <source
+                  src="./assets/nameless-city/nameless-city-gameplay.mp4?v=20261126-5"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+
+            <div
+              class="deck-card deck-card--wide"
+              data-deck-card="1"
+              data-slot="1"
+              role="button"
+              tabindex="0"
+              aria-label="Bring reel 2 to center"
+            >
+              <video
+                muted
+                loop
+                playsinline
+                autoplay
+                disablepictureinpicture
+                controlslist="nodownload nofullscreen noremoteplayback"
+                preload="metadata"
+                poster="./assets/starlantis/starlantis-poster.jpg?v=20261126-5"
+              >
+                <source
+                  src="./assets/starlantis/starlantis-gameplay.mp4?v=20261126-5"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+
+            <div
+              class="deck-card deck-card--wide"
+              data-deck-card="2"
+              data-slot="2"
+              role="button"
+              tabindex="0"
+              aria-label="Bring reel 3 to center"
+            >
+              <video
+                muted
+                loop
+                playsinline
+                autoplay
+                disablepictureinpicture
+                controlslist="nodownload nofullscreen noremoteplayback"
+                preload="metadata"
+                poster="./assets/paranoi/paranoi-poster.jpg?v=20261126-5"
+              >
+                <source
+                  src="./assets/paranoi/paranoi-gameplay.mp4?v=20261126-5"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+
+            <div
+              class="deck-card deck-card--tall"
+              data-deck-card="3"
+              data-slot="3"
+              role="button"
+              tabindex="0"
+              aria-label="Bring reel 4 to center"
+            >
+              <video
+                muted
+                loop
+                playsinline
+                autoplay
+                disablepictureinpicture
+                controlslist="nodownload nofullscreen noremoteplayback"
+                preload="metadata"
+                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
+              >
+                <source
+                  src="./assets/slop-current/slop-hero-loop.mp4?v=20261126-5"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero__foot">
+        <div class="container">
+          <div class="hero__foot-inner">
+            <div class="deck-pips" role="tablist" aria-label="Featured reel position">
+              <button type="button" class="deck-pip" data-deck-pick="0" aria-selected="true" aria-label="Reel 1"></button>
+              <button type="button" class="deck-pip" data-deck-pick="1" aria-selected="false" aria-label="Reel 2"></button>
+              <button type="button" class="deck-pip" data-deck-pick="2" aria-selected="false" aria-label="Reel 3"></button>
+              <button type="button" class="deck-pip" data-deck-pick="3" aria-selected="false" aria-label="Reel 4"></button>
+            </div>
+            <a class="hero__mail" href="mailto:contact@slop.game"
+              >contact@slop.game <span aria-hidden="true">↗</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
     <main id="main">
-      <section class="hero" id="top" aria-labelledby="hero-title">
-        <div class="hero__main">
-          <div class="hero__copy">
-            <h1 id="hero-title">
-              <span>Software,</span><span>as an <em>art form.</em></span>
-            </h1>
-            <p>
-              An independent lab making playful, useful apps with AI and open
-              source.
-            </p>
+      <section class="manifesto" id="about" aria-labelledby="manifesto-title">
+        <div class="container">
+          <div class="manifesto__head" data-reveal>
+            <p class="eyebrow">The Lab</p>
+            <h2 id="manifesto-title">
+              We took the insult and made it our standard.
+            </h2>
+          </div>
+
+          <div class="manifesto__story" data-reveal>
+            <div class="manifesto__lead">
+              <p>
+                People call AI-made software and games <em>slop</em> — soulless,
+                disposable noise with no author behind it. We put the word on
+                our incorporation papers anyway. Naming ourselves
+                <strong>AI Slop Inc.</strong> is a permanent dare: every frame
+                we ship has to look, move, and play so well that the name
+                becomes absurd.
+              </p>
+            </div>
+            <div class="manifesto__body">
+              <p>
+                Most AI labs stop at chat boxes, benchmark charts, or
+                ten-second video clips nobody can touch. We are a one-of-a-kind
+                applied AI lab because we build real, interactive worlds —
+                full engines, tactile combat, original art direction, and live
+                software in players’ hands.
+              </p>
+              <p>
+                Frontier AI collapses the distance from raw conviction to
+                playable build. Instead of bloated multi-year committees, a
+                tiny focused lab can craft monochrome manga horror, sprawling
+                pixel-art galaxies, noir survival streets, and instant mobile
+                worlds — with studio soul at lab velocity.
+              </p>
+            </div>
+          </div>
+
+          <div class="pillars" data-reveal>
+            <article class="pillar">
+              <span class="pillar__num">01</span>
+              <h3>Why the Name</h3>
+              <p>
+                Claiming the internet’s sharpest criticism forces honesty. When
+                the company is literally called AI Slop Inc., generic output is
+                never an option — craft is the only proof.
+              </p>
+            </article>
+
+            <article class="pillar">
+              <span class="pillar__num">02</span>
+              <h3>Worlds, Not Demos</h3>
+              <p>
+                The model is never the product — the game is. We fuse frontier
+                AI workflows directly with real Unity engines, custom shaders,
+                hand-tuned physics, and unmistakable atmosphere.
+              </p>
+            </article>
+
+            <article class="pillar">
+              <span class="pillar__num">03</span>
+              <h3>One-of-a-Kind AI Lab</h3>
+              <p>
+                Not a wrapper startup and not a slow legacy publisher. An
+                independent AI gaming lab shipping across Steam, PC, web, and
+                mobile at a pace traditional studios cannot match.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slate" id="slate" aria-labelledby="slate-title">
+        <div class="container">
+          <div class="section-bar" data-reveal>
+            <p class="eyebrow" id="slate-title">Active Slate</p>
+          </div>
+
+          <div class="slate-list" data-reveal>
+            <div class="slate-row">
+              <div class="slate-row__main">
+                <h3>Nameless City</h3>
+                <p class="slate-row__desc">
+                  Ink-etched monochrome manga first-person horror across a
+                  cursed desert temple and sunken undercity.
+                </p>
+              </div>
+              <div class="slate-row__meta">
+                <span class="slate-row__platform">PC · Steam</span>
+              </div>
+            </div>
+
+            <div class="slate-row">
+              <div class="slate-row__main">
+                <h3>Starlantis</h3>
+                <p class="slate-row__desc">
+                  Handcrafted pixel-art sci-fi RPG spanning alien civilizations,
+                  subterranean cities, and orbital dogfights.
+                </p>
+              </div>
+              <div class="slate-row__meta">
+                <span class="slate-row__platform">PC · Steam</span>
+              </div>
+            </div>
+
+            <div class="slate-row">
+              <div class="slate-row__main">
+                <h3>Paranoi</h3>
+                <p class="slate-row__desc">
+                  Seinen-noir top-down survival horror through rain-soaked
+                  quarantined streets.
+                </p>
+              </div>
+              <div class="slate-row__meta">
+                <span class="slate-row__platform">PC</span>
+              </div>
+            </div>
+
+            <div class="slate-row">
+              <div class="slate-row__main">
+                <h3>
+                  <a href="https://slop.game" target="_blank" rel="noreferrer"
+                    >Slop.game</a
+                  >
+                </h3>
+                <p class="slate-row__desc">
+                  Live platform for instant playable worlds across mobile and
+                  the open web.
+                </p>
+              </div>
+              <div class="slate-row__meta">
+                <div class="slate-row__actions">
+                  <a
+                    class="slate-action"
+                    href="https://slop.game"
+                    target="_blank"
+                    rel="noreferrer"
+                    >Play <span aria-hidden="true">↗</span></a
+                  >
+                  <a
+                    class="slate-action"
+                    href="https://apps.apple.com/us/app/slop-game/id6783292057"
+                    target="_blank"
+                    rel="noreferrer"
+                    >App Store <span aria-hidden="true">↗</span></a
+                  >
+                  <a
+                    class="slate-action"
+                    href="https://github.com/robbygat/slop-web"
+                    target="_blank"
+                    rel="noreferrer"
+                    >GitHub <span aria-hidden="true">↗</span></a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="slate-row slate-row--muted">
+              <div class="slate-row__main">
+                <h3>Coming soon.</h3>
+                <p class="slate-row__desc">
+                  Open-source project currently in redesign.
+                </p>
+              </div>
+              <div class="slate-row__meta">
+                <span class="slate-row__platform">Open Source</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="recognition" id="recognition" aria-label="Recognition">
+        <div class="container recognition__inner" data-reveal>
+          <div>
+            <p class="eyebrow eyebrow--compact">Recognition</p>
+            <p class="about__award">Honorable Mention — Series T: Post AGI</p>
+            <p class="about__award-sub">$2,500 in OpenAI API credits.</p>
           </div>
           <div
-            class="hero-art"
-            data-ink-art
-            data-ink-source="./assets/hero-slop-portrait.png"
-            role="img"
-            aria-label="Andy Warhol’s portrait made from the word slop, scattering and reforming like ink"
+            class="recognition__logos"
+            aria-label="Organizations associated with the award"
           >
-            <img
-              class="hero-art__fallback"
-              src="./assets/hero-slop-portrait.png"
-              width="1272"
-              height="1431"
-              alt=""
-              decoding="async"
-            />
-            <canvas data-ink-canvas aria-hidden="true"></canvas>
+            <a
+              href="https://openai.com/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="OpenAI"
+            >
+              <img
+                class="recognition__openai"
+                src="./assets/brand/openai-wordmark.png"
+                width="1604"
+                height="718"
+                alt="OpenAI"
+                loading="lazy"
+              />
+            </a>
+            <a
+              href="https://onlab.jp/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Network Lab"
+            >
+              <img
+                class="recognition__onlab"
+                src="./assets/brand/open-network-lab.png"
+                width="2307"
+                height="478"
+                alt="Open Network Lab"
+                loading="lazy"
+              />
+            </a>
           </div>
         </div>
       </section>
-      <section class="showcase" id="apps" aria-label="Our apps">
-        <div
-          class="product-rail"
-          data-product-rail
-          role="list"
-          tabindex="0"
-          aria-label="Slop.game, AnkiDuo, and Dopamask. On smaller screens, swipe or use arrow keys to browse. Automatic slides stop when you interact."
-        >
-          <article
-            class="product"
-            id="slop"
-            aria-labelledby="slop-title"
-            role="listitem"
-          >
-            <h2 id="slop-title">
-              <a href="https://slop.game" target="_blank" rel="noreferrer"
-                >Slop.game <span aria-hidden="true">↗</span></a
-              >
-            </h2>
-            <div class="product__media">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/slop-current/slop-film-poster.webp?v=20261024-15"
-                aria-label="Slop.game: a playable feed of games made with AI"
-                data-film
-              >
-                <source
-                  src="./assets/slop-current/slop-film-web.mp4?v=20261024-15"
-                  type="video/mp4"
-                />
-              </video>
+
+      <section class="closing" id="contact" aria-labelledby="closing-title">
+        <div class="container">
+          <div class="cta-plate holo-stage" data-reveal>
+            <canvas
+              class="holo-stage__canvas"
+              data-holo-canvas="cta"
+              aria-hidden="true"
+            ></canvas>
+            <div class="cta-plate__inner">
+              <div>
+                <h2 id="closing-title">AI Slop Inc.</h2>
+                <p class="cta-plate__sub">Investors, partners, and press.</p>
+              </div>
+              <a class="button button--light" href="mailto:contact@slop.game">
+                contact@slop.game <span aria-hidden="true">↗</span>
+              </a>
             </div>
-            <div class="product__copy">
-              <p>
-                Swipe through games people make with AI. Play, turn your own
-                idea into a game, and share it with the feed.
-              </p>
-              <a
-                class="text-link"
-                href="https://apps.apple.com/us/app/slop-game/id6783292057"
-                target="_blank"
-                rel="noreferrer"
-                >Get the iOS app <span aria-hidden="true">↗</span></a
-              >
-            </div>
-          </article>
-          <article
-            class="product"
-            id="ankiduo"
-            aria-labelledby="ankiduo-title"
-            role="listitem"
-          >
-            <h2 id="ankiduo-title">AnkiDuo</h2>
-            <div class="product__media">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/anki-duo-current/ankiduo-film-poster.webp?v=20261024-15"
-                aria-label="AnkiDuo: review a card and return to the unlocked app"
-                data-film
-              >
-                <source
-                  src="./assets/anki-duo-current/ankiduo-film-web.mp4?v=20261024-15"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div class="product__copy">
-              <p>
-                Learn at an operating-system level. Review Anki cards to unlock
-                distracting apps, with language learning built into your Android
-                home screen.
-              </p>
-            </div>
-          </article>
-          <article
-            class="product"
-            id="dopamask"
-            aria-labelledby="dopamask-title"
-            role="listitem"
-          >
-            <h2 id="dopamask-title">Dopamask</h2>
-            <div class="product__media">
-              <video
-                width="1080"
-                height="1920"
-                muted
-                loop
-                playsinline
-                preload="none"
-                poster="./assets/dopamask/dopamask-film-poster.webp"
-                aria-label="Dopamask: focused browsing in engraved landscapes"
-                data-film
-              >
-                <source
-                  src="./assets/dopamask/dopamask-film-mobile.mp4"
-                  media="(max-width: 760px)"
-                  type="video/mp4"
-                />
-                <source
-                  src="./assets/dopamask/dopamask-film-web.mp4"
-                  type="video/mp4"
-                />
-              </video>
-            </div>
-            <div class="product__copy">
-              <p>
-                Messages, search, and long-form video. Dopamask hides Reels and
-                Shorts inside its own focused browser.
-              </p>
-            </div>
-          </article>
+          </div>
         </div>
       </section>
-      <section
-        class="recognition"
-        id="recognition"
-        aria-labelledby="recognition-title"
-      >
-        <div class="recognition__copy">
-          <h2 id="recognition-title">Honorable Mention.</h2>
-          <p>
-            Series T — Post AGI.<br />
-            Awarded $2,500 in OpenAI API credits.
-          </p>
-        </div>
-        <div
-          class="recognition__logos"
-          aria-label="Organizations associated with the award"
-        >
-          <a
-            href="https://openai.com/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="OpenAI"
-            ><img
-              class="recognition__openai"
-              src="./assets/brand/openai-wordmark.png"
-              width="1604"
-              height="718"
-              alt="OpenAI"
-              loading="lazy"
-          /></a>
-          <a
-            href="https://onlab.jp/"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open Network Lab"
-            ><img
-              class="recognition__onlab"
-              src="./assets/brand/open-network-lab.png"
-              width="2307"
-              height="478"
-              alt="Open Network Lab"
-              loading="lazy"
-          /></a>
-        </div>
-      </section>
-      <footer class="site-footer" id="contact">
-        <div class="footer__bottom">
-          <a class="brand" href="#top" aria-label="AI Slop Inc. home"
-            >AI Slop Inc.</a
-          >
-          <a class="footer-email" href="mailto:contact@slop.game"
-            >contact@slop.game</a
-          >
-          <nav class="social-links" aria-label="Follow AI Slop Inc.">
-            <a
-              href="https://instagram.com/Slop.Game"
-              target="_blank"
-              rel="noreferrer"
-              >Instagram ↗</a
-            ><a href="https://x.com/AISlopInc" target="_blank" rel="noreferrer"
-              >X ↗</a
-            ><a
-              href="https://tiktok.com/@AISlopInc"
-              target="_blank"
-              rel="noreferrer"
-              >TikTok ↗</a
-            >
-          </nav>
-          <p>© <span data-year>2026</span> AI Slop Inc.</p>
-        </div>
-      </footer>
     </main>
+
+    <footer class="site-footer">
+      <div class="container site-footer__inner">
+        <a class="brand" href="#top" aria-label="AI Slop Inc. home">
+          <img
+            class="brand__mark"
+            src="./favicon.svg?v=20261126-5"
+            width="28"
+            height="28"
+            alt=""
+          />
+          <span>AI Slop Inc.</span>
+        </a>
+
+        <nav class="footer-links" aria-label="External links">
+          <a href="https://slop.game" target="_blank" rel="noreferrer"
+            >Slop.game ↗</a
+          >
+          <a
+            href="https://github.com/robbygat/slop-web"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub ↗</a
+          >
+          <a href="https://x.com/AISlopInc" target="_blank" rel="noreferrer"
+            >X ↗</a
+          >
+          <a
+            href="https://instagram.com/Slop.Game"
+            target="_blank"
+            rel="noreferrer"
+            >Instagram ↗</a
+          >
+          <a
+            href="https://tiktok.com/@AISlopInc"
+            target="_blank"
+            rel="noreferrer"
+            >TikTok ↗</a
+          >
+        </nav>
+
+        <div class="footer-meta">
+          <span>© <span data-year>2026</span> AI Slop Inc.</span>
+          <a href="mailto:contact@slop.game">contact@slop.game</a>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

@@ -1,248 +1,175 @@
-document.querySelectorAll("[data-year]").forEach((node) => {
-  node.textContent = String(new Date().getFullYear());
-});
+(() => {
+  "use strict";
 
-const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.querySelectorAll("[data-year]").forEach((node) => {
+    node.textContent = String(new Date().getFullYear());
+  });
 
-const films = [...document.querySelectorAll("[data-film]")];
-const filmVisibility = new Map(films.map((film) => [film, false]));
-const nearbyFilms = new Set();
-const warmedFilms = new WeakSet();
-function canUseFilmMotion() {
-  return (
-    !document.hidden &&
-    !motionPreference.matches &&
-    !navigator.connection?.saveData
-  );
-}
-function warmFilm(film) {
-  if (warmedFilms.has(film) || !canUseFilmMotion()) return;
-  warmedFilms.add(film);
-  film.preload = "auto";
-  // Begin buffering once, before playback; never reload on a later scroll.
-  film.load();
-}
-function syncFilmPlayback(film) {
-  const panelHidden = Boolean(film.closest("[hidden]"));
-  const visible = filmVisibility.get(film) && !panelHidden;
-  if (!panelHidden && (nearbyFilms.has(film) || visible)) warmFilm(film);
-  if (visible && canUseFilmMotion()) {
-    if (film.paused) {
-      film.play().catch(() => {
-        /* The poster remains visible if autoplay is unavailable. */
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  // Silent 4-card 3D orbital rotating hero deck (NO fullscreen modal, NO audio playback)
+  const deck = document.querySelector("[data-hero-deck]");
+  const cards = deck ? [...deck.querySelectorAll("[data-deck-card]")] : [];
+  const pips = [...document.querySelectorAll("[data-deck-pick]")];
+
+  if (deck && cards.length) {
+    let activeIndex = 0;
+    let cycleTimer = 0;
+    const total = cards.length;
+    const CYCLE_MS = 4400;
+
+    function renderSlots() {
+      cards.forEach((card, cardIndex) => {
+        // Compute clean modular orbital slot:
+        // 0 = Center Spotlight, 1 = Right Wing, 2 = Rear Horizon, 3 = Left Wing
+        const slot = (cardIndex - activeIndex + total) % total;
+        card.dataset.slot = String(slot);
+        card.setAttribute("aria-current", slot === 0 ? "true" : "false");
+      });
+
+      pips.forEach((pip) => {
+        const idx = Number(pip.dataset.deckPick);
+        pip.setAttribute("aria-selected", String(idx === activeIndex));
       });
     }
-  } else {
-    film.pause();
-  }
-}
-function syncAllFilmPlayback() {
-  films.forEach(syncFilmPlayback);
-}
-if (films.length) {
-  if ("IntersectionObserver" in window) {
-    const warmObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) nearbyFilms.add(entry.target);
-          else nearbyFilms.delete(entry.target);
-          syncFilmPlayback(entry.target);
-        });
-      },
-      { rootMargin: "400px 0px", threshold: 0 },
-    );
-    const filmObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Start at 15%, then keep playing down to 2% to avoid edge chatter.
-          const threshold = filmVisibility.get(entry.target) ? 0.02 : 0.15;
-          filmVisibility.set(
-            entry.target,
-            entry.isIntersecting && entry.intersectionRatio >= threshold,
-          );
-          syncFilmPlayback(entry.target);
-        });
-      },
-      { threshold: [0.02, 0.15] },
-    );
-    films.forEach((film) => {
-      warmObserver.observe(film);
-      filmObserver.observe(film);
-    });
-  }
-  motionPreference.addEventListener("change", syncAllFilmPlayback);
-  document.addEventListener("visibilitychange", syncAllFilmPlayback);
-  navigator.connection?.addEventListener?.("change", syncAllFilmPlayback);
-  syncAllFilmPlayback();
-}
 
-const productRail = document.querySelector("[data-product-rail]");
-if (productRail) {
-  const cards = [...productRail.querySelectorAll(".product")];
-  const compactRail = window.matchMedia("(max-width: 760px)");
-  let railVisible = !("IntersectionObserver" in window);
-  let interacted = false;
-  let hovered = false;
-  let direction = 1;
-  let advanceTimer = 0;
-  let settleTimer = 0;
+    function stepTo(index) {
+      activeIndex = ((index % total) + total) % total;
+      renderSlots();
+    }
 
-  function positions() {
-    const padding = parseFloat(getComputedStyle(productRail).paddingLeft) || 0;
-    const maximum = productRail.scrollWidth - productRail.clientWidth;
-    return cards.map((card) =>
-      Math.max(0, Math.min(maximum, card.offsetLeft - padding)),
-    );
-  }
-  function currentCard() {
-    const offsets = positions();
-    return offsets.reduce(
-      (best, value, index) =>
-        Math.abs(value - productRail.scrollLeft) <
-        Math.abs(offsets[best] - productRail.scrollLeft)
-          ? index
-          : best,
-      0,
-    );
-  }
-  function stopAdvance() {
-    window.clearTimeout(advanceTimer);
-    advanceTimer = 0;
-  }
-  function moveTo(index) {
-    productRail.scrollTo({
-      left: positions()[index],
-      behavior: motionPreference.matches ? "auto" : "smooth",
-    });
-  }
-  function scheduleAdvance() {
-    stopAdvance();
-    if (
-      interacted ||
-      hovered ||
-      !railVisible ||
-      !compactRail.matches ||
-      !canUseFilmMotion() ||
-      productRail.scrollWidth <= productRail.clientWidth + 2
-    )
-      return;
-    const index = currentCard();
-    const video = cards[index].querySelector("video");
-    if (!video || video.paused || video.readyState < 2) return;
-    const remaining =
-      video && Number.isFinite(video.duration)
-        ? (video.duration - video.currentTime) * 1000 + 400
-        : 16000;
-    advanceTimer = window.setTimeout(
-      () => {
-        advanceTimer = 0;
-        if (index + direction >= cards.length || index + direction < 0)
-          direction *= -1;
-        moveTo(index + direction);
-      },
-      Math.max(8000, Math.min(24000, remaining)),
-    );
-  }
-  function manualInteraction() {
-    interacted = true;
-    stopAdvance();
-  }
-  productRail.addEventListener("pointerdown", manualInteraction, {
-    passive: true,
-  });
-  productRail.addEventListener("focusin", manualInteraction);
-  productRail.addEventListener(
-    "wheel",
-    (event) => {
-      if (Math.abs(event.deltaX) > 0) manualInteraction();
-    },
-    { passive: true },
-  );
-  productRail.addEventListener("pointerenter", () => {
-    hovered = true;
-    stopAdvance();
-  });
-  productRail.addEventListener("pointerleave", () => {
-    hovered = false;
-    scheduleAdvance();
-  });
-  productRail.addEventListener("keydown", (event) => {
-    if (event.target !== productRail) return;
-    const index = currentCard();
-    const target = {
-      ArrowRight: Math.min(cards.length - 1, index + 1),
-      ArrowLeft: Math.max(0, index - 1),
-      Home: 0,
-      End: cards.length - 1,
-    }[event.key];
-    if (target === undefined) return;
-    event.preventDefault();
-    manualInteraction();
-    moveTo(target);
-  });
-  productRail.addEventListener(
-    "scroll",
-    () => {
-      stopAdvance();
-      window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(scheduleAdvance, 220);
-    },
-    { passive: true },
-  );
-  cards.forEach((card, index) => {
-    const video = card.querySelector("video");
-    ["pause", "waiting"].forEach((event) =>
-      video?.addEventListener(event, () => {
-        if (index === currentCard()) stopAdvance();
-      }),
-    );
-    ["loadedmetadata", "playing"].forEach((event) =>
-      video?.addEventListener(event, () => {
-        if (
-          index === currentCard() &&
-          (event === "loadedmetadata" || !advanceTimer)
-        )
-          scheduleAdvance();
-      }),
-    );
-  });
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(
-      ([entry]) => {
-        railVisible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
-        scheduleAdvance();
-      },
-      { threshold: [0, 0.25] },
-    ).observe(productRail);
-  }
-  compactRail.addEventListener("change", scheduleAdvance);
-  motionPreference.addEventListener("change", scheduleAdvance);
-  document.addEventListener("visibilitychange", scheduleAdvance);
-  navigator.connection?.addEventListener?.("change", scheduleAdvance);
-  window.addEventListener("resize", scheduleAdvance);
-  scheduleAdvance();
-}
+    function restartAutoRotate() {
+      window.clearInterval(cycleTimer);
+      if (motionPreference.matches) return;
+      cycleTimer = window.setInterval(() => {
+        if (document.hidden) return;
+        stepTo(activeIndex + 1);
+      }, CYCLE_MS);
+    }
 
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.remove("is-reveal-pending");
-        entry.target.classList.add("is-revealed");
-        revealObserver.unobserve(entry.target);
+    cards.forEach((card, idx) => {
+      const handleSelect = () => {
+        // Clicking any side card rotates it straight to center; clicking the centered card glides to the next game.
+        if (idx === activeIndex) {
+          stepTo(activeIndex + 1);
+        } else {
+          stepTo(idx);
+        }
+        restartAutoRotate();
+      };
+
+      card.addEventListener("click", handleSelect);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          handleSelect();
+        } else if (event.key === "ArrowRight") {
+          event.preventDefault();
+          stepTo(activeIndex + 1);
+          restartAutoRotate();
+        } else if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          stepTo(activeIndex - 1);
+          restartAutoRotate();
+        }
       });
-    },
-    { threshold: 0, rootMargin: "0px 0px 60px 0px" },
-  );
-  const revealNodes = document.querySelectorAll(
-    ".recognition__copy, .recognition__logos",
-  );
-  revealNodes.forEach((node) => {
-    if (!motionPreference.matches) node.classList.add("is-reveal-pending");
-    revealObserver.observe(node);
-  });
-  motionPreference.addEventListener("change", () => {
-    revealNodes.forEach((node) => node.classList.remove("is-reveal-pending"));
-  });
-}
+    });
+
+    pips.forEach((pip) => {
+      pip.addEventListener("click", () => {
+        stepTo(Number(pip.dataset.deckPick));
+        restartAutoRotate();
+      });
+    });
+
+    // Mobile swipe support to smoothly rotate cards on phones
+    let touchStartX = 0;
+    let touchStartY = 0;
+    deck.addEventListener(
+      "touchstart",
+      (event) => {
+        const t = event.touches[0];
+        if (!t) return;
+        touchStartX = t.clientX;
+        touchStartY = t.clientY;
+      },
+      { passive: true },
+    );
+    deck.addEventListener(
+      "touchend",
+      (event) => {
+        const t = event.changedTouches[0];
+        if (!t) return;
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          stepTo(dx < 0 ? activeIndex + 1 : activeIndex - 1);
+          restartAutoRotate();
+        }
+      },
+      { passive: true },
+    );
+
+    // Subtle desktop pointer parallax
+    if (window.matchMedia("(pointer: fine)").matches && !motionPreference.matches) {
+      const hero = deck.closest(".hero");
+      hero?.addEventListener(
+        "pointermove",
+        (event) => {
+          const rect = hero.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          const nx = (event.clientX - rect.left) / rect.width - 0.5;
+          const ny = (event.clientY - rect.top) / rect.height - 0.5;
+          deck.style.setProperty("--px", `${(nx * -18).toFixed(1)}px`);
+          deck.style.setProperty("--py", `${(ny * -14).toFixed(1)}px`);
+        },
+        { passive: true },
+      );
+      hero?.addEventListener("pointerleave", () => {
+        deck.style.setProperty("--px", "0px");
+        deck.style.setProperty("--py", "0px");
+      });
+    }
+
+    renderSlots();
+    restartAutoRotate();
+  }
+
+  // Strictly silent, smooth playback across all hero video cards (pauses cleanly when tab hidden)
+  const heroVideos = [...document.querySelectorAll(".hero-deck video")];
+  function syncHeroVideos() {
+    const ok = !document.hidden && !motionPreference.matches && !navigator.connection?.saveData;
+    heroVideos.forEach((vid) => {
+      vid.muted = true;
+      if (ok) {
+        vid.play().catch(() => {});
+      } else {
+        vid.pause();
+      }
+    });
+  }
+  document.addEventListener("visibilitychange", syncHeroVideos);
+  motionPreference.addEventListener?.("change", syncHeroVideos);
+  window.addEventListener("load", syncHeroVideos);
+  syncHeroVideos();
+
+  // Gentle scroll reveal for editorial sections
+  if ("IntersectionObserver" in window && !motionPreference.matches) {
+    const revealNodes = document.querySelectorAll("[data-reveal]");
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.remove("reveal-pending");
+          entry.target.classList.add("reveal-done");
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -24px 0px" },
+    );
+    revealNodes.forEach((node) => {
+      node.classList.add("reveal-pending");
+      revealObserver.observe(node);
+    });
+  }
+})();

@@ -1,47 +1,28 @@
 # AI Slop Inc.
 
-The company website for AI Slop Inc., showing Slop.game, AnkiDuo, and Dopamask.
-Static HTML, CSS, and JavaScript; no build step or package dependencies.
+The official company website for **AI Slop Inc.** — an applied AI gaming lab building PC titles (**Nameless City**, **Starlantis**, **Paranoi**), live playable worlds on mobile and web (**Slop.game**), and an upcoming open-source project currently in redesign.
 
-The hero presents software as a creative medium, using the existing Andy Warhol
-portrait made from the word “slop.” `hero-art.js` holds the sharp source image,
-then scatters and reforms sampled ink particles between black and red. It pauses
-offscreen, when hidden, and for reduced-motion/data-saving preferences. The
-transparent source image is the fallback if canvas or image sampling fails.
-No new bitmap artwork or app interface was generated for this revision.
+Static HTML, CSS, and JavaScript — zero build step, zero runtime package dependencies, self-hosted fonts.
 
-All three products share one horizontal showcase with equal typography, spacing,
-and native 9:16 video stages. Desktop shows all three together. Mobile uses a
-native swipe rail and automatically advances after the active clip completes;
-manual interaction stops automatic movement. Hover, keyboard focus, reduced
-motion, data saving, and visibility are respected. Arrow keys and Home/End let
-keyboard users move through the rail. There are no media selectors or status
-badges. The previous pricing and manifesto sections have been removed.
+## Architecture & Visual System
 
-Each video buffers once within 400 px of the viewport and plays when at least 15%
-is visible. It continues until less than 2% remains visible, preserving playback
-position. Background tabs and reduced-motion/data-saving preferences pause it.
-All source videos and their timing remain unchanged. Dopamask uses the owner's
-October 29 TypingFilm at native 24 fps; mobile is 720 × 1280 and desktop 1080 × 1920.
-AnkiDuo and Slop.game retain their 1080p60 web exports. No video is cropped or put
-inside a decorative phone frame. Product media references are documented in
-[ASSET-SOURCES.md](ASSET-SOURCES.md).
+- **Typography:** Self-hosted `Outfit` (variable 300–700, SIL OFL) paired with `IBM Plex Mono` for section indices and release metadata.
+- **Identity:** Pure white `slop.game` vector mark and wordmark over an oceanic blue grainy liquid shader (`favicon.svg`, `logo.svg`, `assets/brand/aislop-logo-light.svg`, `assets/brand/aislop-mark.svg`).
+- **Atmosphere:** Native WebGL liquid-mesh & 35mm analog film grain shader (`shader.js`) built on the 6-stop oceanic blue palette (`#001e4c`, `#305888`, `#3f81c3`, `#61a6e4`, `#98c8f0`, `#bfe0fa`) with automatic CSS fallback, `prefers-reduced-motion` support, and offscreen/background pausing.
+- **Gameplay Media:** Pure, silent, HUD-free, in-engine gameplay reels optimized with `+faststart` for instant desktop and mobile playback:
+  - `assets/nameless-city/nameless-city-gameplay.mp4`
+  - `assets/starlantis/starlantis-gameplay.mp4`
+  - `assets/paranoi/paranoi-gameplay.mp4`
+  - `assets/slop-current/slop-hero-loop.mp4`
 
-Dopamask filters short-form feeds inside its own browser. AnkiDuo's Android
-launcher and app-blocking demonstration are based on AnkiDroid. Recognition
-remains an Honorable Mention with $2,500 in OpenAI API credits. No adoption metrics,
-new public download destinations, or endorsement claims are added.
-
-## Preview
-
-Run a static server from this directory, for example:
+## Preview Locally
 
 ```sh
 python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
+Open `http://127.0.0.1:4173/`.
+
 ## Deployment
 
-GitHub Pages publishes the tracked files from `main` at https://aislopinc.com/.
-Stage only the website files intended for release; local review folders and
-unrelated untracked work are not publication inputs.
+GitHub Pages publishes tracked files from `main` to `https://aislopinc.com/`.
